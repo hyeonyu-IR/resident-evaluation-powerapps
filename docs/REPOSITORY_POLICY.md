@@ -21,6 +21,11 @@ Recommended focus inside `_unpacked/`:
 - `Header.json`
 - `Properties.json`
 
+Usually exclude from Git inside `_unpacked/`:
+- `Assets/`
+- `Controls/`
+- `Resources/`
+
 ## Usually do not keep in Git
 
 - `deployment-package.zip`

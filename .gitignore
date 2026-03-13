@@ -6,6 +6,11 @@ deployment-package/
 Microsoft.PowerApps/
 manifest.json
 
+# Unpacked app subtrees that are large/regenerated and not useful for routine review
+_unpacked/Assets/
+_unpacked/Controls/
+_unpacked/Resources/
+
 # Optional local release staging
 app/current/
 
