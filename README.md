@@ -50,6 +50,8 @@ Use the deployment package and setup docs:
 - [`docs/CONNECTION_MAP.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/CONNECTION_MAP.md)
 - [`docs/REPOSITORY_POLICY.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/REPOSITORY_POLICY.md)
 
+For external setup, the preferred SharePoint import files are the `*.dummy.csv` files in [`sharepoint-templates`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates), because they are non-sensitive and internally consistent with the app.
+
 Do not share production data unless you explicitly intend to disclose it.
 
 ## Notes
