@@ -13,11 +13,13 @@ This repository is intended to be usable by outside institutions without direct 
 
 If you are evaluating or adopting this app for another institution, read these in order:
 1. [`docs/START_HERE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/START_HERE.md)
-2. [`docs/SETUP_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/SETUP_GUIDE.md)
-3. [`docs/CONNECTION_MAP.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/CONNECTION_MAP.md)
-4. [`docs/IMPLEMENTATION_CHECKLIST.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/IMPLEMENTATION_CHECKLIST.md)
-5. [`docs/TROUBLESHOOTING.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/TROUBLESHOOTING.md)
-6. [`docs/USER_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/USER_GUIDE.md)
+2. [`docs/COMPREHENSIVE_MANUAL.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/COMPREHENSIVE_MANUAL.md)
+3. [`docs/assets/Resident_Evaluation_Implementation_Manual.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
+4. [`docs/SETUP_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/SETUP_GUIDE.md)
+5. [`docs/CONNECTION_MAP.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/CONNECTION_MAP.md)
+6. [`docs/IMPLEMENTATION_CHECKLIST.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/IMPLEMENTATION_CHECKLIST.md)
+7. [`docs/TROUBLESHOOTING.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/TROUBLESHOOTING.md)
+8. [`docs/USER_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/USER_GUIDE.md)
 
 ## What This Repository Contains
 
@@ -35,6 +37,8 @@ If you are evaluating or adopting this app for another institution, read these i
   - selected app screenshots for onboarding and user documentation
 - [`docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
   - full slide-based visual guide
+- [`docs/assets/Resident_Evaluation_Implementation_Manual.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
+  - downloadable implementation manual
 - [`_unpacked`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/_unpacked)
   - unpacked app source for review and diffing
 
@@ -82,6 +86,12 @@ These dummy files are non-sensitive and intentionally compatible with the app.
 For end-user workflow screenshots and a slide-based walkthrough:
 - [`docs/USER_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/USER_GUIDE.md)
 - [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
+
+## Downloadable Manual
+
+For a single step-by-step document suitable for sharing or downloading:
+- [`COMPREHENSIVE_MANUAL.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/COMPREHENSIVE_MANUAL.md)
+- [`Resident_Evaluation_Implementation_Manual.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
 
 ## Required Microsoft 365 Dependencies
 

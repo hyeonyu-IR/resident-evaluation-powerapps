@@ -38,9 +38,10 @@ If your local SharePoint list names differ, expect to reconnect data sources and
 
 1. [`SETUP_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/SETUP_GUIDE.md)
 2. [`CONNECTION_MAP.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/CONNECTION_MAP.md)
-3. [`IMPLEMENTATION_CHECKLIST.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/IMPLEMENTATION_CHECKLIST.md)
-4. [`TROUBLESHOOTING.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/TROUBLESHOOTING.md)
-5. [`USER_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/USER_GUIDE.md)
+3. [`COMPREHENSIVE_MANUAL.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/COMPREHENSIVE_MANUAL.md)
+4. [`IMPLEMENTATION_CHECKLIST.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/IMPLEMENTATION_CHECKLIST.md)
+5. [`TROUBLESHOOTING.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/TROUBLESHOOTING.md)
+6. [`USER_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/USER_GUIDE.md)
 
 ## Critical Adoption Notes
 
@@ -54,6 +55,12 @@ If your local SharePoint list names differ, expect to reconnect data sources and
 If you want to see the user-facing workflow before implementation:
 - [`USER_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/USER_GUIDE.md)
 - [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
+
+## Comprehensive Manual
+
+If you want a single downloadable step-by-step implementation document:
+- [`COMPREHENSIVE_MANUAL.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/COMPREHENSIVE_MANUAL.md)
+- [`Resident_Evaluation_Implementation_Manual.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
 
 ## When You Should Customize
 
