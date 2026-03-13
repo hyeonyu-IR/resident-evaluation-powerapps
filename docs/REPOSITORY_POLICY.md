@@ -11,6 +11,7 @@ This repository should keep the smallest durable set of artifacts needed for:
 - `CHANGELOG.md`
 - `docs/`
 - `sharepoint-templates/`
+  - keep `blank/`, `dummy/`, and `template/` organized separately
 - `app/releases/`
 - `_unpacked/`
 
