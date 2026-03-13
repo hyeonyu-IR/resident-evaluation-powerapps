@@ -1,0 +1,23 @@
+# Generated deployment artifacts
+deployment-package.zip
+deployment-package/
+
+# Raw Power Apps package export tree
+Microsoft.PowerApps/
+manifest.json
+
+# Optional local release staging
+app/current/
+
+# Optional local archives of older exports
+app/archive/
+
+# OS/editor clutter
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Temporary files
+*.tmp
+*.bak
+*.log

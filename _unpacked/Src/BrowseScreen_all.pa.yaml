@@ -1,0 +1,449 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  BrowseScreen_all:
+    Properties:
+      Fill: =RGBA(0, 0, 0, 1)
+      Height: =Max(App.Height, App.DesignHeight)
+      LoadingSpinner: =LoadingSpinner.Data
+      LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
+      OnVisible: |-
+        =Set(gblCurrentUserEmail, User().Email);
+        Set(gblCurrentUserFullName, User().FullName);
+        If(
+            !gblIsProgramDirector,
+            Notify("This screen is available only for program leadership.", NotificationType.Error, 2000);
+            Navigate(Screen_Home, ScreenTransition.None)
+        )
+      Width: =Max(App.Width, App.DesignWidth)
+    Children:
+      - icon1_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(39, 113, 194, 1)
+            FocusedBorderColor: =icon1_1.BorderColor
+            Height: =70
+            Icon: =Icon.Reload
+            PaddingBottom: =12
+            PaddingLeft: =12
+            PaddingRight: =12
+            PaddingTop: =12
+            Width: =88
+            X: =376
+            Y: =88
+      - RectQuickActionBar1_3:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Fill: =RGBA(100, 118, 132, 1)
+            FocusedBorderColor: =RectQuickActionBar1_3.BorderColor
+            Height: =88
+            Width: =Parent.Width
+      - LblAppName1_1:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(58, 58, 58, 0)
+            FocusedBorderColor: =LblAppName1_1.BorderColor
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =88
+            HoverBorderColor: =LblAppName1_1.BorderColor
+            HoverColor: =LblAppName1_1.Color
+            HoverFill: =LblAppName1_1.Fill
+            PressedBorderColor: =LblAppName1_1.BorderColor
+            PressedColor: =LblAppName1_1.Color
+            PressedFill: =LblAppName1_1.Fill
+            Size: =24
+            Text: ="All Feedback List"
+            Width: =301
+            Wrap: =false
+            X: =88
+      - IconRefresh1_3:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            AccessibleLabel: =IconRefresh1_3.Tooltip
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(162, 173, 181, 1)
+            DisabledFill: =IconRefresh1_3.Fill
+            FocusedBorderColor: =IconRefresh1_3.BorderColor
+            Height: =88
+            HoverBorderColor: =ColorFade(IconRefresh1_3.BorderColor, 20%)
+            HoverColor: =ColorFade(IconRefresh1_3.Color, 20%)
+            HoverFill: =IconRefresh1_3.Fill
+            Icon: =Icon.Reload
+            OnSelect: =Refresh(VIR_RealTime_FeedBack)
+            PaddingBottom: =22
+            PaddingLeft: =22
+            PaddingRight: =22
+            PaddingTop: =22
+            PressedBorderColor: =ColorFade(IconRefresh1_3.BorderColor, -20%)
+            PressedColor: =ColorFade(IconRefresh1_3.Color, -20%)
+            PressedFill: =RGBA(255, 255, 255, 0.3)
+            TabIndex: =0
+            Tooltip: ="Refresh list"
+            Width: =88
+            X: =Parent.Width - IconNewItem1_1.Width - IconSortUpDown1_2.Width - IconRefresh1_3.Width
+      - IconSortUpDown1_2:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            AccessibleLabel: =IconSortUpDown1_2.Tooltip
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(193, 200, 206, 1)
+            DisabledFill: =IconSortUpDown1_2.Fill
+            FocusedBorderColor: =IconSortUpDown1_2.BorderColor
+            Height: =88
+            HoverBorderColor: =ColorFade(IconSortUpDown1_2.BorderColor, 20%)
+            HoverColor: =ColorFade(IconSortUpDown1_2.Color, 20%)
+            HoverFill: =IconSortUpDown1_2.Fill
+            Icon: =Icon.Sort
+            OnSelect: |-
+              =UpdateContext({SortDescending1: !SortDescending1})
+            PaddingBottom: =24
+            PaddingLeft: =24
+            PaddingRight: =24
+            PaddingTop: =24
+            PressedBorderColor: =ColorFade(IconSortUpDown1_2.BorderColor, -20%)
+            PressedColor: =ColorFade(IconSortUpDown1_2.Color, -20%)
+            PressedFill: =RGBA(255, 255, 255, 0.3)
+            TabIndex: =0
+            Tooltip: =If(SortDescending1, "Sort list in reverse alphabetical order", "Sort list in alphabetical order")
+            Width: =88
+            X: =Parent.Width - IconNewItem1_1.Width - IconSortUpDown1_2.Width
+      - IconNewItem1_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            AccessibleLabel: =IconNewItem1_1.Tooltip
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(193, 200, 206, 1)
+            DisabledFill: =IconNewItem1_1.Fill
+            DisplayMode: =If(DataSourceInfo(VIR_RealTime_FeedBack, DataSourceInfo.CreatePermission), DisplayMode.Edit, DisplayMode.Disabled)
+            FocusedBorderColor: =IconNewItem1_1.BorderColor
+            Height: =88
+            HoverBorderColor: =ColorFade(IconNewItem1_1.BorderColor, 20%)
+            HoverColor: =ColorFade(IconNewItem1_1.Color, 20%)
+            HoverFill: =IconNewItem1_1.Fill
+            Icon: =Icon.Add
+            OnSelect: |-
+              =NewForm(frmFeedback);
+
+              Navigate(
+                  screenFeedback,
+                  ScreenTransition.None,
+                  {
+                      navMode: "new",
+                      selRecord: Blank(),
+                      sourceGallery: "screen_all"
+                  }
+              );
+            PaddingBottom: =22
+            PaddingLeft: =22
+            PaddingRight: =22
+            PaddingTop: =22
+            PressedBorderColor: =ColorFade(IconNewItem1_1.BorderColor, -20%)
+            PressedColor: =ColorFade(IconNewItem1_1.Color, -20%)
+            PressedFill: =RGBA(255, 255, 255, 0.3)
+            TabIndex: =0
+            Tooltip: ="Create new item"
+            Width: =88
+            X: =Parent.Width - IconNewItem1_1.Width
+      - TextSearchBox1_2:
+          Control: Classic/TextInput@2.3.2
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            BorderThickness: =0
+            Color: =RGBA(255, 255, 255, 1)
+            Default: =""
+            DelayOutput: =true
+            Fill: =RGBA(0, 0, 0, 1)
+            FocusedBorderColor: =TextSearchBox1_2.BorderColor
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            HintText: ="Search Resident"
+            HoverBorderColor: =RGBA(165, 165, 165, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(62, 74, 83, 1)
+            PaddingLeft: =70
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            Reset: =Button1_1.Pressed
+            Size: =18
+            Width: =389
+            Y: =RectQuickActionBar1_3.Height
+      - SearchIcon1_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(197, 203, 207, 1)
+            FocusedBorderColor: =SearchIcon1_1.BorderColor
+            Height: =SearchIcon1_1.Width
+            Icon: =Icon.Search
+            PaddingBottom: =14
+            PaddingLeft: =14
+            PaddingRight: =14
+            PaddingTop: =14
+            Tooltip: ="Search"
+            Width: =TextSearchBox1_2.Height
+            X: =TextSearchBox1_2.X
+            Y: =TextSearchBox1_2.Y
+      - lineTop:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Fill: =RGBA(119, 119, 119, 1)
+            FocusedBorderColor: =lineTop.BorderColor
+            Height: =1
+            Width: =Parent.Width
+            Y: =TextSearchBox1_2.Y + TextSearchBox1_2.Height
+      - BrowseGallery_all:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Vertical_ThreeTextVariant_ver4.0
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Height: =Parent.Height - BrowseGallery_all.Y
+            Items: =SortByColumns(Filter(VIR_RealTime_FeedBack, StartsWith(ResidentName, TextSearchBox1_2.Text)), "ID", If(SortDescending1, SortOrder.Ascending, SortOrder.Descending))
+            OnSelect: |-
+              =Navigate(
+                  DetailScreen,
+                  ScreenTransition.None,
+                  {
+                      selRecord: ThisItem,        
+                      sourceGallery: "screen_all",
+                      sourceDetail: "detail_all"
+                  }
+              )
+            ShowScrollbar: =false
+            TemplateSize: =166
+            Width: =Parent.Width
+            Y: =TextSearchBox1_2.Y + TextSearchBox1_2.Height
+          Children:
+            - NextArrow1_1:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  AccessibleLabel: =NextArrow1_1.Tooltip
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  Color: =RGBA(119, 119, 119, 1)
+                  FocusedBorderColor: =NextArrow1_1.BorderColor
+                  Height: =60
+                  Icon: =Icon.ChevronRight
+                  OnSelect: |-
+                    =Navigate(
+                        DetailScreen,
+                        ScreenTransition.None,
+                        {
+                            selRecord: ThisItem,        
+                            sourceGallery: "screen_all",
+                            sourceDetail: "detail_all"
+                        }
+                    )
+                  PaddingBottom: =10
+                  PaddingLeft: =10
+                  PaddingRight: =10
+                  PaddingTop: =10
+                  TabIndex: =0
+                  Tooltip: ="View item details"
+                  Width: =60
+                  X: =549
+                  Y: =57
+            - Separator1_3:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  Fill: =RGBA(100, 118, 132, 1)
+                  FocusedBorderColor: =Separator1_3.BorderColor
+                  Height: =1
+                  OnSelect: =Select(Parent)
+                  Width: =Parent.TemplateWidth
+                  Y: =Parent.TemplateHeight - 1
+            - Title1_2:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  FocusedBorderColor: =Title1_2.BorderColor
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =30
+                  HoverBorderColor: =Title1_2.BorderColor
+                  HoverColor: =Title1_2.Color
+                  HoverFill: =Title1_2.Fill
+                  OnSelect: =Select(Parent)
+                  PressedBorderColor: =Title1_2.BorderColor
+                  PressedColor: =Title1_2.Color
+                  PressedFill: =Title1_2.Fill
+                  Size: =14
+                  Text: =ThisItem.EvalDate
+                  Width: =180
+                  X: =38
+                  Y: =20
+            - lblProcedure_2:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  Color: =RGBA(210, 210, 210, 1)
+                  FocusedBorderColor: =lblProcedure_2.BorderColor
+                  Font: =Font.'Open Sans'
+                  Height: =60
+                  HoverBorderColor: =lblProcedure_2.BorderColor
+                  HoverColor: =lblProcedure_2.Color
+                  HoverFill: =lblProcedure_2.Fill
+                  OnSelect: =Select(Parent)
+                  PaddingTop: =0
+                  PressedBorderColor: =lblProcedure_2.BorderColor
+                  PressedColor: =lblProcedure_2.Color
+                  PressedFill: =lblProcedure_2.Fill
+                  Size: =14
+                  Text: =ThisItem.ProcedureMain & "  -  " & ThisItem.ProcedureSub
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =540
+                  X: =57
+                  Y: =100
+            - lblAvgScore_2:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  Color: =RGBA(210, 210, 210, 1)
+                  FocusedBorderColor: =lblAvgScore_2.BorderColor
+                  Font: =Font.'Open Sans'
+                  Height: =25
+                  HoverBorderColor: =lblAvgScore_2.BorderColor
+                  HoverColor: =lblAvgScore_2.Color
+                  HoverFill: =lblAvgScore_2.Fill
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingTop: =0
+                  PressedBorderColor: =lblAvgScore_2.BorderColor
+                  PressedColor: =lblAvgScore_2.Color
+                  PressedFill: =lblAvgScore_2.Fill
+                  Size: =14
+                  Text: ="Average Score = " & ThisItem.AverageScore
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =410
+                  X: =57
+                  Y: =75
+            - lblResidentYearName_2:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  Color: =RGBA(102, 182, 227, 1)
+                  FocusedBorderColor: =lblResidentYearName_2.BorderColor
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =25
+                  HoverBorderColor: =lblResidentYearName_2.BorderColor
+                  HoverColor: =lblResidentYearName_2.Color
+                  HoverFill: =lblResidentYearName_2.Fill
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingTop: =0
+                  PressedBorderColor: =lblResidentYearName_2.BorderColor
+                  PressedColor: =lblResidentYearName_2.Color
+                  PressedFill: =lblResidentYearName_2.Fill
+                  Size: =14
+                  Text: =ThisItem.ResidentYear & "   " & ThisItem.ResidentName
+                  Width: =410
+                  X: =57
+                  Y: =50
+            - Title1_5:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  Color: =RGBA(119, 119, 119, 1)
+                  FocusedBorderColor: =Title1_5.BorderColor
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =30
+                  HoverBorderColor: =Title1_5.BorderColor
+                  HoverColor: =Title1_5.Color
+                  HoverFill: =Title1_5.Fill
+                  OnSelect: =Select(Parent)
+                  PressedBorderColor: =Title1_5.BorderColor
+                  PressedColor: =Title1_5.Color
+                  PressedFill: =Title1_5.Fill
+                  Size: =14
+                  Text: |-
+                    =ThisItem.Attending & "     ID: " & Text(ThisItem.ID - 117)
+                  Width: =380
+                  X: =237
+                  Y: =20
+      - Button1_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(121, 121, 121, 1)
+            BorderThickness: =0
+            Color: =RGBA(162, 173, 181, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderColor: =ColorFade(Self.Fill, 75%)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: =
+            PaddingBottom: =12
+            PaddingLeft: =12
+            PaddingRight: =12
+            PaddingTop: =12
+            PressedBorderColor: =RGBA(121, 121, 121, 1)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =ColorFade(RGBA(255, 200, 61, 1), -80%)
+            Size: =36
+            Text: =""
+            Width: =88
+            X: =376
+            Y: =89
+      - icon4_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(119, 119, 119, 1)
+            FocusedBorderColor: =icon4_1.BorderColor
+            Height: =70
+            Icon: =Icon.Mail
+            OnSelect: =Navigate(screenFeedbackReport_all,ScreenTransition.None)
+            PaddingBottom: =12
+            PaddingLeft: =12
+            PaddingRight: =12
+            PaddingTop: =12
+            Width: =88
+            X: =552
+            Y: =89
+      - Image8_1:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            FocusedBorderColor: =Image8_1.BorderColor
+            Height: =70
+            Image: ='graph-3'
+            OnSelect: =Navigate(Screen_Stats, ScreenTransition.None)
+            PaddingBottom: =12
+            PaddingLeft: =12
+            PaddingRight: =12
+            PaddingTop: =12
+            Width: =88
+            X: =464
+            Y: =89
+      - Image1_3:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Height: =88
+            Image: ='left-arrow_1'
+            OnSelect: =Navigate(Screen_Home, ScreenTransition.None)
+            PaddingBottom: =12
+            PaddingLeft: =12
+            PaddingRight: =12
+            PaddingTop: =12
+            Width: =88
+            Y: =1

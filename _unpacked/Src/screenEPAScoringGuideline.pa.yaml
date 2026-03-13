@@ -1,0 +1,384 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  screenEPAScoringGuideline:
+    Properties:
+      Fill: =RGBA(0, 0, 0, 1)
+      Height: =Max(App.Height, App.DesignHeight)
+      LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
+      OnVisible: =If(IsBlank(varEPA), Set(varEPA, Blank()))
+      Width: =Max(App.Width, App.DesignWidth)
+    Children:
+      - RectQuickActionBar3_2:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Fill: =RGBA(100, 118, 132, 1)
+            FocusedBorderColor: =RectQuickActionBar3_2.BorderColor
+            Height: =88
+            Width: =Parent.Width
+      - LblAppName2_2:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            FocusedBorderColor: =LblAppName2_2.BorderColor
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =88
+            HoverBorderColor: =LblAppName2_2.BorderColor
+            HoverColor: =LblAppName2_2.Color
+            HoverFill: =LblAppName2_2.Fill
+            PressedBorderColor: =LblAppName2_2.BorderColor
+            PressedColor: =LblAppName2_2.Color
+            PressedFill: =LblAppName2_2.Fill
+            Text: ="Entrustable Professional Activities"
+            Width: =537
+            Wrap: =false
+            X: =102
+      - Timer1_1:
+          Control: Timer@2.1.0
+          Properties:
+            AutoStart: =true
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =ColorFade(Self.BorderColor, 70%)
+            DisabledColor: =ColorFade(Self.Fill, 90%)
+            DisabledFill: =ColorFade(Self.Fill, 70%)
+            Duration: =1000
+            Fill: =RGBA(100, 118, 132, 1)
+            FocusedBorderColor: =Timer1_1.BorderColor
+            Font: =Font.'Open Sans'
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+            OnTimerEnd: |-
+              =UpdateContext({TimeNow: Text(Now(), "[$-en-US] hh:mm:ss AM/PM")})
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            Repeat: =true
+            Text: =Text(Time(0, 0, Timer1_1.Value/1000), "hh:mm:ss")
+            Visible: =false
+            X: =180
+            Y: =325
+      - conAEHeader:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Height: =100
+            LayoutDirection: =LayoutDirection.Horizontal
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            PaddingTop: =20
+            Width: =638
+            X: =1
+            Y: =150
+          Children:
+            - level1:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =ColorFade(Self.Fill, -15%)
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                  Fill: =RGBA(100, 118, 132, 1)
+                  FocusedBorderColor: =ColorFade(Self.Fill, 75%)
+                  Font: =Font.'Open Sans'
+                  Height: =60
+                  HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                  HoverColor: =RGBA(255, 255, 255, 1)
+                  HoverFill: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  OnSelect: =Set(varEPA, "Level1")
+                  PressedBorderColor: =Self.Fill
+                  PressedColor: =Self.Fill
+                  PressedFill: =Self.Color
+                  Size: =14
+                  Text: ="Level 1"
+                  Width: =140
+                  X: =40
+                  Y: =137
+            - level2:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =ColorFade(Self.Fill, -15%)
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                  Fill: =RGBA(100, 118, 132, 1)
+                  FocusedBorderColor: =ColorFade(Self.Fill, 75%)
+                  Font: =Font.'Open Sans'
+                  Height: =60
+                  HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                  HoverColor: =RGBA(255, 255, 255, 1)
+                  HoverFill: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  OnSelect: =Set(varEPA, "Level2")
+                  PressedBorderColor: =Self.Fill
+                  PressedColor: =Self.Fill
+                  PressedFill: =Self.Color
+                  Size: =14
+                  Text: ="Level 2"
+                  Width: =140
+                  X: =40
+                  Y: =62
+            - level3:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =ColorFade(Self.Fill, -15%)
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                  Fill: =RGBA(100, 118, 132, 1)
+                  FocusedBorderColor: =ColorFade(Self.Fill, 75%)
+                  Font: =Font.'Open Sans'
+                  Height: =60
+                  HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                  HoverColor: =RGBA(255, 255, 255, 1)
+                  HoverFill: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  OnSelect: =Set(varEPA, "Level3")
+                  PressedBorderColor: =Self.Fill
+                  PressedColor: =Self.Fill
+                  PressedFill: =Self.Color
+                  Size: =14
+                  Text: ="Level 3"
+                  Width: =140
+                  X: =40
+                  Y: =125
+            - level4:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =ColorFade(Self.Fill, -15%)
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                  Fill: =RGBA(100, 118, 132, 1)
+                  FocusedBorderColor: =ColorFade(Self.Fill, 75%)
+                  Font: =Font.'Open Sans'
+                  Height: =60
+                  HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                  HoverColor: =RGBA(255, 255, 255, 1)
+                  HoverFill: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  OnSelect: =Set(varEPA, "Level4")
+                  PressedBorderColor: =Self.Fill
+                  PressedColor: =Self.Fill
+                  PressedFill: =Self.Color
+                  Size: =14
+                  Text: ="Level 4"
+                  Width: =140
+                  X: =40
+                  Y: =188
+      - Image2_2:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Height: =88
+            Image: ='left-arrow'
+            OnSelect: =Navigate(Screen_Home, ScreenTransition.None)
+            PaddingBottom: =10
+            PaddingLeft: =10
+            PaddingRight: =10
+            PaddingTop: =10
+            Width: =88
+            X: =1
+      - conAEBody:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Height: =841
+            LayoutDirection: =LayoutDirection.Vertical
+            Width: =600
+            X: =20
+            Y: =270
+          Children:
+            - HtmlText1:
+                Control: HtmlViewer@2.1.0
+                Properties:
+                  Color: =RGBA(255, 191, 0, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =820
+                  HtmlText: |
+                    =With(
+                        {
+                            css:
+                            "<style>
+                               body{font-family:'Segoe UI', Arial, sans-serif; color:#1e1e1e; font-size:14px; line-height:1.35;}
+                               h3{margin:0 0 8px 0; font-size:18px;}
+                               h4{margin:10px 0 4px 0; font-size:15px; color:#333;}
+                               p{margin:0 0 8px 0;}
+                               ul{margin:4px 0 10px 20px; padding-left:16px;}
+                               li{margin:4px 0;}
+                               .lvl1 h3{color:#2e7d32;}     /* green  */
+                               .lvl2 h3{color:#b58900;}     /* amber  */
+                               .lvl3 h3{color:#1565c0;}     /* blue   */
+                               .lvl4 h3{color:#c62828;}     /* red    */
+                               .note{margin-top:8px; color:#555; font-size:12px;}
+                             </style>"
+                        },
+                        css &
+                        Switch(
+                            varEPA,
+
+                            /* ------------------ LEVEL 1 ------------------ */
+                            "Level1",
+                            "<div class='lvl1'>
+                               <h3>Level 1 – Limited Participation</h3>
+                               <p><strong>Summary:</strong> Understands basic indications and steps; assists with setup; requires continuous direct instruction across all phases.</p>
+
+                               <h4>Framework Highlights</h4>
+                               <ul>
+                                 <li>Basic familiarity with tools and imaging anatomy; needs show‑and‑tell coaching.</li>
+                                 <li>Handles instruments inefficiently; requires step‑by‑step guidance.</li>
+                                 <li>Inconsistent discussion of consent/risks/alternatives without prompting.</li>
+                               </ul>
+
+                               <h4>Nonoperative / Pre‑operative</h4>
+                               <ul>
+                                 <li>Identifies basic indications; requires full guidance for contraindications and planning.</li>
+                                 <li>Assists with sterile setup and positioning under direction.</li>
+                                 <li>Needs prompting to complete consent and review of labs/medications.</li>
+                               </ul>
+
+                               <h4>Intra‑operative</h4>
+                               <ul>
+                                 <li>Observes or performs minor steps under direct instruction.</li>
+                                 <li>Requires coaching to recognize landmarks and maintain needle/device visualization.</li>
+                                 <li>Limited troubleshooting; relies on attending for forward progression.</li>
+                               </ul>
+
+                               <h4>Post‑operative</h4>
+                               <ul>
+                                 <li>Needs prompting for discharge instructions and return precautions.</li>
+                                 <li>Recognizes complications only when identified by faculty; cannot initiate management.</li>
+                                 <li>Requires guidance to complete documentation and communicate the plan.</li>
+                               </ul>
+
+                               <p class='note'>Use for early learners or when encountering unfamiliar procedures/contexts.</p>
+                             </div>",
+
+                            /* ------------------ LEVEL 2 ------------------ */
+                            "Level2",
+                            "<div class='lvl2'>
+                               <h3>Level 2 – Direct Supervision</h3>
+                               <p><strong>Summary:</strong> Performs most steps with active attending help; identifies a safe approach with guidance; understands indications/contraindications and basic complications.</p>
+
+                               <h4>Framework Highlights</h4>
+                               <ul>
+                                 <li>Selects equipment and access approach with guidance; recognizes anatomy but needs correction.</li>
+                                 <li>Progresses through routine steps; requires real‑time coaching for safety/efficiency.</li>
+                                 <li>Completes consent and documentation with prompts; familiar with common sedation/meds.</li>
+                               </ul>
+
+                               <h4>Nonoperative / Pre‑operative</h4>
+                               <ul>
+                                 <li>Reviews imaging and proposes a plan; confirms indications/contraindications with faculty.</li>
+                                 <li>Prepares sterile field and positions patient with minimal direction.</li>
+                                 <li>Delivers consent discussion for straightforward cases; needs support for complex risks/alternatives.</li>
+                               </ul>
+
+                               <h4>Intra‑operative</h4>
+                               <ul>
+                                 <li>Performs key steps with active supervision; maintains visualization with coaching.</li>
+                                 <li>Identifies anatomy and device positions; requires correction for trajectory/technique.</li>
+                                 <li>Begins troubleshooting common issues but relies on attending for definitive solutions.</li>
+                               </ul>
+
+                               <h4>Post‑operative</h4>
+                               <ul>
+                                 <li>Explains routine aftercare and warning signs with minimal prompting.</li>
+                                 <li>Initiates management of common issues (e.g., pain control, basic complications) with attending input.</li>
+                                 <li>Completes documentation and communicates plan to team with occasional prompts.</li>
+                               </ul>
+
+                               <p class='note'>Use when the resident executes much of the case but still needs active coaching for safety and efficiency.</p>
+                             </div>",
+
+                            /* ------------------ LEVEL 3 ------------------ */
+                            "Level3",
+                            "<div class='lvl3'>
+                               <h3>Level 3 – Indirect Supervision</h3>
+                               <p><strong>Summary:</strong> Independently manages straightforward cases; anticipates common issues; seeks help for complex anatomy or evolving complications.</p>
+
+                               <h4>Framework Highlights</h4>
+                               <ul>
+                                 <li>Plans and executes routine cases independently; requests targeted assistance for complexity.</li>
+                                 <li>Recognizes and begins managing complications; understands when to escalate.</li>
+                                 <li>Provides clear, patient‑centered communication; teaches basic steps to juniors.</li>
+                               </ul>
+
+                               <h4>Nonoperative / Pre‑operative</h4>
+                               <ul>
+                                 <li>Independently reviews imaging/labs and selects a safe, efficient approach for straightforward cases.</li>
+                                 <li>Coordinates pre‑procedure tasks (labs, meds, equipment) with minimal oversight.</li>
+                                 <li>Conducts consent discussion tailored to patient literacy; involves faculty for nuanced risks.</li>
+                               </ul>
+
+                               <h4>Intra‑operative</h4>
+                               <ul>
+                                 <li>Performs routine procedures independently with consistent visualization and control.</li>
+                                 <li>Adjusts technique for minor anatomic variation; seeks help for complex deviations.</li>
+                                 <li>Initiates troubleshooting for technical/physiologic issues; escalates appropriately.</li>
+                               </ul>
+
+                               <h4>Post‑operative</h4>
+                               <ul>
+                                 <li>Manages common complications with minimal help; defines follow‑up and tube/line care when relevant.</li>
+                                 <li>Completes accurate, timely documentation and image capture; communicates plan to teams.</li>
+                                 <li>Provides clear discharge instructions and return precautions independently.</li>
+                               </ul>
+
+                               <p class='note'>Use when the resident is safe and effective for routine cases with faculty available but not routinely needed.</p>
+                             </div>",
+
+                            /* ------------------ LEVEL 4 ------------------ */
+                            "Level4",
+                            "<div class='lvl4'>
+                               <h3>Level 4 – Practice Ready</h3>
+                               <p><strong>Summary:</strong> Independently performs complex cases; manages complications; leads the team; teaches juniors; coordinates multidisciplinary care.</p>
+
+                               <h4>Framework Highlights</h4>
+                               <ul>
+                                 <li>Efficient, safe execution across a spectrum of case complexity.</li>
+                                 <li>Anticipates pitfalls; adapts technique; manages complications independently.</li>
+                                 <li>Role‑models communication, professionalism, and systems‑based practice.</li>
+                               </ul>
+
+                               <h4>Nonoperative / Pre‑operative</h4>
+                               <ul>
+                                 <li>Designs comprehensive plans for complex anatomy or comorbidity; optimizes anticoagulation and labs.</li>
+                                 <li>Leads patient‑centered consent with shared decision‑making; aligns plan with goals of care.</li>
+                                 <li>Coordinates with referring services and ancillary teams; ensures resource readiness.</li>
+                               </ul>
+
+                               <h4>Intra‑operative</h4>
+                               <ul>
+                                 <li>Executes advanced techniques with precision, efficiency, and radiation/sedation stewardship.</li>
+                                 <li>Coaches juniors in real time; delegates appropriately while maintaining safety.</li>
+                                 <li>Prevents, recognizes, and treats complications; modifies plan without losing procedural objectives.</li>
+                               </ul>
+
+                               <h4>Post‑operative</h4>
+                               <ul>
+                                 <li>Independently manages complications; defines clear escalation pathways.</li>
+                                 <li>Provides comprehensive aftercare, follow‑up, and device/tube/line management plans.</li>
+                                 <li>Closes the loop with referrers; drives quality improvement from outcomes.</li>
+                               </ul>
+
+                               <p class='note'>Use when the resident demonstrates readiness for unsupervised practice and supervision of others.</p>
+                             </div>",
+
+                            /* --------------- Fallback (nothing selected) --------------- */
+                            "<p>Select an EPAs level above.</p>"
+                        )
+                    )
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  Size: =16
+                  Width: =600

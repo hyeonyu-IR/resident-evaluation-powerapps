@@ -1,0 +1,1439 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  screenFeedback:
+    Properties:
+      Fill: =RGBA(29, 29, 29, 1)
+      Height: =Max(App.Height, App.DesignHeight)
+      LoadingSpinner: =LoadingSpinner.Data
+      LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
+      OnVisible: |-
+        =Set(gblCurrentUserEmail, User().Email);
+        Set(gblCurrentUserFullName, User().FullName);
+        Set(
+            gblEPAOptions,
+            Table(
+                { Value: "", Score: Blank() }, // blank default line
+                { Value: "Level 1: Limited Participation", Score: 1 },
+                { Value: "Level 2: Direct Supervision",   Score: 2 },
+                { Value: "Level 3: Indirect Supervision", Score: 3 },
+                { Value: "Level 4: Practice Ready",       Score: 4 }
+            )
+        );
+
+        // ScreenFeedback.OnVisible
+        Refresh(VIR_RealTime_FeedBack); // ensure we have the latest
+
+        Set(
+            varNextSerial,
+            Coalesce(
+                First(
+                    SortByColumns(VIR_RealTime_FeedBack, "ID", SortOrder.Descending)
+                ).ID,
+                0
+            ) + 1
+        );
+
+        // Decide mode strictly from incoming selRecord
+        Set(varSourceGallery, Coalesce(sourceGallery, varSourceGallery));
+        Set(varSelRecord, Coalesce(selRecord, varSelRecord));
+        Set(varNavMode, Lower(Coalesce(navMode, varNavMode)));
+
+        If(varNavMode = "new",
+            NewForm(frmFeedback),
+            EditForm(frmFeedback)
+        );
+      Width: =Max(App.Width, App.DesignWidth)
+    Children:
+      - RectQuickActionBar3_1:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Fill: =RGBA(100, 118, 132, 1)
+            FocusedBorderColor: =RectQuickActionBar3_1.BorderColor
+            Height: =88
+            Width: =Parent.Width
+      - IconAccept1_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            AccessibleLabel: =IconAccept1_1.Tooltip
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledFill: =IconAccept1_1.Fill
+            FocusedBorderColor: =IconAccept1_1.BorderColor
+            Height: =88
+            HoverBorderColor: =ColorFade(IconAccept1_1.BorderColor, 20%)
+            HoverColor: =ColorFade(IconAccept1_1.Color, 20%)
+            HoverFill: =IconAccept1_1.Fill
+            Icon: =Icon.Check
+            OnSelect: =SubmitForm(frmFeedback)
+            PaddingBottom: =22
+            PaddingLeft: =22
+            PaddingRight: =22
+            PaddingTop: =22
+            PressedBorderColor: =ColorFade(IconAccept1_1.BorderColor, -20%)
+            PressedColor: =ColorFade(IconAccept1_1.Color, -30%)
+            PressedFill: =RGBA(255, 255, 255, 0.3)
+            TabIndex: =0
+            Tooltip: ="Submit item"
+            Width: =88
+            X: =Parent.Width - IconAccept1_1.Width
+      - frmFeedback:
+          Control: Form@2.4.4
+          Variant: Classic
+          Layout: Vertical
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            DataSource: =VIR_RealTime_FeedBack
+            Fill: =RGBA(0, 0, 0, 1)
+            Height: =Parent.Height - frmFeedback.Y
+            Item: |-
+              =// Critical: do NOT use BrowseGallery_me.Selected or ThisItem
+              varSelRecord
+            NumberOfColumns: =2
+            OnSuccess: |+
+              =Set(varSelRecord, Self.LastSubmit);
+
+              Navigate(
+                  DetailScreen,
+                  ScreenTransition.None,
+                  {
+                      selRecord: varSelRecord,
+                      sourceGallery: varSourceGallery
+                  }
+              );
+            Width: =Parent.Width
+            Y: =RectQuickActionBar3_1.Height
+          Children:
+            - Attending_DataCard2_1:
+                Control: TypedDataCard@1.0.7
+                Variant: ClassicTextualEdit
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  DataField: ="Attending"
+                  Default: =ThisItem.Attending
+                  DisplayName: ="Attending"
+                  Height: =75
+                  MaxLength: =DataSourceInfo(VIR_RealTime_FeedBack, DataSourceInfo.MaxLength, Attending)
+                  Required: =false
+                  Update: =DataCardValue11_1.Text
+                  Width: =320
+                  X: =0
+                  Y: =0
+                Children:
+                  - DataCardKey11_1:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldName
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(197, 203, 207, 1)
+                        FocusedBorderColor: =DataCardKey11_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =0
+                        HoverBorderColor: =DataCardKey11_1.BorderColor
+                        HoverColor: =DataCardKey11_1.Color
+                        HoverFill: =DataCardKey11_1.Fill
+                        PressedBorderColor: =DataCardKey11_1.BorderColor
+                        PressedColor: =DataCardKey11_1.Color
+                        PressedFill: =DataCardKey11_1.Fill
+                        Text: =""
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                  - DataCardValue11_1:
+                      Control: Classic/TextInput@2.3.2
+                      MetadataKey: FieldValue
+                      Properties:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        Color: =RGBA(210, 210, 210, 1)
+                        Default: =Coalesce(gblCurrentUserFullName, User().FullName)
+                        DisplayMode: =Parent.DisplayMode.View
+                        Fill: =RGBA(29, 29, 29, 1)
+                        FocusedBorderColor: =DataCardValue11_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =40
+                        HoverBorderColor: =RGBA(197, 203, 207, 1)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(62, 74, 83, 1)
+                        MaxLength: =Parent.MaxLength
+                        PaddingLeft: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =16
+                        Tooltip: =Parent.DisplayName
+                        Width: =290
+                        X: =30
+                        Y: =15
+                  - ErrorMessage3_1:
+                      Control: Label@2.5.1
+                      MetadataKey: ErrorMessage
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(255, 51, 51, 1)
+                        FocusedBorderColor: =ErrorMessage3_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =24
+                        HoverBorderColor: =ErrorMessage3_1.BorderColor
+                        HoverColor: =ErrorMessage3_1.Color
+                        HoverFill: =ErrorMessage3_1.Fill
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedBorderColor: =ErrorMessage3_1.BorderColor
+                        PressedColor: =ErrorMessage3_1.Color
+                        PressedFill: =ErrorMessage3_1.Fill
+                        Size: =24
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue11_1.Y + DataCardValue11_1.Height
+                  - StarVisible3_1:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldRequired
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(197, 203, 207, 1)
+                        FocusedBorderColor: =StarVisible3_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =DataCardKey11_1.Height
+                        HoverBorderColor: =StarVisible3_1.BorderColor
+                        HoverColor: =StarVisible3_1.Color
+                        HoverFill: =StarVisible3_1.Fill
+                        PressedBorderColor: =StarVisible3_1.BorderColor
+                        PressedColor: =StarVisible3_1.Color
+                        PressedFill: =StarVisible3_1.Fill
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey11_1.Y
+            - ID_DataCard1:
+                Control: TypedDataCard@1.0.7
+                Variant: ClassicTextualView
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  DataField: ="ID"
+                  Default: =ThisItem.ID
+                  DisplayName: =DataSourceInfo([@VIR_RealTime_FeedBack],DataSourceInfo.DisplayName,'ID')
+                  Required: =false
+                  Width: =320
+                  X: =1
+                  Y: =0
+                Children:
+                  - DataCardKey1:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldName
+                      Properties:
+                        Align: =Align.Right
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(165, 165, 165, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =40
+                        Size: =16
+                        Text: |-
+                          =// Serial DataCard.Default (if bound to Eval_Serial_No) or a Label.Text
+                          "Serial ID: " & If(
+                              frmFeedback.Mode = FormMode.New,
+                              Text(varNextSerial - 117),
+                              Text(ThisItem.ID - 117) // or ThisItem.Eval_Serial_No if you’re persisting it
+                          )
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =15
+                  - DataCardValue3:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldValue
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(197, 203, 207, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisplayMode: =Parent.DisplayMode
+                        Font: =Font.'Open Sans'
+                        Height: =40
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =""
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey1.Y + DataCardKey1.Height + 5
+            - EvalDate_DataCard2_1:
+                Control: TypedDataCard@1.0.7
+                Variant: ClassicDateEdit
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  DataField: ="EvalDate"
+                  Default: =ThisItem.EvalDate
+                  DisplayName: ="EvalDate"
+                  Height: =70
+                  Required: =false
+                  Update: =DataCardValue10_1.SelectedDate
+                  X: =0
+                  Y: =1
+                Children:
+                  - DataCardValue10_1:
+                      Control: Classic/DatePicker@2.6.0
+                      MetadataKey: FieldValue
+                      Properties:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =0
+                        Color: =RGBA(255, 255, 255, 1)
+                        DefaultDate: =If(frmFeedback.Mode =FormMode.New, Today(), varSelRecord.EvalDate)
+                        DisplayMode: =Parent.DisplayMode.Edit
+                        EndYear: =9999
+                        Fill: =RGBA(45, 46, 48, 1)
+                        FocusedBorderColor: =DataCardValue10_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =50
+                        IconBackground: =RGBA(100, 118, 132, 1)
+                        IconFill: =RGBA(255, 255, 255, 1)
+                        InputTextPlaceholder: =Text(Date(2001,12,31), DataCardValue10_1.Format, DataCardValue10_1.Language)
+                        PaddingBottom: =0
+                        PaddingLeft: =If(DataCardValue10_1.DisplayMode = DisplayMode.Edit, 5, 0)
+                        Size: =16
+                        StartYear: =1899
+                        Tooltip: =Parent.DisplayName
+                        Width: =580
+                        X: =30
+                  - ErrorMessage2_1:
+                      Control: Label@2.5.1
+                      MetadataKey: ErrorMessage
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(255, 51, 51, 1)
+                        FocusedBorderColor: =ErrorMessage2_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =24
+                        HoverBorderColor: =ErrorMessage2_1.BorderColor
+                        HoverColor: =ErrorMessage2_1.Color
+                        HoverFill: =ErrorMessage2_1.Fill
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedBorderColor: =ErrorMessage2_1.BorderColor
+                        PressedColor: =ErrorMessage2_1.Color
+                        PressedFill: =ErrorMessage2_1.Fill
+                        Size: =24
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue10_1.Y + DataCardValue10_1.Height
+                  - StarVisible2_1:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldRequired
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(197, 203, 207, 1)
+                        FocusedBorderColor: =StarVisible2_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =
+                        HoverBorderColor: =StarVisible2_1.BorderColor
+                        HoverColor: =StarVisible2_1.Color
+                        HoverFill: =StarVisible2_1.Fill
+                        PressedBorderColor: =StarVisible2_1.BorderColor
+                        PressedColor: =StarVisible2_1.Color
+                        PressedFill: =StarVisible2_1.Fill
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =
+            - ResidentYear_DataCard2_1:
+                Control: TypedDataCard@1.0.7
+                Variant: ClassicTextualEdit
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  DataField: ="ResidentYear"
+                  Default: =ThisItem.ResidentYear
+                  DisplayName: ="ResidentYear"
+                  Height: =120
+                  MaxLength: =DataSourceInfo(VIR_RealTime_FeedBack, DataSourceInfo.MaxLength, ResidentYear)
+                  Required: =false
+                  Update: =Dropdown_IR_Year.SelectedText.Value
+                  Width: =200
+                  X: =0
+                  Y: =2
+                Children:
+                  - DataCardKey16_1:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldName
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(165, 165, 165, 1)
+                        FocusedBorderColor: =DataCardKey16_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        HoverBorderColor: =DataCardKey16_1.BorderColor
+                        HoverColor: =DataCardKey16_1.Color
+                        HoverFill: =DataCardKey16_1.Fill
+                        PressedBorderColor: =DataCardKey16_1.BorderColor
+                        PressedColor: =DataCardKey16_1.Color
+                        PressedFill: =DataCardKey16_1.Fill
+                        Size: =16
+                        Text: ="IR/DR-Year"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                  - ErrorMessage8_1:
+                      Control: Label@2.5.1
+                      MetadataKey: ErrorMessage
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(255, 51, 51, 1)
+                        FocusedBorderColor: =ErrorMessage8_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =0
+                        HoverBorderColor: =ErrorMessage8_1.BorderColor
+                        HoverColor: =ErrorMessage8_1.Color
+                        HoverFill: =ErrorMessage8_1.Fill
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedBorderColor: =ErrorMessage8_1.BorderColor
+                        PressedColor: =ErrorMessage8_1.Color
+                        PressedFill: =ErrorMessage8_1.Fill
+                        Size: =24
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =ddlProcedureSub.Y + ddlProcedureSub.Height
+                  - StarVisible8_1:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldRequired
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(197, 203, 207, 1)
+                        FocusedBorderColor: =StarVisible8_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =DataCardKey16_1.Height
+                        HoverBorderColor: =StarVisible8_1.BorderColor
+                        HoverColor: =StarVisible8_1.Color
+                        HoverFill: =StarVisible8_1.Fill
+                        PressedBorderColor: =StarVisible8_1.BorderColor
+                        PressedColor: =StarVisible8_1.Color
+                        PressedFill: =StarVisible8_1.Fill
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey16_1.Y
+                  - Dropdown_IR_Year:
+                      Control: Classic/DropDown@2.3.1
+                      Properties:
+                        AllowEmptySelection: =true
+                        BorderColor: =RGBA(197, 203, 207, 1)
+                        BorderThickness: =0
+                        ChevronBackground: =RGBA(100, 118, 132, 1)
+                        ChevronFill: =RGBA(255, 255, 255, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+                        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        Default: =If(frmFeedback.Mode = FormMode.Edit, Parent.Default, " ")
+                        Fill: =RGBA(45, 46, 48, 1)
+                        FocusedBorderColor: =Dropdown_IR_Year.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =50
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(62, 74, 83, 1)
+                        Items: |-
+                          =// Distinct(Resident_Year_Name_01, 'IR-Year')
+                          ["", "IR-1", "IR-2", "IR-3", "IR-4", "IR-5", "IR-IND", "IR-IO", "DR-1", "DR-2", "DR-3", "DR-4"]
+                        Items.Value: =Value
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(197, 203, 207, 1)
+                        SelectionColor: =RGBA(255, 255, 255, 1)
+                        SelectionFill: =RGBA(100, 118, 132, 1)
+                        Size: =16
+                        Width: =157
+                        X: =30
+                        Y: =42
+            - ResidentName_DataCard2_1:
+                Control: TypedDataCard@1.0.7
+                Variant: ClassicTextualEdit
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  DataField: ="ResidentName"
+                  Default: =ThisItem.ResidentName
+                  DisplayName: ="ResidentName"
+                  Height: =100
+                  MaxLength: =DataSourceInfo(VIR_RealTime_FeedBack, DataSourceInfo.MaxLength, ResidentName)
+                  Required: =false
+                  Update: =Dropdown_IR_Name.SelectedText.Value
+                  Width: =440
+                  X: =1
+                  Y: =2
+                Children:
+                  - DataCardKey14_1:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldName
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(165, 165, 165, 1)
+                        FocusedBorderColor: =DataCardKey14_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        HoverBorderColor: =DataCardKey14_1.BorderColor
+                        HoverColor: =DataCardKey14_1.Color
+                        HoverFill: =DataCardKey14_1.Fill
+                        PressedBorderColor: =DataCardKey14_1.BorderColor
+                        PressedColor: =DataCardKey14_1.Color
+                        PressedFill: =DataCardKey14_1.Fill
+                        Size: =16
+                        Text: ="Resident Name"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =14
+                  - ErrorMessage6_1:
+                      Control: Label@2.5.1
+                      MetadataKey: ErrorMessage
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(255, 51, 51, 1)
+                        FocusedBorderColor: =ErrorMessage6_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =0
+                        HoverBorderColor: =ErrorMessage6_1.BorderColor
+                        HoverColor: =ErrorMessage6_1.Color
+                        HoverFill: =ErrorMessage6_1.Fill
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedBorderColor: =ErrorMessage6_1.BorderColor
+                        PressedColor: =ErrorMessage6_1.Color
+                        PressedFill: =ErrorMessage6_1.Fill
+                        Size: =24
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =Dropdown_IR_Name.Y + Dropdown_IR_Name.Height
+                  - StarVisible6_1:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldRequired
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(197, 203, 207, 1)
+                        FocusedBorderColor: =StarVisible6_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =DataCardKey14_1.Height
+                        HoverBorderColor: =StarVisible6_1.BorderColor
+                        HoverColor: =StarVisible6_1.Color
+                        HoverFill: =StarVisible6_1.Fill
+                        PressedBorderColor: =StarVisible6_1.BorderColor
+                        PressedColor: =StarVisible6_1.Color
+                        PressedFill: =StarVisible6_1.Fill
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey14_1.Y
+                  - Dropdown_IR_Name:
+                      Control: Classic/DropDown@2.3.1
+                      Properties:
+                        BorderColor: =RGBA(197, 203, 207, 1)
+                        BorderThickness: =0
+                        ChevronBackground: =RGBA(100, 118, 132, 1)
+                        ChevronFill: =RGBA(255, 255, 255, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+                        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        Default: =If(frmFeedback.Mode = FormMode.Edit, Parent.Default, " ")
+                        Fill: =RGBA(45, 46, 48, 1)
+                        FocusedBorderColor: =Dropdown_IR_Name.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =50
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(62, 74, 83, 1)
+                        Items: =Filter(Resident_Year_Name_01, 'IR-Year' = Dropdown_IR_Year.SelectedText.Value).ResidentName
+                        Items.Value: =field_2
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(197, 203, 207, 1)
+                        SelectionColor: =RGBA(255, 255, 255, 1)
+                        SelectionFill: =RGBA(100, 118, 132, 1)
+                        Size: =16
+                        Width: =396
+                        X: =14
+                        Y: =42
+            - ProcedureMain_DataCard1_1:
+                Control: TypedDataCard@1.0.7
+                Variant: ClassicTextualEdit
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  DataField: ="ProcedureName"
+                  Default: =ThisItem.ProcedureMain
+                  DisplayName: ="ProcedureMain"
+                  Height: =110
+                  MaxLength: =DataSourceInfo(VIR_RealTime_FeedBack, DataSourceInfo.MaxLength, ProcedureMain)
+                  Required: =false
+                  Update: =ddlProcedureMain.SelectedText.Value
+                  X: =0
+                  Y: =3
+                Children:
+                  - DataCardKey12_1:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldName
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(165, 165, 165, 1)
+                        FocusedBorderColor: =DataCardKey12_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =42
+                        HoverBorderColor: =DataCardKey12_1.BorderColor
+                        HoverColor: =DataCardKey12_1.Color
+                        HoverFill: =DataCardKey12_1.Fill
+                        PressedBorderColor: =DataCardKey12_1.BorderColor
+                        PressedColor: =DataCardKey12_1.Color
+                        PressedFill: =DataCardKey12_1.Fill
+                        Size: =16
+                        Text: |-
+                          ="Procedure: Category"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                  - ErrorMessage4_1:
+                      Control: Label@2.5.1
+                      MetadataKey: ErrorMessage
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(255, 51, 51, 1)
+                        FocusedBorderColor: =ErrorMessage4_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =0
+                        HoverBorderColor: =ErrorMessage4_1.BorderColor
+                        HoverColor: =ErrorMessage4_1.Color
+                        HoverFill: =ErrorMessage4_1.Fill
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedBorderColor: =ErrorMessage4_1.BorderColor
+                        PressedColor: =ErrorMessage4_1.Color
+                        PressedFill: =ErrorMessage4_1.Fill
+                        Size: =24
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =ddlProcedureMain.Y + ddlProcedureMain.Height
+                  - StarVisible4_1:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldRequired
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(197, 203, 207, 1)
+                        FocusedBorderColor: =StarVisible4_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =DataCardKey12_1.Height
+                        HoverBorderColor: =StarVisible4_1.BorderColor
+                        HoverColor: =StarVisible4_1.Color
+                        HoverFill: =StarVisible4_1.Fill
+                        PressedBorderColor: =StarVisible4_1.BorderColor
+                        PressedColor: =StarVisible4_1.Color
+                        PressedFill: =StarVisible4_1.Fill
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey12_1.Y
+                  - ddlProcedureMain:
+                      Control: Classic/DropDown@2.3.1
+                      Properties:
+                        BorderColor: =RGBA(197, 203, 207, 1)
+                        BorderThickness: =0
+                        ChevronBackground: =RGBA(100, 118, 132, 1)
+                        ChevronFill: =RGBA(255, 255, 255, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+                        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        Default: =If(frmFeedback.Mode = FormMode.Edit, Parent.Default, " ")
+                        Fill: =RGBA(45, 46, 48, 1)
+                        FocusedBorderColor: =ddlProcedureMain.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =50
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(62, 74, 83, 1)
+                        Items: |+
+                          =// ["", "Biopsy", "Abscess Drain", "Paracentesis", "Thoracentesis", "US-Guided Venous Access", "Over-the-Wire Tube Exchange", "Lumbar Puncture", "Thyroid FNA"];
+                          Distinct(Procedure_Categories_01.Title, Title)
+                        Items.Value: =Value
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(197, 203, 207, 1)
+                        SelectionColor: =RGBA(255, 255, 255, 1)
+                        SelectionFill: =RGBA(100, 118, 132, 1)
+                        Size: =16
+                        Width: =580
+                        X: =30
+                        Y: =42
+            - ProcedureSub_DataCard1_1:
+                Control: TypedDataCard@1.0.7
+                Variant: ClassicTextualEdit
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  DataField: ="ProcedureSub"
+                  Default: =ThisItem.ProcedureSub
+                  DisplayName: ="ProcedureSub"
+                  Height: =110
+                  MaxLength: =DataSourceInfo(VIR_RealTime_FeedBack, DataSourceInfo.MaxLength, ProcedureSub)
+                  Required: =false
+                  Update: =ddlProcedureSub.SelectedText.Value
+                  X: =0
+                  Y: =4
+                Children:
+                  - DataCardKey13_1:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldName
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(165, 165, 165, 1)
+                        FocusedBorderColor: =DataCardKey13_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        HoverBorderColor: =DataCardKey13_1.BorderColor
+                        HoverColor: =DataCardKey13_1.Color
+                        HoverFill: =DataCardKey13_1.Fill
+                        PressedBorderColor: =DataCardKey13_1.BorderColor
+                        PressedColor: =DataCardKey13_1.Color
+                        PressedFill: =DataCardKey13_1.Fill
+                        Size: =16
+                        Text: |-
+                          ="Procedure: Subcategory"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =32
+                        Y: =7
+                  - StarVisible5_1:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldRequired
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(197, 203, 207, 1)
+                        FocusedBorderColor: =StarVisible5_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =DataCardKey13_1.Height
+                        HoverBorderColor: =StarVisible5_1.BorderColor
+                        HoverColor: =StarVisible5_1.Color
+                        HoverFill: =StarVisible5_1.Fill
+                        PressedBorderColor: =StarVisible5_1.BorderColor
+                        PressedColor: =StarVisible5_1.Color
+                        PressedFill: =StarVisible5_1.Fill
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey13_1.Y
+                  - ddlProcedureSub:
+                      Control: Classic/DropDown@2.3.1
+                      Properties:
+                        BorderColor: =RGBA(197, 203, 207, 1)
+                        BorderThickness: =0
+                        ChevronBackground: =RGBA(100, 118, 132, 1)
+                        ChevronFill: =RGBA(255, 255, 255, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+                        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        Default: =If(frmFeedback.Mode = FormMode.Edit, Parent.Default, "")
+                        Fill: =RGBA(45, 46, 48, 1)
+                        FocusedBorderColor: =ddlProcedureSub.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =50
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(62, 74, 83, 1)
+                        Items: =Sort(Filter(Procedure_Categories_01, Title = ddlProcedureMain.Selected.Value).SubCategory, SortOrder.Ascending)
+                        Items.Value: =field_2
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(197, 203, 207, 1)
+                        SelectionColor: =RGBA(255, 255, 255, 1)
+                        SelectionFill: =RGBA(100, 118, 132, 1)
+                        Size: =16
+                        Width: =580
+                        X: =32
+                        Y: =46
+            - AccessTechnique_DataCard2:
+                Control: TypedDataCard@1.0.7
+                Variant: ClassicTextualEdit
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  DataField: ="AccessTechnique"
+                  Default: =ThisItem.Non_Preoperative
+                  DisplayName: ="AccessTechnique"
+                  Fill: =RGBA(0, 0, 0, 1)
+                  Height: =150
+                  MaxLength: =DataSourceInfo(VIR_RealTime_FeedBack, DataSourceInfo.MaxLength, Non_Preoperative)
+                  Required: =false
+                  Update: |+
+                    =LookUp(gblEPAOptions, Value = ddlPreOP.Selected.Value).Score
+                  X: =0
+                  Y: =5
+                Children:
+                  - DataCardKey15:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldName
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(102, 182, 227, 1)
+                        FocusedBorderColor: =DataCardKey15.BorderColor
+                        Font: =Font.'Open Sans'
+                        HoverBorderColor: =DataCardKey15.BorderColor
+                        HoverColor: =DataCardKey15.Color
+                        HoverFill: =DataCardKey15.Fill
+                        PressedBorderColor: =DataCardKey15.BorderColor
+                        PressedColor: =DataCardKey15.Color
+                        PressedFill: =DataCardKey15.Fill
+                        Size: =16
+                        Text: ="NON/PREOPERATIVE"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =49
+                  - ErrorMessage5:
+                      Control: Label@2.5.1
+                      MetadataKey: ErrorMessage
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(255, 51, 51, 1)
+                        FocusedBorderColor: =ErrorMessage5.BorderColor
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =24
+                        HoverBorderColor: =ErrorMessage5.BorderColor
+                        HoverColor: =ErrorMessage5.Color
+                        HoverFill: =ErrorMessage5.Fill
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedBorderColor: =ErrorMessage5.BorderColor
+                        PressedColor: =ErrorMessage5.Color
+                        PressedFill: =ErrorMessage5.Fill
+                        Size: =24
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =ddlPreOP.Y + ddlPreOP.Height
+                  - StarVisible5:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldRequired
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(197, 203, 207, 1)
+                        FocusedBorderColor: =StarVisible5.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =DataCardKey15.Height
+                        HoverBorderColor: =StarVisible5.BorderColor
+                        HoverColor: =StarVisible5.Color
+                        HoverFill: =StarVisible5.Fill
+                        PressedBorderColor: =StarVisible5.BorderColor
+                        PressedColor: =StarVisible5.Color
+                        PressedFill: =StarVisible5.Fill
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey15.Y
+                  - ddlPreOP:
+                      Control: Classic/DropDown@2.3.1
+                      Properties:
+                        BorderColor: =RGBA(197, 203, 207, 1)
+                        BorderThickness: =0
+                        ChevronBackground: =RGBA(100, 118, 132, 1)
+                        ChevronFill: =RGBA(255, 255, 255, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+                        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        Default: |-
+                          =If(
+                              frmFeedback.Mode = FormMode.Edit,
+                              LookUp(gblEPAOptions, Score = Value(Parent.Default)).Value,
+                              ""
+                          )
+                        Fill: =RGBA(45, 46, 48, 1)
+                        FocusedBorderColor: =ddlPreOP.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =50
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(62, 74, 83, 1)
+                        Items: =gblEPAOptions.Value
+                        Items.Value: =Value
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(197, 203, 207, 1)
+                        SelectionColor: =RGBA(255, 255, 255, 1)
+                        SelectionFill: =RGBA(100, 118, 132, 1)
+                        Size: =16
+                        Width: =580
+                        X: =30
+                        Y: =89
+                  - DataCardKey15_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(197, 203, 207, 1)
+                        Color: =RGBA(255, 191, 0, 1)
+                        FocusedBorderColor: =DataCardKey15_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        HoverBorderColor: =DataCardKey15_1.BorderColor
+                        HoverColor: =DataCardKey15_1.Color
+                        HoverFill: =DataCardKey15_1.Fill
+                        PressedBorderColor: =DataCardKey15_1.BorderColor
+                        PressedColor: =DataCardKey15_1.Color
+                        PressedFill: =DataCardKey15_1.Fill
+                        Size: =18
+                        Text: ="RESIDENT PERFORMANCE EVALUATION"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+            - SafetyTechnique_DataCard2:
+                Control: TypedDataCard@1.0.7
+                Variant: ClassicTextualEdit
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  DataField: ="SafetyTechnique"
+                  Default: =ThisItem.Intraoperative
+                  DisplayName: ="SafetyTechnique"
+                  Fill: =RGBA(0, 0, 0, 1)
+                  Height: =110
+                  MaxLength: =DataSourceInfo(VIR_RealTime_FeedBack, DataSourceInfo.MaxLength, Intraoperative)
+                  Required: =false
+                  Update: =LookUp(gblEPAOptions, Value = ddlIntraOP.Selected.Value).Score
+                  X: =0
+                  Y: =6
+                Children:
+                  - DataCardKey22:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldName
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(102, 182, 227, 1)
+                        FocusedBorderColor: =DataCardKey22.BorderColor
+                        Font: =Font.'Open Sans'
+                        HoverBorderColor: =DataCardKey22.BorderColor
+                        HoverColor: =DataCardKey22.Color
+                        HoverFill: =DataCardKey22.Fill
+                        PressedBorderColor: =DataCardKey22.BorderColor
+                        PressedColor: =DataCardKey22.Color
+                        PressedFill: =DataCardKey22.Fill
+                        Size: =16
+                        Text: ="INTRAOPERATIVE"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                  - ErrorMessage10:
+                      Control: Label@2.5.1
+                      MetadataKey: ErrorMessage
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(255, 51, 51, 1)
+                        FocusedBorderColor: =ErrorMessage10.BorderColor
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =24
+                        HoverBorderColor: =ErrorMessage10.BorderColor
+                        HoverColor: =ErrorMessage10.Color
+                        HoverFill: =ErrorMessage10.Fill
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedBorderColor: =ErrorMessage10.BorderColor
+                        PressedColor: =ErrorMessage10.Color
+                        PressedFill: =ErrorMessage10.Fill
+                        Size: =24
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =ddlIntraOP.Y + ddlIntraOP.Height
+                  - StarVisible10:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldRequired
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(197, 203, 207, 1)
+                        FocusedBorderColor: =StarVisible10.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =DataCardKey22.Height
+                        HoverBorderColor: =StarVisible10.BorderColor
+                        HoverColor: =StarVisible10.Color
+                        HoverFill: =StarVisible10.Fill
+                        PressedBorderColor: =StarVisible10.BorderColor
+                        PressedColor: =StarVisible10.Color
+                        PressedFill: =StarVisible10.Fill
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey22.Y
+                  - ddlIntraOP:
+                      Control: Classic/DropDown@2.3.1
+                      Properties:
+                        BorderColor: =RGBA(197, 203, 207, 1)
+                        BorderThickness: =0
+                        ChevronBackground: =RGBA(100, 118, 132, 1)
+                        ChevronFill: =RGBA(255, 255, 255, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+                        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        Default: |-
+                          =If(
+                              frmFeedback.Mode = FormMode.Edit,
+                              LookUp(gblEPAOptions, Score = Value(Parent.Default)).Value,
+                              ""
+                          )
+                        Fill: =RGBA(45, 46, 48, 1)
+                        FocusedBorderColor: =ddlIntraOP.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =50
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(62, 74, 83, 1)
+                        Items: =gblEPAOptions.Value
+                        Items.Value: =Value
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(197, 203, 207, 1)
+                        SelectionColor: =RGBA(255, 255, 255, 1)
+                        SelectionFill: =RGBA(100, 118, 132, 1)
+                        Size: =16
+                        Width: =580
+                        X: =30
+                        Y: =50
+            - Independency_DataCard2:
+                Control: TypedDataCard@1.0.7
+                Variant: ClassicTextualEdit
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  DataField: ="Independency"
+                  Default: =ThisItem.Postoperative
+                  DisplayName: ="Independency"
+                  Fill: =RGBA(0, 0, 0, 1)
+                  Height: =120
+                  MaxLength: =DataSourceInfo(VIR_RealTime_FeedBack, DataSourceInfo.MaxLength, Postoperative)
+                  Required: =false
+                  Update: =LookUp(gblEPAOptions, Value = ddlPostOP.Selected.Value).Score
+                  X: =0
+                  Y: =7
+                Children:
+                  - DataCardKey20:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldName
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(102, 182, 227, 1)
+                        FocusedBorderColor: =DataCardKey20.BorderColor
+                        Font: =Font.'Open Sans'
+                        HoverBorderColor: =DataCardKey20.BorderColor
+                        HoverColor: =DataCardKey20.Color
+                        HoverFill: =DataCardKey20.Fill
+                        PressedBorderColor: =DataCardKey20.BorderColor
+                        PressedColor: =DataCardKey20.Color
+                        PressedFill: =DataCardKey20.Fill
+                        Size: =16
+                        Text: ="POSTOPERATIVE"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                  - ErrorMessage8:
+                      Control: Label@2.5.1
+                      MetadataKey: ErrorMessage
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(255, 51, 51, 1)
+                        FocusedBorderColor: =ErrorMessage8.BorderColor
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =24
+                        HoverBorderColor: =ErrorMessage8.BorderColor
+                        HoverColor: =ErrorMessage8.Color
+                        HoverFill: =ErrorMessage8.Fill
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedBorderColor: =ErrorMessage8.BorderColor
+                        PressedColor: =ErrorMessage8.Color
+                        PressedFill: =ErrorMessage8.Fill
+                        Size: =24
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =ddlPostOP.Y + ddlPostOP.Height
+                  - StarVisible8:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldRequired
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(197, 203, 207, 1)
+                        FocusedBorderColor: =StarVisible8.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =DataCardKey20.Height
+                        HoverBorderColor: =StarVisible8.BorderColor
+                        HoverColor: =StarVisible8.Color
+                        HoverFill: =StarVisible8.Fill
+                        PressedBorderColor: =StarVisible8.BorderColor
+                        PressedColor: =StarVisible8.Color
+                        PressedFill: =StarVisible8.Fill
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey20.Y
+                  - ddlPostOP:
+                      Control: Classic/DropDown@2.3.1
+                      Properties:
+                        BorderColor: =RGBA(197, 203, 207, 1)
+                        BorderThickness: =0
+                        ChevronBackground: =RGBA(100, 118, 132, 1)
+                        ChevronFill: =RGBA(255, 255, 255, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+                        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        Default: |-
+                          =If(
+                              frmFeedback.Mode = FormMode.Edit,
+                              LookUp(gblEPAOptions, Score = Value(Parent.Default)).Value,
+                              ""
+                          )
+                        Fill: =RGBA(45, 46, 48, 1)
+                        FocusedBorderColor: =ddlPostOP.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =50
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(62, 74, 83, 1)
+                        Items: =gblEPAOptions.Value
+                        Items.Value: =Value
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(197, 203, 207, 1)
+                        SelectionColor: =RGBA(255, 255, 255, 1)
+                        SelectionFill: =RGBA(100, 118, 132, 1)
+                        Size: =16
+                        Width: =580
+                        X: =30
+                        Y: =50
+            - Comment_DataCard1_1:
+                Control: TypedDataCard@1.0.7
+                Variant: ClassicTextualEdit
+                Properties:
+                  BorderColor: =RGBA(121, 121, 121, 1)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =2
+                  DataField: ="Comment"
+                  Default: =ThisItem.Comment
+                  DisplayName: ="Comment"
+                  Height: =170
+                  MaxLength: =DataSourceInfo(VIR_RealTime_FeedBack, DataSourceInfo.MaxLength, Comment)
+                  Required: =false
+                  Update: =DataCardValue1_1.Text
+                  X: =0
+                  Y: =8
+                Children:
+                  - DataCardKey1_1:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldName
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(102, 182, 227, 1)
+                        FocusedBorderColor: =DataCardKey1_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        HoverBorderColor: =DataCardKey1_1.BorderColor
+                        HoverColor: =DataCardKey1_1.Color
+                        HoverFill: =DataCardKey1_1.Fill
+                        PressedBorderColor: =DataCardKey1_1.BorderColor
+                        PressedColor: =DataCardKey1_1.Color
+                        PressedFill: =DataCardKey1_1.Fill
+                        Size: =16
+                        Text: ="COMMENT"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                  - DataCardValue1_1:
+                      Control: Classic/TextInput@2.3.2
+                      MetadataKey: FieldValue
+                      Properties:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        BorderThickness: =0
+                        Color: =RGBA(255, 255, 255, 1)
+                        Default: =If(frmFeedback.Mode = FormMode.Edit, Parent.Default, " ")
+                        DisplayMode: =Parent.DisplayMode
+                        Fill: =RGBA(45, 46, 48, 1)
+                        FocusedBorderColor: =DataCardValue1_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =110
+                        HoverBorderColor: =RGBA(197, 203, 207, 1)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(62, 74, 83, 1)
+                        MaxLength: =Parent.MaxLength
+                        Mode: =TextMode.MultiLine
+                        PaddingLeft: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =16
+                        Tooltip: =Parent.DisplayName
+                        Width: =580
+                        X: =30
+                        Y: =48
+                  - ErrorMessage1_1:
+                      Control: Label@2.5.1
+                      MetadataKey: ErrorMessage
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(255, 51, 51, 1)
+                        FocusedBorderColor: =ErrorMessage1_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =24
+                        HoverBorderColor: =ErrorMessage1_1.BorderColor
+                        HoverColor: =ErrorMessage1_1.Color
+                        HoverFill: =ErrorMessage1_1.Fill
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedBorderColor: =ErrorMessage1_1.BorderColor
+                        PressedColor: =ErrorMessage1_1.Color
+                        PressedFill: =ErrorMessage1_1.Fill
+                        Size: =24
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue1_1.Y + DataCardValue1_1.Height
+                  - StarVisible1_1:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldRequired
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(197, 203, 207, 1)
+                        FocusedBorderColor: =StarVisible1_1.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =DataCardKey1_1.Height
+                        HoverBorderColor: =StarVisible1_1.BorderColor
+                        HoverColor: =StarVisible1_1.Color
+                        HoverFill: =StarVisible1_1.Fill
+                        PressedBorderColor: =StarVisible1_1.BorderColor
+                        PressedColor: =StarVisible1_1.Color
+                        PressedFill: =StarVisible1_1.Fill
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey1_1.Y
+            - AverageScore_DataCard2:
+                Control: TypedDataCard@1.0.7
+                Variant: ClassicNumberEdit
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  DataField: ="AverageScore"
+                  Default: =ThisItem.AverageScore
+                  DisplayName: ="AverageScore"
+                  Height: =1
+                  Required: =false
+                  Update: =Round(((LookUp(gblEPAOptions, Value = ddlPreOP.Selected.Value).Score) + (LookUp(gblEPAOptions, Value = ddlIntraOP.Selected.Value).Score) + (LookUp(gblEPAOptions, Value = ddlPostOP.Selected.Value).Score))/3, 2)
+                  X: =0
+                  Y: =9
+                Children:
+                  - DataCardKey4:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldName
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(197, 203, 207, 1)
+                        FocusedBorderColor: =DataCardKey4.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =1
+                        HoverBorderColor: =DataCardKey4.BorderColor
+                        HoverColor: =DataCardKey4.Color
+                        HoverFill: =DataCardKey4.Fill
+                        PressedBorderColor: =DataCardKey4.BorderColor
+                        PressedColor: =DataCardKey4.Color
+                        PressedFill: =DataCardKey4.Fill
+                        Size: =16
+                        Text: =""
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                  - DataCardValue8:
+                      Control: Classic/TextInput@2.3.2
+                      MetadataKey: FieldValue
+                      Properties:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        Color: =RGBA(255, 255, 255, 1)
+                        Default: =Parent.Default
+                        DisplayMode: =Parent.DisplayMode
+                        Fill: =RGBA(0, 0, 0, 1)
+                        FocusedBorderColor: =DataCardValue8.BorderColor
+                        Font: =Font.'Open Sans'
+                        Format: =TextFormat.Number
+                        Height: =1
+                        HoverBorderColor: =RGBA(197, 203, 207, 1)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(62, 74, 83, 1)
+                        PaddingLeft: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Tooltip: =Parent.DisplayName
+                        Visible: =false
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey4.Y + DataCardKey4.Height + 5
+                  - ErrorMessage11:
+                      Control: Label@2.5.1
+                      MetadataKey: ErrorMessage
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(255, 51, 51, 1)
+                        FocusedBorderColor: =ErrorMessage11.BorderColor
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =1
+                        HoverBorderColor: =ErrorMessage11.BorderColor
+                        HoverColor: =ErrorMessage11.Color
+                        HoverFill: =ErrorMessage11.Fill
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedBorderColor: =ErrorMessage11.BorderColor
+                        PressedColor: =ErrorMessage11.Color
+                        PressedFill: =ErrorMessage11.Fill
+                        Size: =1
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =9
+                  - StarVisible11:
+                      Control: Label@2.5.1
+                      MetadataKey: FieldRequired
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(197, 203, 207, 1)
+                        FocusedBorderColor: =StarVisible11.BorderColor
+                        Font: =Font.'Open Sans'
+                        Height: =DataCardKey4.Height
+                        HoverBorderColor: =StarVisible11.BorderColor
+                        HoverColor: =StarVisible11.Color
+                        HoverFill: =StarVisible11.Fill
+                        PressedBorderColor: =StarVisible11.BorderColor
+                        PressedColor: =StarVisible11.Color
+                        PressedFill: =StarVisible11.Fill
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey4.Y
+      - Image3:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Height: =88
+            Image: ='042-check'
+            OnSelect: |+
+              =SubmitForm(frmFeedback);
+
+            PaddingBottom: =12
+            PaddingLeft: =12
+            PaddingRight: =12
+            PaddingTop: =12
+            Width: =88
+            X: =552
+      - Image3_1:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Height: =88
+            Image: ='059-delete'
+            OnSelect: |+
+              =// Cancel button OnSelect
+              ResetForm(frmFeedback);Back()
+
+
+            PaddingBottom: =12
+            PaddingLeft: =12
+            PaddingRight: =12
+            PaddingTop: =12
+            Width: =88
+      - LblAppName2_3:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(197, 203, 207, 1)
+            FocusedBorderColor: =LblAppName2_3.BorderColor
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =88
+            HoverBorderColor: =LblAppName2_3.BorderColor
+            HoverColor: =LblAppName2_3.Color
+            HoverFill: =LblAppName2_3.Fill
+            PressedBorderColor: =LblAppName2_3.BorderColor
+            PressedColor: =LblAppName2_3.Color
+            PressedFill: =LblAppName2_3.Fill
+            Size: =24
+            Text: =If(frmFeedback.Mode = FormMode.Edit, "Feedback Edit", "Feedback New")
+            Width: =464
+            Wrap: =false
+            X: =88

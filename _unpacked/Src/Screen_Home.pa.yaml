@@ -1,0 +1,419 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Screen_Home:
+    Properties:
+      Fill: =RGBA(0, 0, 0, 1)
+      Height: =Max(App.Height, App.DesignHeight)
+      LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
+      OnVisible: |+
+        =UpdateContext({DateNow:Text(Now(),"[$-en-US]dddd mm/dd/yyyy")}); UpdateContext({TimeNow: Text(Now(), "[$-en-US] hh:mm:ss AM/PM")});
+        Set(gblCurrentUserEmail, User().Email);
+        Set(gblCurrentUserFullName, User().FullName);
+
+        // Screen_Home.OnVisible
+        Refresh(AttendingList);
+
+        With(
+            {
+                me: LookUp(
+                    AttendingList,
+                    EmailAddress = gblCurrentUserEmail
+                )
+            },
+            Set(
+                gblIsProgramDirector,
+                !IsBlank(me) &&
+                (
+                    Lower(Trim(me.AttendingRole)) = "program director" ||
+                    Lower(Trim(me.AttendingRole)) = "pd" ||
+                    Lower(Trim(me.AttendingRole)) = "program dir" ||
+                    Lower(Trim(me.AttendingRole)) = "chair" ||
+                    Lower(Trim(me.AttendingRole)) = "division chief" ||
+                    Lower(Trim(me.AttendingRole)) = "admin" ||
+                    Lower(Trim(me.AttendingRole)) = "administrator"
+                )
+            )
+        );
+      Width: =Max(App.Width, App.DesignWidth)
+    Children:
+      - lblDate:
+          Control: Label@2.5.1
+          Properties:
+            Align: =LayoutAlignItems.Center
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(0, 121, 187, 1)
+            FocusedBorderColor: =lblDate.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =40
+            HoverBorderColor: =lblDate.BorderColor
+            HoverColor: =lblDate.Color
+            HoverFill: =lblDate.Fill
+            PaddingBottom: =2
+            PaddingTop: =2
+            PressedBorderColor: =lblDate.BorderColor
+            PressedColor: =lblDate.Color
+            PressedFill: =lblDate.Fill
+            Size: =18
+            Text: =DateNow
+            X: =40
+            Y: =205
+      - lblTime:
+          Control: Label@2.5.1
+          Properties:
+            Align: =LayoutAlignItems.Center
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(0, 121, 187, 1)
+            FocusedBorderColor: =lblTime.BorderColor
+            Font: =Font.Lato
+            Height: =40
+            HoverBorderColor: =lblTime.BorderColor
+            HoverColor: =lblTime.Color
+            HoverFill: =lblTime.Fill
+            PaddingBottom: =2
+            PaddingTop: =2
+            PressedBorderColor: =lblTime.BorderColor
+            PressedColor: =lblTime.Color
+            PressedFill: =lblTime.Fill
+            Size: =18
+            Text: =TimeNow
+            X: =40
+            Y: =245
+      - Timer1:
+          Control: Timer@2.1.0
+          Properties:
+            AutoStart: =true
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =ColorFade(Self.BorderColor, 70%)
+            DisabledColor: =ColorFade(Self.Fill, 90%)
+            DisabledFill: =ColorFade(Self.Fill, 70%)
+            Duration: =1000
+            Fill: =RGBA(100, 118, 132, 1)
+            FocusedBorderColor: =Timer1.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =18
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+            OnTimerEnd: |-
+              =UpdateContext({TimeNow: Text(Now(), "[$-en-US] hh:mm:ss AM/PM")})
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            Repeat: =true
+            Text: =Text(Time(0, 0, Timer1.Value/1000), "hh:mm:ss")
+            Visible: =false
+            X: =180
+            Y: =325
+      - Label3:
+          Control: Label@2.5.1
+          Properties:
+            Align: =LayoutAlignItems.Center
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(255, 191, 0, 1)
+            FocusedBorderColor: =Label3.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =40
+            HoverBorderColor: =Label3.BorderColor
+            HoverColor: =Label3.Color
+            HoverFill: =Label3.Fill
+            PaddingBottom: =2
+            PaddingTop: =2
+            PressedBorderColor: =Label3.BorderColor
+            PressedColor: =Label3.Color
+            PressedFill: =Label3.Fill
+            Size: =18
+            Text: ="Welcome, Dr. " & User().FullName
+            X: =40
+            Y: =285
+      - Label5:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(210, 210, 210, 1)
+            FocusedBorderColor: =Label5.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =100
+            HoverBorderColor: =Label5.BorderColor
+            HoverColor: =Label5.Color
+            HoverFill: =Label5.Fill
+            OnSelect: "=\r\nNewForm(frmFeedback);\r\nNavigate(\r\n    screenFeedback,\r\n    ScreenTransition.None,\r\n    {  \r\n        navMode: \"new\",           \r\n        selRecord: Blank(),\r\n        sourceGallery: Blank()\r\n  \r\n    }\r\n)"
+            PaddingTop: =0
+            PressedBorderColor: =Label5.BorderColor
+            PressedColor: =Label5.Color
+            PressedFill: =Label5.Fill
+            Size: =18
+            Text: ="New Feedback"
+            Width: =350
+            X: =210
+            Y: =366
+      - Image4:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            FocusedBorderColor: =Image4.BorderColor
+            Height: =100
+            Image: ='021-memory_1'
+            OnSelect: "=\r\nNewForm(frmFeedback);\r\nNavigate(\r\n    screenFeedback,\r\n    ScreenTransition.None,\r\n    {  \r\n        navMode: \"new\",           \r\n        selRecord: Blank(),\r\n        sourceGallery: Blank()\r\n  \r\n    }\r\n)"
+            PaddingBottom: =10
+            PaddingLeft: =15
+            PaddingRight: =15
+            PaddingTop: =10
+            Width: =100
+            X: =110
+            Y: =364
+      - Label5_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(210, 210, 210, 1)
+            FocusedBorderColor: =Label5_1.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =100
+            HoverBorderColor: =Label5_1.BorderColor
+            HoverColor: =Label5_1.Color
+            HoverFill: =Label5_1.Fill
+            OnSelect: =Navigate(BrowseScreen_me,ScreenTransition.None)
+            PaddingTop: =0
+            PressedBorderColor: =Label5_1.BorderColor
+            PressedColor: =Label5_1.Color
+            PressedFill: =Label5_1.Fill
+            Size: =18
+            Text: ="My Feedback History"
+            Width: =350
+            X: =211
+            Y: =466
+      - Image4_1:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            FocusedBorderColor: =Image4_1.BorderColor
+            Height: =100
+            Image: ='002-bookmark'
+            OnSelect: =Navigate(BrowseScreen_me,ScreenTransition.None)
+            PaddingBottom: =10
+            PaddingLeft: =15
+            PaddingRight: =15
+            PaddingTop: =10
+            Width: =100
+            X: =111
+            Y: =466
+      - Label5_2:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(153, 207, 236, 1)
+            FocusedBorderColor: =Label5_2.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =100
+            HoverBorderColor: =Label5_2.BorderColor
+            HoverColor: =Label5_2.Color
+            HoverFill: =Label5_2.Fill
+            OnSelect: |-
+              =Set(varEPA, Blank());
+              Navigate(screenEPAScoringGuideline,ScreenTransition.None)
+            PaddingTop: =0
+            PressedBorderColor: =Label5_2.BorderColor
+            PressedColor: =Label5_2.Color
+            PressedFill: =Label5_2.Fill
+            Size: =18
+            Text: ="EPAs Scoring Reference"
+            Width: =350
+            X: =211
+            Y: =767
+      - Image4_2:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            FocusedBorderColor: =Image4_2.BorderColor
+            Height: =100
+            Image: ='018-star-1'
+            OnSelect: |-
+              =Set(varEPA, Blank());
+              Navigate(screenEPAScoringGuideline,ScreenTransition.None)
+            PaddingBottom: =10
+            PaddingLeft: =15
+            PaddingRight: =15
+            PaddingTop: =10
+            Width: =100
+            X: =111
+            Y: =766
+      - Label6:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(102, 182, 227, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =60
+            Size: =30
+            Text: ="IR/DR Resident Evalution"
+            X: =40
+            Y: =60
+      - Label6_1:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(0, 121, 187, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =50
+            Size: =18
+            Text: ="Real-Time Feedback & EPAs Scoring"
+            X: =40
+            Y: =120
+      - Label5_4:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(210, 210, 210, 1)
+            FocusedBorderColor: =Label5_4.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =100
+            HoverBorderColor: =Label5_4.BorderColor
+            HoverColor: =Label5_4.Color
+            HoverFill: =Label5_4.Fill
+            OnSelect: =Navigate(screenFeedbackReport_me,ScreenTransition.None)
+            PressedBorderColor: =Label5_4.BorderColor
+            PressedColor: =Label5_4.Color
+            PressedFill: =Label5_4.Fill
+            Size: =18
+            Text: ="My Feedback Report"
+            Width: =350
+            X: =211
+            Y: =566
+      - Image4_3:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            FocusedBorderColor: =Image4_3.BorderColor
+            Height: =100
+            Image: ='025-notebook_1'
+            OnSelect: =Navigate(screenFeedbackReport_me,ScreenTransition.None)
+            PaddingBottom: =10
+            PaddingLeft: =15
+            PaddingRight: =15
+            PaddingTop: =10
+            Width: =100
+            X: =111
+            Y: =566
+      - Image4_4:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            FocusedBorderColor: =Image4_4.BorderColor
+            Height: =100
+            Image: ='020-lock'
+            OnSelect: =Navigate(BrowseScreen_all,ScreenTransition.None)
+            PaddingBottom: =10
+            PaddingLeft: =15
+            PaddingRight: =15
+            PaddingTop: =10
+            Visible: =gblIsProgramDirector
+            Width: =100
+            X: =110
+            Y: =867
+      - lblAllFeedBackHistory_PD:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(152, 208, 70, 1)
+            FocusedBorderColor: =lblAllFeedBackHistory_PD.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =101
+            HoverBorderColor: =lblAllFeedBackHistory_PD.BorderColor
+            HoverColor: =lblAllFeedBackHistory_PD.Color
+            HoverFill: =lblAllFeedBackHistory_PD.Fill
+            OnSelect: =Navigate(BrowseScreen_all,ScreenTransition.None)
+            PressedBorderColor: =lblAllFeedBackHistory_PD.BorderColor
+            PressedColor: =lblAllFeedBackHistory_PD.Color
+            PressedFill: =lblAllFeedBackHistory_PD.Fill
+            Size: =18
+            Text: ="All Feedback History"
+            Visible: |
+              =gblIsProgramDirector
+            Width: =350
+            X: =210
+            Y: =866
+      - lblAllFeedbakReport_PD:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(152, 208, 70, 1)
+            FocusedBorderColor: =lblAllFeedbakReport_PD.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =100
+            HoverBorderColor: =lblAllFeedbakReport_PD.BorderColor
+            HoverColor: =lblAllFeedbakReport_PD.Color
+            HoverFill: =lblAllFeedbakReport_PD.Fill
+            OnSelect: =Navigate(screenFeedbackReport_all,ScreenTransition.None)
+            PressedBorderColor: =lblAllFeedbakReport_PD.BorderColor
+            PressedColor: =lblAllFeedbakReport_PD.Color
+            PressedFill: =lblAllFeedbakReport_PD.Fill
+            Size: =18
+            Text: ="All Feedback Report"
+            Visible: =gblIsProgramDirector
+            Width: =350
+            X: =210
+            Y: =967
+      - Image4_5:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            FocusedBorderColor: =Image4_5.BorderColor
+            Height: =100
+            Image: ='019-security'
+            OnSelect: =Navigate(screenFeedbackReport_all,ScreenTransition.None)
+            PaddingBottom: =10
+            PaddingLeft: =15
+            PaddingRight: =15
+            PaddingTop: =10
+            Visible: =gblIsProgramDirector
+            Width: =100
+            X: =110
+            Y: =967
+      - Label5_6:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(153, 207, 236, 1)
+            FocusedBorderColor: =Label5_6.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =100
+            HoverBorderColor: =Label5_6.BorderColor
+            HoverColor: =Label5_6.Color
+            HoverFill: =Label5_6.Fill
+            OnSelect: |+
+              =Navigate(Screen_Stats,ScreenTransition.None)
+            PressedBorderColor: =Label5_6.BorderColor
+            PressedColor: =Label5_6.Color
+            PressedFill: =Label5_6.Fill
+            Size: =18
+            Text: ="Stats"
+            Width: =350
+            X: =211
+            Y: =666
+      - Image4_6:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            FocusedBorderColor: =Image4_6.BorderColor
+            Height: =100
+            Image: ='046-link'
+            OnSelect: =Navigate(Screen_Stats,ScreenTransition.None)
+            PaddingBottom: =10
+            PaddingLeft: =15
+            PaddingRight: =15
+            PaddingTop: =10
+            Width: =100
+            X: =111
+            Y: =666

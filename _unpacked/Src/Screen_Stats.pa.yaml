@@ -1,0 +1,744 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Screen_Stats:
+    Properties:
+      Fill: =RGBA(0, 0, 0, 1)
+      LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
+      OnVisible: |+
+        =// Auto-refresh when entering the screen
+        // Ensure date pickers have defaults; then compute
+
+
+        // Screen_Stats.OnVisible
+        UpdateContext({ varResetDp: true });
+
+        // Optionally calculate your default dates too:
+        UpdateContext(
+            {
+            locStartDefault: Date(Year(Today()), Month(Today()) -2, 1), // see note below
+            locEndDefault: Today()
+        });
+
+        // Immediately drop the flag back to false after the reset tick
+        // (use a single UpdateContext call with both if you prefer; the important bit is the reset transition)
+        UpdateContext({ varResetDp: false });
+
+
+
+        // === Compute Stats for Screen_Stats ===
+        // Resolve the date range from pickers, with safety defaults
+        UpdateContext(
+            {
+                locStart: If(
+                    IsBlank(dpStart_Stats.SelectedDate),
+                    Date(Year(Today()), Month(Today()) - 2, 1),
+                    dpStart_Stats.SelectedDate
+                ),
+                locEnd: If(
+                    IsBlank(dpEnd_Stats.SelectedDate),
+                    Today(),
+                    dpEnd_Stats.SelectedDate
+                )
+            }
+        );
+
+        // Pull base rows within date range
+        // NOTE: If FeedbackDate is SharePoint Date/Time, this remains delegable.
+        ClearCollect(
+            colRows_Stats,
+            Filter(VIR_RealTime_FeedBack, EvalDate >= locStart And EvalDate < DateAdd(locEnd, 1, TimeUnit.Days))
+        );
+
+        // Normalize month fields for trend charts
+        ClearCollect(
+            colRowsWithMonth_Stats,
+            AddColumns(
+                colRows_Stats,
+                MonthKey,   Date( Year(EvalDate), Month(EvalDate), 1 ),
+                MonthLabel, Text( Date( Year(EvalDate), Month(EvalDate), 1 ), "yyyy-mmm" )
+            )
+        );
+
+        // === 1) Counts by Attending ===
+        ClearCollect(
+            colByAttending_Stats,
+            AddColumns(
+                GroupBy(colRowsWithMonth_Stats, Attending, grp),
+                Count, CountRows(grp)
+            )
+        );
+        ClearCollect(
+            colByAttending_Sorted_Stats,
+            SortByColumns(colByAttending_Stats, "Count", SortOrder.Descending)
+        );
+        Set(varTotalByAttending_Stats, Sum(colByAttending_Stats, Count));
+
+        // === 2) Counts by ProcedureName (text) ===
+        ClearCollect(
+            colByProcedure_Stats,
+            AddColumns(
+                GroupBy(colRowsWithMonth_Stats, ProcedureName, grp),
+                Count, CountRows(grp)
+            )
+        );
+        ClearCollect(
+            colByProcedure_Sorted_Stats,
+            SortByColumns(colByProcedure_Stats, "Count", SortOrder.Descending)
+        );
+        Set(varTotalByProcedure_Stats, Sum(colByProcedure_Stats, Count));
+
+        // === 3) Counts by Resident (received) ===
+        ClearCollect(
+            colByResident_Stats,
+            AddColumns(
+                GroupBy(colRowsWithMonth_Stats, ResidentName, grp),
+                Count, CountRows(grp)
+            )
+        );
+        ClearCollect(
+            colByResident_Sorted_Stats,
+            SortByColumns(colByResident_Stats, "Count", SortOrder.Descending)
+        );
+        Set(varTotalByResident_Stats, Sum(colByResident_Stats, Count));
+
+        // === 4) Month scaffolding for line charts (no gaps) ===
+        ClearCollect(
+            colMonths_Stats,
+            AddColumns(
+                Sequence(
+                    DateDiff(
+                        Date( Year(locStart), Month(locStart), 1 ),
+                        Date( Year(locEnd),   Month(locEnd),   1 ),
+                        TimeUnit.Months
+                    ) + 1
+                ),
+                MonthKey, DateAdd( Date( Year(locStart), Month(locStart), 1 ), Value - 1, TimeUnit.Months ),
+                MonthLabel, Text( DateAdd( Date( Year(locStart), Month(locStart), 1 ), Value - 1, TimeUnit.Months ), "yyyy-mmm" )
+            )
+        );
+
+        // === 5) Pre-aggregate monthly counts for Attending and Resident (for trend drilldowns) ===
+        ClearCollect(
+            colMonthlyByAttending_Stats,
+            AddColumns(
+                GroupBy(colRowsWithMonth_Stats, Attending, MonthKey, MonthLabel, grp),
+                Count, CountRows(grp)
+            )
+        );
+        ClearCollect(
+            colMonthlyByResident_Stats,
+            AddColumns(
+                GroupBy(colRowsWithMonth_Stats, ResidentName, MonthKey, MonthLabel, grp),
+                Count, CountRows(grp)
+            )
+        );
+
+        // (Optional) initialize dropdown defaults
+        If( CountRows(colByAttending_Sorted_Stats) > 0,
+            Set(varSelAttending_Stats, First(colByAttending_Sorted_Stats).Attending)
+        );
+        If( CountRows(colByResident_Sorted_Stats) > 0,
+            Set(varSelResident_Stats, First(colByResident_Sorted_Stats).ResidentName)
+        );
+
+
+        // Build a chart-ready table: ProcedureName | Count | Percent (0–1) | Metric (default Count)
+        ClearCollect(
+            colByProcedure_ForChart,
+            AddColumns(
+                Filter(colByProcedure_Stats, !IsBlank(ProcedureName)),
+                Percent, If(varTotalByProcedure_Stats > 0, Count / varTotalByProcedure_Stats, 0),
+                Metric, Count    // default metric is Count; we’ll override via a toggle
+            )
+        );
+
+        // A sorted version for Top-N filtering & nicer chart order
+        ClearCollect(
+            colByProcedure_ForChart_Sorted,
+            SortByColumns(colByProcedure_ForChart, "Count", SortOrder.Descending)
+        );
+
+    Children:
+      - Label1_9:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(255, 191, 0, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =35
+            PaddingLeft: =30
+            Size: =16
+            Text: ="DATE RANGE"
+            Width: =640
+            Y: =120
+      - Label1_10:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Right
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =50
+            Size: =16
+            Text: ="From"
+            Width: =90
+            Y: =155
+      - dpStart_Stats:
+          Control: Classic/DatePicker@2.6.0
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            BorderThickness: =0
+            Color: =RGBA(210, 210, 210, 1)
+            DefaultDate: |+
+              =// First day of the month two months before the current month (gives ~3 months including current)
+
+              // dpStart_Stats.DefaultDate
+              locStartDefault
+
+
+
+
+
+            Fill: =RGBA(45, 46, 48, 1)
+            Font: =Font.'Open Sans'
+            Height: =50
+            IconBackground: =RGBA(100, 118, 132, 1)
+            IconFill: =RGBA(255, 255, 255, 1)
+            OnChange: |+
+              =// Auto-refresh when entering the screen
+              // Ensure date pickers have defaults; then compute
+
+
+
+              // === Compute Stats for Screen_Stats ===
+              // Resolve the date range from pickers, with safety defaults
+              UpdateContext(
+                  {
+                      locStart: If(
+                          IsBlank(dpStart_Stats.SelectedDate),
+                          Date(Year(Today()), Month(Today()) - 2, 1),
+                          dpStart_Stats.SelectedDate
+                      ),
+                      locEnd: If(
+                          IsBlank(dpEnd_Stats.SelectedDate),
+                          Today(),
+                          dpEnd_Stats.SelectedDate
+                      )
+                  }
+              );
+
+              // Pull base rows within date range
+              // NOTE: If FeedbackDate is SharePoint Date/Time, this remains delegable.
+              ClearCollect(
+                  colRows_Stats,
+                  Filter(
+                      VIR_RealTime_FeedBack,
+                      EvalDate >= locStart &&
+                      EvalDate < DateAdd(locEnd, 1, TimeUnit.Days)   // inclusive end
+                  )
+              );
+
+              // Normalize month fields for trend charts
+              ClearCollect(
+                  colRowsWithMonth_Stats,
+                  AddColumns(
+                      colRows_Stats,
+                      MonthKey,   Date( Year(EvalDate), Month(EvalDate), 1 ),
+                      MonthLabel, Text( Date( Year(EvalDate), Month(EvalDate), 1 ), "yyyy-mmm" )
+                  )
+              );
+
+              // === 1) Counts by Attending ===
+              ClearCollect(
+                  colByAttending_Stats,
+                  AddColumns(
+                      GroupBy(colRowsWithMonth_Stats, Attending, grp),
+                      Count, CountRows(grp)
+                  )
+              );
+              ClearCollect(
+                  colByAttending_Sorted_Stats,
+                  SortByColumns(colByAttending_Stats, "Count", SortOrder.Descending)
+              );
+              Set(varTotalByAttending_Stats, Sum(colByAttending_Stats, Count));
+
+              // === 2) Counts by ProcedureName (text) ===
+              ClearCollect(
+                  colByProcedure_Stats,
+                  AddColumns(
+                      GroupBy(colRowsWithMonth_Stats, ProcedureName, grp),
+                      Count, CountRows(grp)
+                  )
+              );
+              ClearCollect(
+                  colByProcedure_Sorted_Stats,
+                  SortByColumns(colByProcedure_Stats, "Count", SortOrder.Descending)
+              );
+              Set(varTotalByProcedure_Stats, Sum(colByProcedure_Stats, Count));
+
+              // === 3) Counts by Resident (received) ===
+              ClearCollect(
+                  colByResident_Stats,
+                  AddColumns(
+                      GroupBy(colRowsWithMonth_Stats, ResidentName, grp),
+                      Count, CountRows(grp)
+                  )
+              );
+              ClearCollect(
+                  colByResident_Sorted_Stats,
+                  SortByColumns(colByResident_Stats, "Count", SortOrder.Descending)
+              );
+              Set(varTotalByResident_Stats, Sum(colByResident_Stats, Count));
+
+              // === 4) Month scaffolding for line charts (no gaps) ===
+              ClearCollect(
+                  colMonths_Stats,
+                  AddColumns(
+                      Sequence(
+                          DateDiff(
+                              Date( Year(locStart), Month(locStart), 1 ),
+                              Date( Year(locEnd),   Month(locEnd),   1 ),
+                              TimeUnit.Months
+                          ) + 1
+                      ),
+                      MonthKey, DateAdd( Date( Year(locStart), Month(locStart), 1 ), Value - 1, TimeUnit.Months ),
+                      MonthLabel, Text( DateAdd( Date( Year(locStart), Month(locStart), 1 ), Value - 1, TimeUnit.Months ), "yyyy-mmm" )
+                  )
+              );
+
+              // === 5) Pre-aggregate monthly counts for Attending and Resident (for trend drilldowns) ===
+              ClearCollect(
+                  colMonthlyByAttending_Stats,
+                  AddColumns(
+                      GroupBy(colRowsWithMonth_Stats, Attending, MonthKey, MonthLabel, grp),
+                      Count, CountRows(grp)
+                  )
+              );
+              ClearCollect(
+                  colMonthlyByResident_Stats,
+                  AddColumns(
+                      GroupBy(colRowsWithMonth_Stats, ResidentName, MonthKey, MonthLabel, grp),
+                      Count, CountRows(grp)
+                  )
+              );
+
+              // (Optional) initialize dropdown defaults
+              If( CountRows(colByAttending_Sorted_Stats) > 0,
+                  Set(varSelAttending_Stats, First(colByAttending_Sorted_Stats).Attending)
+              );
+              If( CountRows(colByResident_Sorted_Stats) > 0,
+                  Set(varSelResident_Stats, First(colByResident_Sorted_Stats).ResidentName)
+              );
+
+              // Build trend datasets for selected Attending & Resident
+              ClearCollect(
+                  colTrendSelectedAttending_Stats,
+                  AddColumns(
+                      colMonths_Stats,
+                      Count,
+                          Coalesce(
+                              LookUp(
+                                  colMonthlyByAttending_Stats,
+                                  Attending = varSelAttending_Stats && MonthKey = ThisRecord.MonthKey,
+                                  Count
+                              ),
+                              0
+                          )
+                  )
+              );
+
+              ClearCollect(
+                  colTrendSelectedResident_Stats,
+                  AddColumns(
+                      colMonths_Stats,
+                      Count,
+                          Coalesce(
+                              LookUp(
+                                  colMonthlyByResident_Stats,
+                                  ResidentName = varSelResident_Stats && MonthKey = ThisRecord.MonthKey,
+                                  Count
+                              ),
+                              0
+                          )
+                  )
+              );
+            Reset: |+
+              =// dpStart_Stats.Reset
+              varResetDp
+
+            Size: =16
+            Width: =230
+            X: =102
+            Y: =155
+      - Label1_11:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Right
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =50
+            Size: =16
+            Text: ="To"
+            Width: =70
+            X: =327
+            Y: =155
+      - dpEnd_Stats:
+          Control: Classic/DatePicker@2.6.0
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            BorderThickness: =0
+            Color: =RGBA(210, 210, 210, 1)
+            DefaultDate: |+
+              =// dpEnd_Stats.DefaultDate
+              locEndDefault
+            Fill: =RGBA(45, 46, 48, 1)
+            Font: =Font.'Open Sans'
+            Height: =50
+            IconBackground: =RGBA(100, 118, 132, 1)
+            IconFill: =RGBA(255, 255, 255, 1)
+            OnChange: |+
+              =// Auto-refresh when entering the screen
+              // Ensure date pickers have defaults; then compute
+
+
+
+              // === Compute Stats for Screen_Stats ===
+              // Resolve the date range from pickers, with safety defaults
+              UpdateContext(
+                  {
+                      locStart: If(
+                          IsBlank(dpStart_Stats.SelectedDate),
+                          Date(Year(Today()), Month(Today()) - 2, 1),
+                          dpStart_Stats.SelectedDate
+                      ),
+                      locEnd: If(
+                          IsBlank(dpEnd_Stats.SelectedDate),
+                          Today(),
+                          dpEnd_Stats.SelectedDate
+                      )
+                  }
+              );
+
+              // Pull base rows within date range
+              // NOTE: If FeedbackDate is SharePoint Date/Time, this remains delegable.
+              ClearCollect(
+                  colRows_Stats,
+                  Filter(
+                      VIR_RealTime_FeedBack,
+                      EvalDate >= locStart &&
+                      EvalDate < DateAdd(locEnd, 1, TimeUnit.Days)   // inclusive end
+                  )
+              );
+
+              // Normalize month fields for trend charts
+              ClearCollect(
+                  colRowsWithMonth_Stats,
+                  AddColumns(
+                      colRows_Stats,
+                      MonthKey,   Date( Year(EvalDate), Month(EvalDate), 1 ),
+                      MonthLabel, Text( Date( Year(EvalDate), Month(EvalDate), 1 ), "yyyy-mmm" )
+                  )
+              );
+
+              // === 1) Counts by Attending ===
+              ClearCollect(
+                  colByAttending_Stats,
+                  AddColumns(
+                      GroupBy(colRowsWithMonth_Stats, Attending, grp),
+                      Count, CountRows(grp)
+                  )
+              );
+              ClearCollect(
+                  colByAttending_Sorted_Stats,
+                  SortByColumns(colByAttending_Stats, "Count", SortOrder.Descending)
+              );
+              Set(varTotalByAttending_Stats, Sum(colByAttending_Stats, Count));
+
+              // === 2) Counts by ProcedureName (text) ===
+              ClearCollect(
+                  colByProcedure_Stats,
+                  AddColumns(
+                      GroupBy(colRowsWithMonth_Stats, ProcedureName, grp),
+                      Count, CountRows(grp)
+                  )
+              );
+              ClearCollect(
+                  colByProcedure_Sorted_Stats,
+                  SortByColumns(colByProcedure_Stats, "Count", SortOrder.Descending)
+              );
+              Set(varTotalByProcedure_Stats, Sum(colByProcedure_Stats, Count));
+
+              // === 3) Counts by Resident (received) ===
+              ClearCollect(
+                  colByResident_Stats,
+                  AddColumns(
+                      GroupBy(colRowsWithMonth_Stats, ResidentName, grp),
+                      Count, CountRows(grp)
+                  )
+              );
+              ClearCollect(
+                  colByResident_Sorted_Stats,
+                  SortByColumns(colByResident_Stats, "Count", SortOrder.Descending)
+              );
+              Set(varTotalByResident_Stats, Sum(colByResident_Stats, Count));
+
+              // === 4) Month scaffolding for line charts (no gaps) ===
+              ClearCollect(
+                  colMonths_Stats,
+                  AddColumns(
+                      Sequence(
+                          DateDiff(
+                              Date( Year(locStart), Month(locStart), 1 ),
+                              Date( Year(locEnd),   Month(locEnd),   1 ),
+                              TimeUnit.Months
+                          ) + 1
+                      ),
+                      MonthKey, DateAdd( Date( Year(locStart), Month(locStart), 1 ), Value - 1, TimeUnit.Months ),
+                      MonthLabel, Text( DateAdd( Date( Year(locStart), Month(locStart), 1 ), Value - 1, TimeUnit.Months ), "yyyy-mmm" )
+                  )
+              );
+
+              // === 5) Pre-aggregate monthly counts for Attending and Resident (for trend drilldowns) ===
+              ClearCollect(
+                  colMonthlyByAttending_Stats,
+                  AddColumns(
+                      GroupBy(colRowsWithMonth_Stats, Attending, MonthKey, MonthLabel, grp),
+                      Count, CountRows(grp)
+                  )
+              );
+              ClearCollect(
+                  colMonthlyByResident_Stats,
+                  AddColumns(
+                      GroupBy(colRowsWithMonth_Stats, ResidentName, MonthKey, MonthLabel, grp),
+                      Count, CountRows(grp)
+                  )
+              );
+
+              // (Optional) initialize dropdown defaults
+              If( CountRows(colByAttending_Sorted_Stats) > 0,
+                  Set(varSelAttending_Stats, First(colByAttending_Sorted_Stats).Attending)
+              );
+              If( CountRows(colByResident_Sorted_Stats) > 0,
+                  Set(varSelResident_Stats, First(colByResident_Sorted_Stats).ResidentName)
+              );
+
+              // Build trend datasets for selected Attending & Resident
+              ClearCollect(
+                  colTrendSelectedAttending_Stats,
+                  AddColumns(
+                      colMonths_Stats,
+                      Count,
+                          Coalesce(
+                              LookUp(
+                                  colMonthlyByAttending_Stats,
+                                  Attending = varSelAttending_Stats && MonthKey = ThisRecord.MonthKey,
+                                  Count
+                              ),
+                              0
+                          )
+                  )
+              );
+
+              ClearCollect(
+                  colTrendSelectedResident_Stats,
+                  AddColumns(
+                      colMonths_Stats,
+                      Count,
+                          Coalesce(
+                              LookUp(
+                                  colMonthlyByResident_Stats,
+                                  ResidentName = varSelResident_Stats && MonthKey = ThisRecord.MonthKey,
+                                  Count
+                              ),
+                              0
+                          )
+                  )
+              );
+            Reset: |-
+              =// dpEnd_Stats.Reset
+              varResetDp
+            Size: =16
+            Width: =230
+            X: =397
+            Y: =155
+      - LblAppName3_7:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(90, 106, 119, 1)
+            FocusedBorderColor: =LblAppName3_7.BorderColor
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =88
+            HoverBorderColor: =LblAppName3_7.BorderColor
+            HoverColor: =LblAppName3_7.Color
+            HoverFill: =LblAppName3_7.Fill
+            PressedBorderColor: =LblAppName3_7.BorderColor
+            PressedColor: =LblAppName3_7.Color
+            PressedFill: =LblAppName3_7.Fill
+            Size: =24
+            Text: ="Feedback Stats"
+            Width: =640
+            Wrap: =false
+      - Image1_6:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Height: =88
+            Image: ='left-arrow_1'
+            OnSelect: =Navigate(Screen_Home, ScreenTransition.None)
+            PaddingBottom: =12
+            PaddingLeft: =12
+            PaddingTop: =12
+            Width: =88
+            X: =2
+            Y: =1
+      - IconSortUpDown1_5:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            AccessibleLabel: =IconSortUpDown1_5.Tooltip
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(43, 52, 58, 1)
+            DisabledFill: =IconSortUpDown1_5.Fill
+            FocusedBorderColor: =IconSortUpDown1_5.BorderColor
+            Height: =88
+            HoverBorderColor: =ColorFade(IconSortUpDown1_5.BorderColor, 20%)
+            HoverColor: =ColorFade(IconSortUpDown1_5.Color, 20%)
+            HoverFill: =IconSortUpDown1_5.Fill
+            Icon: =Icon.Sort
+            OnSelect: |+
+              =UpdateContext({SortDescending1: !SortDescending1});
+            PaddingBottom: =26
+            PaddingLeft: =26
+            PaddingRight: =26
+            PaddingTop: =26
+            PressedBorderColor: =ColorFade(IconSortUpDown1_5.BorderColor, -20%)
+            PressedColor: =ColorFade(IconSortUpDown1_5.Color, -30%)
+            PressedFill: =RGBA(255, 255, 255, 0.3)
+            TabIndex: =0
+            Tooltip: =If(SortDescending1, "Sort list in reverse alphabetical order", "Sort list in alphabetical order")
+            Width: =88
+            X: =552
+            Y: =1
+      - titleColumnChart:
+          Control: Label@2.5.1
+          Group: CCCAttendingFeedback
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 0, 0, 1)
+            Color: =RGBA(153, 207, 236, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =45
+            PaddingBottom: =0
+            PaddingTop: =0
+            Size: =14
+            Text: |-
+              ="Total Eval. No. Per Attending: " & dpStart_Stats.SelectedDate & " ~ " & dpEnd_Stats.SelectedDate
+            Width: =617
+            X: =16
+            Y: =240
+      - ccAttendingFeedbackNo:
+          Control: BarChart@2.4.0
+          Group: CCCAttendingFeedback
+          Properties:
+            BorderColor: =RGBA(56, 56, 56, 1)
+            Color: =RGBA(153, 207, 236, 1)
+            Height: =369
+            ItemColorSet: |-
+              =// [RGBA(49, 130, 93, 1),RGBA(48,166,103, 1), RGBA(94,193,108,1), RGBA(246,199,144,1), RGBA(247,199,114,1), RGBA(247,180,91,1), RGBA(246,143,100,1), RGBA(212,96,104,1), RGBA(148, 110, 176, 1), RGBA(118, 154, 204, 1), RGBA(96, 197, 234, 1)]
+
+              [
+                  RGBA(1, 45, 91, 1),     // deep navy
+                  RGBA(19, 104, 172, 1),  // carolina-ish blue (darker)
+                  RGBA(122, 180, 230, 1), // light blue
+                  RGBA(0, 120, 130, 1),   // teal
+                  RGBA(0, 161, 157, 1),   // aqua
+                  RGBA(96, 165, 191, 1),  // muted blue
+                  RGBA(64, 86, 141, 1),   // indigo-blue
+                  RGBA(110, 119, 135, 1), // slate gray
+                  RGBA(160, 180, 200, 1), // pale blue-gray
+                  RGBA(0, 92, 175, 1),    // strong blue
+                  RGBA(60, 140, 200, 1)   // medium blue
+              ]
+            Items: =FirstN(colByAttending_Sorted_Stats, 15)
+            Items.Labels: =Attending
+            Items.Series1: =Count
+            Items.Series2: =Count
+            Items.Series3: =Count
+            Items.Series4: =Count
+            Items.Series5: =Count
+            Items.Series6: =Count
+            Items.Series7: =Count
+            Items.Series8: =Count
+            Items.Series9: =Count
+            Size: =13
+            Width: =617
+            X: =6
+            XLabelAngle: =40
+            Y: =251
+      - Title1:
+          Control: Label@2.5.1
+          Group: CCCProcedurePctCount
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 0, 0, 1)
+            Color: =RGBA(255, 191, 0, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =45
+            Size: =14
+            Text: = "Total Feedback Count per Main Procedure Category"
+            Width: =570
+            X: =36
+            Y: =712
+      - ccProcedurePct:
+          Control: BarChart@2.4.0
+          Group: CCCProcedurePctCount
+          Properties:
+            BorderColor: =RGBA(56, 56, 56, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =369
+            ItemColorSet: |+
+              =// [RGBA(49, 130, 93, 1),RGBA(48,166,103, 1), RGBA(94,193,108,1), RGBA(246,199,144,1), RGBA(247,199,114,1), RGBA(247,180,91,1), RGBA(246,143,100,1), RGBA(212,96,104,1), RGBA(148, 110, 176, 1), RGBA(118, 154, 204, 1), RGBA(96, 197, 234, 1)]
+
+              [
+                  RGBA(165, 0, 38, 1),    // dark red
+                  RGBA(215, 48, 39, 1),   // red
+                  RGBA(244, 109, 67, 1),  // orange
+                  RGBA(253, 174, 97, 1),  // light orange
+                  RGBA(254, 224, 144, 1), // sand
+                  RGBA(224, 243, 248, 1), // very light cyan
+                  RGBA(171, 217, 233, 1), // light blue
+                  RGBA(116, 173, 209, 1), // medium blue
+                  RGBA(69, 117, 180, 1),  // blue
+                  RGBA(49, 54, 149, 1),   // indigo
+                  RGBA(33, 102, 172, 1)   // deep blue
+              ]
+            Items: |+
+              =FirstN(colByProcedure_ForChart_Sorted, 15)
+            Items.Labels: =ProcedureName
+            Items.Series1: =Count
+            Items.Series2: =Count
+            Items.Series3: =Count
+            Items.Series4: =Count
+            Items.Series5: =Count
+            Items.Series6: =Count
+            Items.Series7: =Count
+            Items.Series8: =Count
+            Items.Series9: =Count
+            Size: =13
+            Width: =617
+            X: =11
+            XLabelAngle: =40
+            Y: =725

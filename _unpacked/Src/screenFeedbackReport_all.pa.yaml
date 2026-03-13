@@ -1,0 +1,768 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  screenFeedbackReport_all:
+    Properties:
+      Fill: =RGBA(0, 0, 0, 1)
+      Height: =Max(App.Height, App.DesignHeight)
+      LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
+      OnVisible: |+
+        =Set(gblCurrentUserEmail, User().Email);
+        Set(gblCurrentUserFullName, User().FullName);
+        If(
+            !gblIsProgramDirector,
+            Notify("This report is available only for program leadership.", NotificationType.Error, 2000);
+            Navigate(Screen_Home, ScreenTransition.None)
+        );
+        Reset(ddlResidentYear_all);
+        Reset(ddlResidentName_all);
+
+        UpdateContext({
+            ctxStartDate: DateAdd(Today(), -30),
+            ctxEndDate: Today()
+        });
+        Reset(dpStart_all);
+        Reset(dpEnd_all);
+
+        // Clear any stale HTML when user enters the screen
+        Set(varHtml_all, Blank());
+        Set(varHtml_attendingOnly, Blank());
+        Set(varHtml_final, Blank());
+        Set(varHasGenerated, false);
+
+
+
+      Width: =Max(App.Width, App.DesignWidth)
+    Children:
+      - RectQuickActionBar3_5:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Fill: =RGBA(100, 118, 132, 1)
+            FocusedBorderColor: =RectQuickActionBar3_5.BorderColor
+            Height: =88
+            Width: =Parent.Width
+      - LblAppName3_5:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(58, 58, 58, 0)
+            FocusedBorderColor: =LblAppName3_5.BorderColor
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =88
+            HoverBorderColor: =LblAppName3_5.BorderColor
+            HoverColor: =LblAppName3_5.Color
+            HoverFill: =LblAppName3_5.Fill
+            PressedBorderColor: =LblAppName3_5.BorderColor
+            PressedColor: =LblAppName3_5.Color
+            PressedFill: =LblAppName3_5.Fill
+            Size: =24
+            Text: ="All Attending Feedback"
+            Width: =462
+            Wrap: =false
+            X: =88
+      - IconSortUpDown1_3:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            AccessibleLabel: =IconSortUpDown1_3.Tooltip
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(43, 52, 58, 1)
+            DisabledFill: =IconSortUpDown1_3.Fill
+            FocusedBorderColor: =IconSortUpDown1_3.BorderColor
+            Height: =88
+            HoverBorderColor: =ColorFade(IconSortUpDown1_3.BorderColor, 20%)
+            HoverColor: =ColorFade(IconSortUpDown1_3.Color, 20%)
+            HoverFill: =IconSortUpDown1_3.Fill
+            Icon: =Icon.Sort
+            OnSelect: |-
+              =UpdateContext({SortDescending1: !SortDescending1})
+            PaddingBottom: =26
+            PaddingLeft: =26
+            PaddingRight: =26
+            PaddingTop: =26
+            PressedBorderColor: =ColorFade(IconSortUpDown1_3.BorderColor, -20%)
+            PressedColor: =ColorFade(IconSortUpDown1_3.Color, -30%)
+            PressedFill: =RGBA(255, 255, 255, 0.3)
+            TabIndex: =0
+            Tooltip: =If(SortDescending1, "Sort list in reverse alphabetical order", "Sort list in alphabetical order")
+            Width: =88
+            X: =552
+      - ddlResidentYear_all:
+          Control: Classic/DropDown@2.3.1
+          Properties:
+            AllowEmptySelection: =true
+            BorderColor: =RGBA(197, 203, 207, 1)
+            BorderThickness: =0
+            ChevronBackground: =RGBA(100, 118, 132, 1)
+            ChevronFill: =RGBA(255, 255, 255, 1)
+            ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+            ChevronHoverFill: =RGBA(255, 255, 255, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Default: =" "
+            Fill: =RGBA(45, 46, 48, 1)
+            FocusedBorderColor: =ddlResidentYear_all.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =45
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(62, 74, 83, 1)
+            Items: |-
+              =// Distinct(Resident_Year_Name_01, 'IR-Year')
+              ["", "IR-1", "IR-2", "IR-3", "IR-4", "IR-5", "IR-IND", "DR-1", "DR-2", "DR-3", "DR-4"]
+            Items.Value: =Value
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(197, 203, 207, 1)
+            SelectionColor: =RGBA(255, 255, 255, 1)
+            SelectionFill: =RGBA(100, 118, 132, 1)
+            Size: =18
+            Width: =167
+            X: =20
+            Y: =107
+      - ddlResidentName_all:
+          Control: Classic/DropDown@2.3.1
+          Properties:
+            AllowEmptySelection: =true
+            BorderColor: =RGBA(197, 203, 207, 1)
+            BorderThickness: =0
+            ChevronBackground: =RGBA(100, 118, 132, 1)
+            ChevronFill: =RGBA(255, 255, 255, 1)
+            ChevronHoverBackground: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+            ChevronHoverFill: =RGBA(255, 255, 255, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Default: =" "
+            Fill: =RGBA(45, 46, 48, 1)
+            FocusedBorderColor: =ddlResidentName_all.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =45
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(62, 74, 83, 1)
+            Items: =Filter(Resident_Year_Name_01, 'IR-Year' = ddlResidentYear_all.SelectedText.Value).ResidentName
+            Items.Value: =field_2
+            OnChange: =
+            OnSelect: =UpdateContext({CurrentResident:ddlResidentName_all.SelectedText})
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(197, 203, 207, 1)
+            SelectionColor: =RGBA(255, 255, 255, 1)
+            SelectionFill: =RGBA(100, 118, 132, 1)
+            Size: =18
+            Width: =412
+            X: =206
+            Y: =107
+      - BrowseGalleryResident_all:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Vertical_ThreeTextVariant_ver4.0
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Fill: =RGBA(45, 46, 48, 1)
+            Height: =627
+            Items: =SortByColumns((Filter(VIR_RealTime_FeedBack, ddlResidentName_all.SelectedText.ResidentName = ResidentName)), "EvalDate", If(SortDescending1, SortOrder.Ascending, SortOrder.Descending))
+            ShowScrollbar: =false
+            TemplateSize: =129
+            Width: =620
+            X: =10
+            Y: =178
+          Children:
+            - Title_Date_Block_1:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  Color: =RGBA(102, 182, 227, 1)
+                  FocusedBorderColor: =Title_Date_Block_1.BorderColor
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =25
+                  HoverBorderColor: =Title_Date_Block_1.BorderColor
+                  HoverColor: =Title_Date_Block_1.Color
+                  HoverFill: =Title_Date_Block_1.Fill
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  PressedBorderColor: =Title_Date_Block_1.BorderColor
+                  PressedColor: =Title_Date_Block_1.Color
+                  PressedFill: =Title_Date_Block_1.Fill
+                  Size: =14
+                  Text: |-
+                    =ThisItem.EvalDate & "        Serial ID: " & Text(ThisItem.ID - 117) & "      Avg. Score = " & ThisItem.AverageScore
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =600
+                  X: =10
+                  Y: =10
+            - lblAttending_1:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  Color: =RGBA(210, 210, 210, 1)
+                  FocusedBorderColor: =lblAttending_1.BorderColor
+                  Font: =Font.'Open Sans'
+                  Height: =25
+                  HoverBorderColor: =lblAttending_1.BorderColor
+                  HoverColor: =lblAttending_1.Color
+                  HoverFill: =lblAttending_1.Fill
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  PressedBorderColor: =lblAttending_1.BorderColor
+                  PressedColor: =lblAttending_1.Color
+                  PressedFill: =lblAttending_1.Fill
+                  Size: =14
+                  Text: |-
+                    ="Attending:  " & ThisItem.Attending
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =550
+                  X: =52
+                  Y: =40
+            - Body_ProcedureMain_1:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  Color: =RGBA(210, 210, 210, 1)
+                  FocusedBorderColor: =Body_ProcedureMain_1.BorderColor
+                  Font: =Font.'Open Sans'
+                  Height: =51
+                  HoverBorderColor: =Body_ProcedureMain_1.BorderColor
+                  HoverColor: =Body_ProcedureMain_1.Color
+                  HoverFill: =Body_ProcedureMain_1.Fill
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  PressedBorderColor: =Body_ProcedureMain_1.BorderColor
+                  PressedColor: =Body_ProcedureMain_1.Color
+                  PressedFill: =Body_ProcedureMain_1.Fill
+                  Size: =14
+                  Text: =ThisItem.ProcedureMain & "  -  " & ThisItem.ProcedureSub
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =550
+                  X: =52
+                  Y: =67
+            - Separator1_2:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(197, 203, 207, 1)
+                  Fill: =RGBA(100, 118, 132, 1)
+                  FocusedBorderColor: =Separator1_2.BorderColor
+                  Height: =1
+                  OnSelect: =Select(Parent)
+                  Width: =Parent.TemplateWidth
+                  Y: =Parent.TemplateHeight - 1
+      - Label1_3:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(255, 191, 0, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =35
+            PaddingLeft: =30
+            Size: =16
+            Text: ="DATE RANGE"
+            Width: =640
+            Y: =880
+      - Label1_4:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Right
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =50
+            Size: =16
+            Text: ="From"
+            Width: =90
+            Y: =920
+      - dpStart_all:
+          Control: Classic/DatePicker@2.6.0
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            BorderThickness: =0
+            Color: =RGBA(210, 210, 210, 1)
+            DefaultDate: |+
+              =// dpStart.DefaultDate
+              ctxStartDate
+
+            Fill: =RGBA(45, 46, 48, 1)
+            Font: =Font.'Open Sans'
+            Height: =50
+            IconBackground: =RGBA(100, 118, 132, 1)
+            IconFill: =RGBA(255, 255, 255, 1)
+            Size: =16
+            Width: =230
+            X: =90
+            Y: =920
+      - Label1_5:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Right
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =50
+            Size: =16
+            Text: ="To"
+            Width: =70
+            X: =315
+            Y: =920
+      - dpEnd_all:
+          Control: Classic/DatePicker@2.6.0
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            BorderThickness: =0
+            Color: =RGBA(210, 210, 210, 1)
+            DefaultDate: |+
+              =// dpEnd.DefaultDate
+              ctxEndDate
+            Fill: =RGBA(45, 46, 48, 1)
+            Font: =Font.'Open Sans'
+            Height: =50
+            IconBackground: =RGBA(100, 118, 132, 1)
+            IconFill: =RGBA(255, 255, 255, 1)
+            Size: =16
+            Width: =230
+            X: =385
+            Y: =920
+      - imgEmail_all:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            DisplayMode: |-
+              =If(
+                  varHasGenerated && !IsBlank(varHtml_final),
+                  DisplayMode.Edit,
+                  DisplayMode.Disabled
+              )
+            FocusedBorderColor: =imgEmail_all.BorderColor
+            Height: =80
+            Image: =email
+            OnSelect: |-
+              =//Office365.SendEmail(User().Email, "Feedback Report for " & ddlResidentYear_all.SelectedText.Value & "-Year Resident, " & ddlResidentName_all.SelectedText.ResidentName, html_all.HtmlText, {IsHtml: true, Importance: FontWeight.Normal});
+
+              If(
+                  IsBlank(varHtml_final),
+                  Notify("Please click Generate to build the report before sending.", NotificationType.Warning, 2000),
+                  // else: proceed to send
+                  Office365.SendEmail(
+                      User().Email,
+                      "Resident Feedback Summary from All Attending",
+                      html_all.HtmlText, { IsHtml: true });
+                  Notify("Email sent.", NotificationType.Success, 1500)
+              );
+            Tooltip: |+
+              =If(
+                  varHasGenerated && !IsBlank(varHtml_final),
+                  "Send the generated report to your email",
+                  "Please select resident year & name and touch Generate before sending"
+              )
+            Width: =80
+            X: =535
+            Y: =1000
+      - btnReportGenerator:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Right
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(100, 118, 132, 1)
+            FocusedBorderColor: =ColorFade(Self.Fill, 75%)
+            Font: =Font.'Open Sans'
+            Height: =50
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+            OnSelect: |+
+              =// Creating html.text for email to myself.
+
+              // Screen = ScreenFeedbackReport
+              // Dropdown list = ddlResidentName
+              // OnChange =
+
+              Set(
+                  varHtml_all,
+                  With(
+                      {
+                          _year: ddlResidentYear_all.Selected.Value,
+                          _name: ddlResidentName_all.Selected.ResidentName,            
+                          _start: dpStart_all.SelectedDate,
+                          _end: dpEnd_all.SelectedDate,
+                          _endExcl: DateAdd(dpEnd_all.SelectedDate, 1, TimeUnit.Days),
+
+                          // Filtered rows for this resident/year/dates (end date inclusive via < _endExcl)
+                          _rows: Filter(
+                              VIR_RealTime_FeedBack,
+                              ResidentYear = ddlResidentYear_all.Selected.Value,
+                              ResidentName = ddlResidentName_all.Selected.ResidentName,
+                              EvalDate >= dpStart_all.SelectedDate && EvalDate < DateAdd(dpEnd_all.SelectedDate, 1, TimeUnit.Days)
+                              // Attending = User().FullName //remove this line if you want all attendings’ feedback
+                          )
+                      },
+                      With(
+                          {
+                              _total: CountRows(_rows),
+                              _avgAll: Round(Average(_rows, AverageScore), 2),
+                              // === Per-procedure grouping with phase averages and overall average ===
+                              _procGrouped:
+                                  AddColumns(
+                                      GroupBy(_rows, ProcedureName, ProcedureSub, grp),
+                                      Count, CountRows(grp),
+
+                                      // Phase averages (EPA values "1"–"4" stored as text; cast with Value)
+                                      NP_Avg,
+                                          If(
+                                              CountIf(grp, !IsBlank(Non_Preoperative)) > 0,
+                                              Round(Average(Filter(grp, !IsBlank(Non_Preoperative)), Value(Non_Preoperative)), 2),
+                                              Blank()
+                                          ),
+                                      IO_Avg,
+                                          If(
+                                              CountIf(grp, !IsBlank(Intraoperative)) > 0,
+                                              Round(Average(Filter(grp, !IsBlank(Intraoperative)), Value(Intraoperative)), 2),
+                                              Blank()
+                                          ),
+                                      PO_Avg,
+                                          If(
+                                              CountIf(grp, !IsBlank(Postoperative)) > 0,
+                                              Round(Average(Filter(grp, !IsBlank(Postoperative)), Value(Postoperative)), 2),
+                                              Blank()
+                                          ),
+
+                                      // Overall per-procedure average from numeric AverageScore
+                                      Proc_Avg,
+                                          If(
+                                              CountIf(grp, !IsBlank(AverageScore)) > 0,
+                                              Round(Average(Filter(grp, !IsBlank(AverageScore)), AverageScore), 2),
+                                              Blank()
+                                          )
+                                  ),
+
+                              // === Overall EPA distribution across all filtered rows ===
+                              _np1: CountIf(_rows, Non_Preoperative = "1"),
+                              _np2: CountIf(_rows, Non_Preoperative = "2"),
+                              _np3: CountIf(_rows, Non_Preoperative = "3"),
+                              _np4: CountIf(_rows, Non_Preoperative = "4"),
+                              _io1: CountIf(_rows, Intraoperative = "1"),
+                              _io2: CountIf(_rows, Intraoperative = "2"),
+                              _io3: CountIf(_rows, Intraoperative = "3"),
+                              _io4: CountIf(_rows, Intraoperative = "4"),
+                              _po1: CountIf(_rows, Postoperative = "1"),
+                              _po2: CountIf(_rows, Postoperative = "2"),
+                              _po3: CountIf(_rows, Postoperative = "3"),
+                              _po4: CountIf(_rows, Postoperative = "4")               
+
+                          },
+
+                          "<style>
+                              table{border-collapse:collapse;font-family:'Segoe UI',Arial,sans-serif;font-size:12px}
+                              th,td{border:1px solid #ccc;padding:6px 8px;text-align:left;vertical-align:top}
+                              th{background:#f5f6f8}
+                              h2,h3{font-family:'Segoe UI',Arial}
+                              .muted{color:#666}
+                            </style>" &
+
+                          "<h2>VIR Resident Feedback Summary</h2>" &
+                          "<p><b>Resident:</b> " & _name & " (" & _year & ")<br/>" &
+                              "<b>Period:</b> " & Text(_start, "[$-en-US]mmm d, yyyy") & " – " & Text(_end, "[$-en-US]mmm d, yyyy") & "<br/>" &
+                              "<b>Total cases:</b> " & _total &
+                              If(!IsBlank(_avgAll), " &nbsp; <b>Overall Avg Score:</b> " & Text(_avgAll, "0.00"), "") &
+                          "</p>" &
+
+                          If(
+                              _total = 0,
+                              "<p class='muted'>No evaluations found for the selected filters.</p>",
+
+                              // ---------- Procedure List (with per-phase and overall averages) ----------
+                              "<hr style='border:0; height:1px; background:#ccc; margin:20px 0;'/>" &
+                              "<h3>Procedure List</h3>" &
+                              "<table><tr>" &
+                                  "<th>Main Category</th><th>Subcategory</th><th>Count</th>" &
+                                  "<th>Pre-OP (avg)</th>" &
+                                  "<th>Intra-OP (avg)</th>" &
+                                  "<th>Post-OP (avg)</th>" &
+                                  "<th>Avg Score</th>" &
+                              "</tr>" &
+                              Concat(
+                                  SortByColumns(_procGrouped, "Count", SortOrder.Descending),                    
+
+                                  "<tr>" &
+                                      "<td>" & Coalesce(ProcedureName, "(blank)") & "</td>" &
+                                      "<td>" & Coalesce(ProcedureSub, "(blank)") & "</td>" &
+                                      "<td>" & Count & "</td>" &
+                                      "<td>" & If(IsBlank(NP_Avg), "-", Text(NP_Avg, "0.00")) & "</td>" &
+                                      "<td>" & If(IsBlank(IO_Avg), "-", Text(IO_Avg, "0.00")) & "</td>" &
+                                      "<td>" & If(IsBlank(PO_Avg), "-", Text(PO_Avg, "0.00")) & "</td>" &
+                                      "<td>" & If(IsBlank(Proc_Avg), "-", Text(Proc_Avg, "0.00")) & "</td>" &
+                                  "</tr>"
+                              ) &
+                              "</table>" &
+
+                              // ---------- EPA Distribution (overall counts) ----------               
+                              "<hr style='border:0; height:1px; background:#ccc; margin:20px 0;'/>" &         
+                              "<h3>EPAs Score Distribution (counts)</h3>" &                
+                              "<p style='margin:6px 0 8px 0;'><b>EPAs Levels (reference)</b>" &
+                              "<ul style='margin:0;padding-left:18px;font-family:&quot;Segoe UI&quot;,Arial,sans-serif;font-size:12px;'>" &
+                                  "<li><b>Level 1:</b> Limited Participation</li>" &
+                                  "<li><b>Level 2:</b> Direct Supervision</li>" &
+                                  "<li><b>Level 3:</b> Indirect Supervision</li>" &
+                                  "<li><b>Level 4:</b> Practice Ready</li>" &
+                              "</ul></p>" &
+
+
+                              "<table><tr><th>Level Score</th><th>Level 1</th><th>Level 2</th><th>Level 3</th><th>Level 4</th></tr>" &
+                                  "<tr><td>Non‑Preoperative</td><td>" & _np1 & "</td><td>" & _np2 & "</td><td>" & _np3 & "</td><td>" & _np4 & "</td></tr>" &
+                                  "<tr><td>Intraoperative</td><td>" & _io1 & "</td><td>" & _io2 & "</td><td>" & _io3 & "</td><td>" & _io4 & "</td></tr>" &
+                                  "<tr><td>Postoperative</td><td>" & _po1 & "</td><td>" & _po2 & "</td><td>" & _po3 & "</td><td>" & _po4 & "</td></tr>" &
+                              "</table>"
+                          )
+                      )
+                  )
+              );
+
+
+
+              Set(
+                  varHtml_attendingOnly,
+                  With(
+                      {
+                          _year:  ddlResidentYear_all.Selected.Value,
+                          _name:  ddlResidentName_all.Selected.ResidentName,
+                          _start: dpStart_all.SelectedDate,
+                          _end:   dpEnd_all.SelectedDate,
+
+                          _rows: Filter(
+                              VIR_RealTime_FeedBack,
+                              ResidentYear = ddlResidentYear_all.Selected.Value,
+                              ResidentName = ddlResidentName_all.Selected.ResidentName,
+                              EvalDate >= dpStart_all.SelectedDate &&
+                              EvalDate <  DateAdd(dpEnd_all.SelectedDate, 1, TimeUnit.Days)
+                              // Do NOT filter out blank comments; we want all rows
+                          )
+                      },
+                      With(
+                          {
+                              _rowsForAttending:
+                                  AddColumns(
+                                      _rows,
+                                      AttendingText, Coalesce(Attending, "(unknown)"),
+                                      AttendingHtml,
+                                          Substitute(
+                                              Substitute(
+                                                  Substitute(Coalesce(Attending, "(unknown)"), "&", "&amp;"),
+                                                  "<", "&lt;"
+                                              ),
+                                              ">", "&gt;"
+                                          ),
+                                      ProcMainText, Coalesce(ProcedureName, "(blank)"),
+                                      ProcMainHtml,
+                                          Substitute(
+                                              Substitute(
+                                                  Substitute(Coalesce(ProcedureName, "(blank)"), "&", "&amp;"),
+                                                  "<", "&lt;"
+                                              ),
+                                              ">", "&gt;"
+                                          ),
+                                      ProcSubText, Coalesce(ProcedureSub, "(blank)"),
+                                      ProcSubHtml,
+                                          Substitute(
+                                              Substitute(
+                                                  Substitute(Coalesce(ProcedureSub, "(blank)"), "&", "&amp;"),
+                                                  "<", "&lt;"
+                                              ),
+                                              ">", "&gt;"
+                                          ),
+                                      CommentText,
+                                          With(
+                                              { _c: Coalesce(Comment, "") },
+                                              Substitute(
+                                                  Substitute(
+                                                      Substitute(
+                                                          Substitute(_c, "&", "&amp;"),
+                                                          "<", "&lt;"
+                                                      ),
+                                                      ">", "&gt;"
+                                                  ),
+                                                  Char(10), "<br/>"
+                                              )
+                                          )
+                                  )
+                          },
+                          "<style>
+                              table{border-collapse:collapse;font-family:'Segoe UI',Arial,sans-serif;font-size:12px}
+                              th,td{border:1px solid #ccc;padding:6px 8px;text-align:left;vertical-align:top}
+                              th{background:#f5f6f8}
+                              h2,h3{font-family:'Segoe UI',Arial}
+                              .muted{color:#666}
+                            </style>" &
+
+                          "<hr style='border:0; height:1px; background:#ccc; margin:20px 0;'/>" &
+                          "<h3>Attending Feedback &amp; Comments</h3>" &
+                          //"<p><b>Resident:</b> " & _name & " (" & _year & ")<br/>" &
+                              //"<b>Period:</b> " & Text(_start, "[$-en-US]mmm d, yyyy") & " – " & Text(_end, "[$-en-US]mmm d, yyyy") &
+                          "</p>" &
+                          If(
+                              CountRows(_rowsForAttending) = 0,
+                              "<p class='muted'>No evaluations found for the selected filters.</p>",
+                              "<table>" &
+                                  "<tr>" &
+                                      "<th>Attending</th>" &
+                                      "<th>Feedback Date</th>" &
+                                      "<th>Procedure Main</th>" &
+                                      "<th>Procedure Sub</th>" &
+                                      "<th>Avg Score</th>" &
+                                      "<th>Comment</th>" &
+                                  "</tr>" &
+                                  Concat(
+                                      SortByColumns(
+                                          _rowsForAttending,
+                                          "Attending", SortOrder.Ascending,
+                                          "EvalDate",      SortOrder.Ascending
+                                      ),
+                                      "<tr>" &
+                                          "<td>" & Attending & "</td>" &
+                                          "<td>" & Text(EvalDate, "[$-en-US]mmm d, yyyy") & "</td>" &
+                                          "<td>" & ProcMainText & "</td>" &
+                                          "<td>" & ProcSubText & "</td>" &
+                                          "<td>" &
+                                              If(
+                                                  IsBlank(AverageScore),
+                                                  "-",
+                                                  Text(AverageScore, "0.00")
+                                              ) &
+                                          "</td>" &
+                                          "<td>" &
+                                              If(
+                                                  IsBlank(Comment),
+                                                  "–",
+                                                  Comment
+                                              ) &
+                                          "</td>" &
+                                      "</tr>"
+                                  ) &
+                              "</table>"
+                          )
+                      )
+                  )
+              );
+
+              Set(
+                  varHtml_final,
+                  varHtml_all & varHtml_attendingOnly
+              );
+
+              // Or place it wherever you want in the final string.
+
+
+              // Mark as generated
+              Set(varHasGenerated, !IsBlank(varHtml_final));
+              If(IsBlank(ddlResidentYear_all.Selected.Value), Notify("Please select a resident first.", NotificationType.Warning, 2000), Notify("Report generated. You can now send the email.", NotificationType.Success, 2000));
+
+            PaddingRight: =10
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            Size: =14
+            Text: ="Generate Report for " & ddlResidentName_all.SelectedText.ResidentName
+            Width: =500
+            X: =25
+            Y: =1015
+      - Label_WarningPDOnly1_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            FocusedBorderColor: =Label_WarningPDOnly1_1.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =34
+            HoverBorderColor: =Label_WarningPDOnly1_1.BorderColor
+            HoverColor: =Label_WarningPDOnly1_1.Color
+            HoverFill: =Label_WarningPDOnly1_1.Fill
+            PressedBorderColor: =Label_WarningPDOnly1_1.BorderColor
+            PressedColor: =Label_WarningPDOnly1_1.Color
+            PressedFill: =Label_WarningPDOnly1_1.Fill
+            Size: =18
+            Text: ="VIR Total Feedback Report"
+            Visible: =gblIsProgramDirector
+            Width: =500
+            X: =128
+            Y: =1025
+      - Label_WarningPDOnly_3:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(102, 182, 227, 1)
+            FocusedBorderColor: =Label_WarningPDOnly_3.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =30
+            HoverBorderColor: =Label_WarningPDOnly_3.BorderColor
+            HoverColor: =Label_WarningPDOnly_3.Color
+            HoverFill: =Label_WarningPDOnly_3.Fill
+            PressedBorderColor: =Label_WarningPDOnly_3.BorderColor
+            PressedColor: =Label_WarningPDOnly_3.Color
+            PressedFill: =Label_WarningPDOnly_3.Fill
+            Size: =16
+            Text: ="Available Only for PD"
+            Visible: =gblIsProgramDirector
+            Width: =500
+            X: =128
+            Y: =1059
+      - html_Resident_all:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            BorderColor: =RGBA(210, 210, 210, 1)
+            BorderThickness: =2
+            DisabledBorderColor: =RGBA(56, 56, 56, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =0
+            HoverBorderColor: =html_Resident_all.BorderColor
+            HtmlText: =varHtml_all
+            Width: =640
+            Y: =1136
+      - Image1_4:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Height: =88
+            Image: ='left-arrow_1'
+            OnSelect: =Reset(ddlResidentYear_all); Navigate(Screen_Home, ScreenTransition.None)
+            PaddingBottom: =12
+            PaddingLeft: =12
+            PaddingTop: =12
+            Width: =88
+            X: =2
+            Y: =1
+      - html_all:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            BorderColor: =RGBA(210, 210, 210, 1)
+            BorderThickness: =2
+            DisabledBorderColor: =RGBA(56, 56, 56, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =0
+            HoverBorderColor: =html_all.BorderColor
+            HtmlText: =varHtml_final
+            Visible: =false
+            Width: =640
+            Y: =1106
+      - lblHtmlTotalRepository:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            OnSelect: "=// Creating html.text for email to myself.\r\n\r\n// Screen = ScreenFeedbackReport\r\n// Dropdown list = ddlResidentName\r\n// OnChange =\r\n\r\nSet(\r\n    varHtml_all,\r\n    With(\r\n        {\r\n            _year: ddlResidentYear_all.Selected.Value,\r\n            _name: ddlResidentName_all.Selected.ResidentName,            \r\n            _start: dpStart_all.SelectedDate,\r\n            _end: dpEnd_all.SelectedDate,\r\n            _endExcl: DateAdd(dpEnd_all.SelectedDate, 1, TimeUnit.Days),\r\n\r\n            // Filtered rows for this resident/year/dates (end date inclusive via < _endExcl)\r\n            _rows: Filter(\r\n                VIR_RealTime_FeedBack,\r\n                ResidentYear = ddlResidentYear_all.Selected.Value,\r\n                ResidentName = ddlResidentName_all.Selected.ResidentName,\r\n                EvalDate >= dpStart_all.SelectedDate && EvalDate < DateAdd(dpEnd_all.SelectedDate, 1, TimeUnit.Days)\r\n                // Attending = User().FullName //remove this line if you want all attendings’ feedback\r\n            )\r\n        },\r\n        With(\r\n            {\r\n                _total: CountRows(_rows),\r\n                _avgAll: Round(Average(_rows, AverageScore), 2),\r\n                // === Per-procedure grouping with phase averages and overall average ===\r\n                _procGrouped:\r\n                    AddColumns(\r\n                        GroupBy(_rows, ProcedureName, ProcedureSub, grp),\r\n                        Count, CountRows(grp),\r\n\r\n                        // Phase averages (EPA values \"1\"–\"4\" stored as text; cast with Value)\r\n                        NP_Avg,\r\n                            If(\r\n                                CountIf(grp, !IsBlank(Non_Preoperative)) > 0,\r\n                                Round(Average(Filter(grp, !IsBlank(Non_Preoperative)), Value(Non_Preoperative)), 2),\r\n                                Blank()\r\n                            ),\r\n                        IO_Avg,\r\n                            If(\r\n                                CountIf(grp, !IsBlank(Intraoperative)) > 0,\r\n                                Round(Average(Filter(grp, !IsBlank(Intraoperative)), Value(Intraoperative)), 2),\r\n                                Blank()\r\n                            ),\r\n                        PO_Avg,\r\n                            If(\r\n                                CountIf(grp, !IsBlank(Postoperative)) > 0,\r\n                                Round(Average(Filter(grp, !IsBlank(Postoperative)), Value(Postoperative)), 2),\r\n                                Blank()\r\n                            ),\r\n\r\n                        // Overall per-procedure average from numeric AverageScore\r\n                        Proc_Avg,\r\n                            If(\r\n                                CountIf(grp, !IsBlank(AverageScore)) > 0,\r\n                                Round(Average(Filter(grp, !IsBlank(AverageScore)), AverageScore), 2),\r\n                                Blank()\r\n                            )\r\n                    ),\r\n\r\n                // === Overall EPA distribution across all filtered rows ===\r\n                _np1: CountIf(_rows, Non_Preoperative = \"1\"),\r\n                _np2: CountIf(_rows, Non_Preoperative = \"2\"),\r\n                _np3: CountIf(_rows, Non_Preoperative = \"3\"),\r\n                _np4: CountIf(_rows, Non_Preoperative = \"4\"),\r\n                _io1: CountIf(_rows, Intraoperative = \"1\"),\r\n                _io2: CountIf(_rows, Intraoperative = \"2\"),\r\n                _io3: CountIf(_rows, Intraoperative = \"3\"),\r\n                _io4: CountIf(_rows, Intraoperative = \"4\"),\r\n                _po1: CountIf(_rows, Postoperative = \"1\"),\r\n                _po2: CountIf(_rows, Postoperative = \"2\"),\r\n                _po3: CountIf(_rows, Postoperative = \"3\"),\r\n                _po4: CountIf(_rows, Postoperative = \"4\")               \r\n\r\n            },\r\n\r\n            \"<style>\r\n                table{border-collapse:collapse;font-family:'Segoe UI',Arial,sans-serif;font-size:12px}\r\n                th,td{border:1px solid #ccc;padding:6px 8px;text-align:left;vertical-align:top}\r\n                th{background:#f5f6f8}\r\n                h2,h3{font-family:'Segoe UI',Arial}\r\n                .muted{color:#666}\r\n              </style>\" &\r\n\r\n            \"<h2>VIR Resident Feedback Summary</h2>\" &\r\n            \"<p><b>Resident:</b> \" & _name & \" (\" & _year & \")<br/>\" &\r\n                \"<b>Period:</b> \" & Text(_start, \"[$-en-US]mmm d, yyyy\") & \" – \" & Text(_end, \"[$-en-US]mmm d, yyyy\") & \"<br/>\" &\r\n                \"<b>Total cases:</b> \" & _total &\r\n                If(!IsBlank(_avgAll), \" &nbsp; <b>Overall Avg Score:</b> \" & Text(_avgAll, \"0.00\"), \"\") &\r\n            \"</p>\" &\r\n\r\n            If(\r\n                _total = 0,\r\n                \"<p class='muted'>No evaluations found for the selected filters.</p>\",\r\n\r\n                // ---------- Procedure List (with per-phase and overall averages) ----------\r\n                \"<h3>Procedure List</h3>\" &\r\n                \"<table><tr>\" &\r\n                    \"<th>Main Category</th><th>Subcategory</th><th>Count</th>\" &\r\n                    \"<th>Pre-OP (avg)</th>\" &\r\n                    \"<th>Intra-OP (avg)</th>\" &\r\n                    \"<th>Post-OP (avg)</th>\" &\r\n                    \"<th>Avg Score</th>\" &\r\n                \"</tr>\" &\r\n                Concat(\r\n                    SortByColumns(_procGrouped, \"Count\", SortOrder.Descending),                    \r\n\r\n                    \"<tr>\" &\r\n                        \"<td>\" & Coalesce(ProcedureName, \"(blank)\") & \"</td>\" &\r\n                        \"<td>\" & Coalesce(ProcedureSub, \"(blank)\") & \"</td>\" &\r\n                        \"<td>\" & Count & \"</td>\" &\r\n                        \"<td>\" & If(IsBlank(NP_Avg), \"-\", Text(NP_Avg, \"0.00\")) & \"</td>\" &\r\n                        \"<td>\" & If(IsBlank(IO_Avg), \"-\", Text(IO_Avg, \"0.00\")) & \"</td>\" &\r\n                        \"<td>\" & If(IsBlank(PO_Avg), \"-\", Text(PO_Avg, \"0.00\")) & \"</td>\" &\r\n                        \"<td>\" & If(IsBlank(Proc_Avg), \"-\", Text(Proc_Avg, \"0.00\")) & \"</td>\" &\r\n                    \"</tr>\"\r\n                ) &\r\n                \"</table>\" &\r\n\r\n                // ---------- EPA Distribution (overall counts) ----------\r\n                \"<h3>EPA Score Distribution (counts)</h3>\" &\r\n                \r\n                \"<p style='margin:6px 0 8px 0;'><b>EPA Levels (reference)</b></p>\" &\r\n                \"<ul style='margin:0;padding-left:18px;font-family:&quot;Segoe UI&quot;,Arial,sans-serif;font-size:12px;'>\" &\r\n                    \"<li><b>Level 1:</b> Limited Participation</li>\" &\r\n                    \"<li><b>Level 2:</b> Direct Supervision</li>\" &\r\n                    \"<li><b>Level 3:</b> Indirect Supervision</li>\" &\r\n                    \"<li><b>Level 4:</b> Practice Ready</li>\" &\r\n                \"</ul>\" &\r\n\r\n\r\n                \"<table><tr><th>Level Score</th><th>Level 1</th><th>Level 2</th><th>Level 3</th><th>Level 4</th></tr>\" &\r\n                    \"<tr><td>Non‑Preoperative</td><td>\" & _np1 & \"</td><td>\" & _np2 & \"</td><td>\" & _np3 & \"</td><td>\" & _np4 & \"</td></tr>\" &\r\n                    \"<tr><td>Intraoperative</td><td>\" & _io1 & \"</td><td>\" & _io2 & \"</td><td>\" & _io3 & \"</td><td>\" & _io4 & \"</td></tr>\" &\r\n                    \"<tr><td>Postoperative</td><td>\" & _po1 & \"</td><td>\" & _po2 & \"</td><td>\" & _po3 & \"</td><td>\" & _po4 & \"</td></tr>\" &\r\n                \"</table>\"\r\n            )\r\n        )\r\n    )\r\n);\r\n\r\n\r\n\r\nSet(\r\n    varHtml_attendingOnly,\r\n    With(\r\n        {\r\n            _year:  ddlResidentYear_all.Selected.Value,\r\n            _name:  ddlResidentName_all.Selected.ResidentName,\r\n            _start: dpStart_all.SelectedDate,\r\n            _end:   dpEnd_all.SelectedDate,\r\n\r\n            _rows: Filter(\r\n                VIR_RealTime_FeedBack,\r\n                ResidentYear = ddlResidentYear_all.Selected.Value,\r\n                ResidentName = ddlResidentName_all.Selected.ResidentName,\r\n                EvalDate >= dpStart_all.SelectedDate &&\r\n                EvalDate <  DateAdd(dpEnd_all.SelectedDate, 1, TimeUnit.Days)\r\n                // Do NOT filter out blank comments; we want all rows\r\n            )\r\n        },\r\n        With(\r\n            {\r\n                _rowsForAttending:\r\n                    AddColumns(\r\n                        _rows,\r\n                        AttendingText, Coalesce(Attending, \"(unknown)\"),\r\n                        AttendingHtml,\r\n                            Substitute(\r\n                                Substitute(\r\n                                    Substitute(Coalesce(Attending, \"(unknown)\"), \"&\", \"&amp;\"),\r\n                                    \"<\", \"&lt;\"\r\n                                ),\r\n                                \">\", \"&gt;\"\r\n                            ),\r\n                        ProcMainText, Coalesce(ProcedureName, \"(blank)\"),\r\n                        ProcMainHtml,\r\n                            Substitute(\r\n                                Substitute(\r\n                                    Substitute(Coalesce(ProcedureName, \"(blank)\"), \"&\", \"&amp;\"),\r\n                                    \"<\", \"&lt;\"\r\n                                ),\r\n                                \">\", \"&gt;\"\r\n                            ),\r\n                        ProcSubText, Coalesce(ProcedureSub, \"(blank)\"),\r\n                        ProcSubHtml,\r\n                            Substitute(\r\n                                Substitute(\r\n                                    Substitute(Coalesce(ProcedureSub, \"(blank)\"), \"&\", \"&amp;\"),\r\n                                    \"<\", \"&lt;\"\r\n                                ),\r\n                                \">\", \"&gt;\"\r\n                            ),\r\n                        CommentText,\r\n                            With(\r\n                                { _c: Coalesce(Comment, \"\") },\r\n                                Substitute(\r\n                                    Substitute(\r\n                                        Substitute(\r\n                                            Substitute(_c, \"&\", \"&amp;\"),\r\n                                            \"<\", \"&lt;\"\r\n                                        ),\r\n                                        \">\", \"&gt;\"\r\n                                    ),\r\n                                    Char(10), \"<br/>\"\r\n                                )\r\n                            )\r\n                    )\r\n            },\r\n            \"<style>\r\n                table{border-collapse:collapse;font-family:'Segoe UI',Arial,sans-serif;font-size:12px}\r\n                th,td{border:1px solid #ccc;padding:6px 8px;text-align:left;vertical-align:top}\r\n                th{background:#f5f6f8}\r\n                h2,h3{font-family:'Segoe UI',Arial}\r\n                .muted{color:#666}\r\n              </style>\" &\r\n\r\n            \"<h2>VIR Resident — Attending Feedback &amp; Comments</h2>\" &\r\n            \"<p><b>Resident:</b> \" & _name & \" (\" & _year & \")<br/>\" &\r\n                \"<b>Period:</b> \" & Text(_start, \"[$-en-US]mmm d, yyyy\") & \" – \" & Text(_end, \"[$-en-US]mmm d, yyyy\") &\r\n            \"</p>\" &\r\n            If(\r\n                CountRows(_rowsForAttending) = 0,\r\n                \"<p class='muted'>No evaluations found for the selected filters.</p>\",\r\n                \"<table>\" &\r\n                    \"<tr>\" &\r\n                        \"<th>Attending</th>\" &\r\n                        \"<th>Feedback Date</th>\" &\r\n                        \"<th>Procedure Main</th>\" &\r\n                        \"<th>Procedure Sub</th>\" &\r\n                        \"<th>Avg Score</th>\" &\r\n                        \"<th>Comment</th>\" &\r\n                    \"</tr>\" &\r\n                    Concat(\r\n                        SortByColumns(\r\n                            _rowsForAttending,\r\n                            \"Attending\", SortOrder.Ascending,\r\n                            \"EvalDate\",      SortOrder.Ascending\r\n                        ),\r\n                        \"<tr>\" &\r\n                            \"<td>\" & Attending & \"</td>\" &\r\n                            \"<td>\" & Text(EvalDate, \"[$-en-US]mmm d, yyyy\") & \"</td>\" &\r\n                            \"<td>\" & ProcMainText & \"</td>\" &\r\n                            \"<td>\" & ProcSubText & \"</td>\" &\r\n                            \"<td>\" &\r\n                                If(\r\n                                    IsBlank(AverageScore),\r\n                                    \"-\",\r\n                                    Text(AverageScore, \"0.00\")\r\n                                ) &\r\n                            \"</td>\" &\r\n                            \"<td>\" &\r\n                                If(\r\n                                    IsBlank(Comment),\r\n                                    \"–\",\r\n                                    Comment\r\n                                ) &\r\n                            \"</td>\" &\r\n                        \"</tr>\"\r\n                    ) &\r\n                \"</table>\"\r\n            )\r\n        )\r\n    )\r\n);\r\n\r\nSet(\r\n    varHtml_final,\r\n    varHtml_all & varHtml_attendingOnly\r\n);\r\n\r\n// Or place it wherever you want in the final string.\r\n"
+            Text: =
+            Visible: =false
+            X: =40
+            Y: =40
