@@ -45,9 +45,10 @@ If you are evaluating or adopting this app for another institution, read these i
 4. [`docs/assets/Resident_Evaluation_Implementation_Guide_Published.pdf`](docs/assets/Resident_Evaluation_Implementation_Guide_Published.pdf)
 5. [`docs/SETUP_GUIDE.md`](docs/SETUP_GUIDE.md)
 6. [`docs/CONNECTION_MAP.md`](docs/CONNECTION_MAP.md)
-7. [`docs/IMPLEMENTATION_CHECKLIST.md`](docs/IMPLEMENTATION_CHECKLIST.md)
-8. [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md)
-9. [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md)
+7. [`docs/FAQ.md`](docs/FAQ.md)
+8. [`docs/IMPLEMENTATION_CHECKLIST.md`](docs/IMPLEMENTATION_CHECKLIST.md)
+9. [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md)
+10. [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md)
 
 ## What This Repository Contains
 
@@ -138,6 +139,11 @@ For the implementation manual:
   - published PDF for distribution
 - [`COMPREHENSIVE_MANUAL.md`](docs/COMPREHENSIVE_MANUAL.md)
   - supporting Markdown reference
+
+## FAQ
+
+For common implementation and connection questions:
+- [`docs/FAQ.md`](docs/FAQ.md)
 
 ## Required Microsoft 365 Dependencies
 

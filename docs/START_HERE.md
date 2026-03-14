@@ -46,9 +46,10 @@ If your local SharePoint list names differ, expect to reconnect data sources and
 1. [`SETUP_GUIDE.md`](SETUP_GUIDE.md)
 2. [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
 3. [`assets/Resident_Evaluation_Implementation_Manual.docx`](assets/Resident_Evaluation_Implementation_Manual.docx)
-4. [`IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md)
-5. [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
-6. [`USER_GUIDE.md`](USER_GUIDE.md)
+4. [`FAQ.md`](FAQ.md)
+5. [`IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md)
+6. [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
+7. [`USER_GUIDE.md`](USER_GUIDE.md)
 
 ## Critical Adoption Notes
 
