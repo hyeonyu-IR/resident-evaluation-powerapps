@@ -12,16 +12,16 @@ This page is for institutions that want to evaluate or implement this Power Apps
 ## Fastest Evaluation Path
 
 If you want to assess whether this app is suitable for your program:
-1. Open [`download-files`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/download-files).
-2. Review the required SharePoint lists in [`docs/CONNECTION_MAP.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/CONNECTION_MAP.md).
+1. Open [`download-files`](../download-files).
+2. Review the required SharePoint lists in [`docs/CONNECTION_MAP.md`](CONNECTION_MAP.md).
 3. Import the included dummy CSV files into the expected SharePoint lists.
 4. Import the included `.msapp` and reconnect data sources.
-5. Run the smoke tests in [`docs/IMPLEMENTATION_CHECKLIST.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/IMPLEMENTATION_CHECKLIST.md).
+5. Run the smoke tests in [`docs/IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md).
 
 ## Simplest Download Path
 
 For most institutions, the easiest path is:
-- [`download-files`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/download-files)
+- [`download-files`](../download-files)
 
 That folder intentionally contains the minimum recommended files for initial setup.
 
@@ -37,18 +37,18 @@ If your local SharePoint list names differ, expect to reconnect data sources and
 
 ## Which CSV Files Should You Use?
 
-- Use [`sharepoint-templates/dummy`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/dummy) if you want a realistic non-sensitive starter dataset.
-- Use [`sharepoint-templates/template`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/template) if you want only a minimal example row.
-- Use [`sharepoint-templates/blank`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/blank) only if you want to build the list contents from scratch.
+- Use [`sharepoint-templates/dummy`](../sharepoint-templates/dummy) if you want a realistic non-sensitive starter dataset.
+- Use [`sharepoint-templates/template`](../sharepoint-templates/template) if you want only a minimal example row.
+- Use [`sharepoint-templates/blank`](../sharepoint-templates/blank) only if you want to build the list contents from scratch.
 
 ## Recommended Reading Order
 
-1. [`SETUP_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/SETUP_GUIDE.md)
-2. [`CONNECTION_MAP.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/CONNECTION_MAP.md)
-3. [`COMPREHENSIVE_MANUAL.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/COMPREHENSIVE_MANUAL.md)
-4. [`IMPLEMENTATION_CHECKLIST.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/IMPLEMENTATION_CHECKLIST.md)
-5. [`TROUBLESHOOTING.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/TROUBLESHOOTING.md)
-6. [`USER_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/USER_GUIDE.md)
+1. [`SETUP_GUIDE.md`](SETUP_GUIDE.md)
+2. [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
+3. [`COMPREHENSIVE_MANUAL.md`](COMPREHENSIVE_MANUAL.md)
+4. [`IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md)
+5. [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
+6. [`USER_GUIDE.md`](USER_GUIDE.md)
 
 ## Critical Adoption Notes
 
@@ -60,14 +60,14 @@ If your local SharePoint list names differ, expect to reconnect data sources and
 ## Visual Walkthrough
 
 If you want to see the user-facing workflow before implementation:
-- [`USER_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/USER_GUIDE.md)
-- [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
+- [`USER_GUIDE.md`](USER_GUIDE.md)
+- [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
 
 ## Comprehensive Manual
 
 If you want a single downloadable step-by-step implementation document:
-- [`COMPREHENSIVE_MANUAL.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/COMPREHENSIVE_MANUAL.md)
-- [`Resident_Evaluation_Implementation_Manual.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
+- [`COMPREHENSIVE_MANUAL.md`](COMPREHENSIVE_MANUAL.md)
+- [`Resident_Evaluation_Implementation_Manual.pdf`](assets/Resident_Evaluation_Implementation_Manual.pdf)
 
 ## When You Should Customize
 

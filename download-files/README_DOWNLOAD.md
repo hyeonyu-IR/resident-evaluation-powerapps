@@ -26,5 +26,5 @@ Important:
 - The included CSV files are dummy data for setup and testing, not production data.
 
 For full instructions, use:
-- [`docs/START_HERE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/START_HERE.md)
-- [`docs/COMPREHENSIVE_MANUAL.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/COMPREHENSIVE_MANUAL.md)
+- [`docs/START_HERE.md`](../docs/START_HERE.md)
+- [`docs/COMPREHENSIVE_MANUAL.md`](../docs/COMPREHENSIVE_MANUAL.md)

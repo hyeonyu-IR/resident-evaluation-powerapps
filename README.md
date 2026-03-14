@@ -12,37 +12,37 @@ This repository is intended to be usable by outside institutions without direct 
 ## Start Here
 
 If you are evaluating or adopting this app for another institution, read these in order:
-1. [`docs/START_HERE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/START_HERE.md)
-2. [`download-files`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/download-files)
-3. [`docs/COMPREHENSIVE_MANUAL.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/COMPREHENSIVE_MANUAL.md)
-4. [`docs/assets/Resident_Evaluation_Implementation_Manual.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
-5. [`docs/SETUP_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/SETUP_GUIDE.md)
-6. [`docs/CONNECTION_MAP.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/CONNECTION_MAP.md)
-7. [`docs/IMPLEMENTATION_CHECKLIST.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/IMPLEMENTATION_CHECKLIST.md)
-8. [`docs/TROUBLESHOOTING.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/TROUBLESHOOTING.md)
-9. [`docs/USER_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/USER_GUIDE.md)
+1. [`docs/START_HERE.md`](docs/START_HERE.md)
+2. [`download-files`](download-files)
+3. [`docs/COMPREHENSIVE_MANUAL.md`](docs/COMPREHENSIVE_MANUAL.md)
+4. [`docs/assets/Resident_Evaluation_Implementation_Manual.pdf`](docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
+5. [`docs/SETUP_GUIDE.md`](docs/SETUP_GUIDE.md)
+6. [`docs/CONNECTION_MAP.md`](docs/CONNECTION_MAP.md)
+7. [`docs/IMPLEMENTATION_CHECKLIST.md`](docs/IMPLEMENTATION_CHECKLIST.md)
+8. [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md)
+9. [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md)
 
 ## What This Repository Contains
 
-- [`app/releases`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/app/releases)
+- [`app/releases`](app/releases)
   - the single latest importable `.msapp` file
-- [`sharepoint-templates/dummy`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/dummy)
+- [`sharepoint-templates/dummy`](sharepoint-templates/dummy)
   - recommended SharePoint import files for external institutions
-- [`sharepoint-templates/template`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/template)
+- [`sharepoint-templates/template`](sharepoint-templates/template)
   - minimal example CSV files
-- [`sharepoint-templates/blank`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/blank)
+- [`sharepoint-templates/blank`](sharepoint-templates/blank)
   - header-only CSV files
-- [`docs`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs)
+- [`docs`](docs)
   - adoption, setup, troubleshooting, and maintenance documentation
-- [`download-files`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/download-files)
+- [`download-files`](download-files)
   - single-place starter download bundle for adopters
-- [`docs/screenshots`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/screenshots)
+- [`docs/screenshots`](docs/screenshots)
   - selected app screenshots for onboarding and user documentation
-- [`docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
+- [`docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
   - full slide-based visual guide
-- [`docs/assets/Resident_Evaluation_Implementation_Manual.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
+- [`docs/assets/Resident_Evaluation_Implementation_Manual.pdf`](docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
   - downloadable implementation manual
-- [`_unpacked`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/_unpacked)
+- [`_unpacked`](_unpacked)
   - unpacked app source for review and diffing
 
 ## What the App Looks Like
@@ -77,7 +77,7 @@ Expected SharePoint list names:
 ## Download These Files
 
 If you want the simplest starting point, go to:
-- [`download-files`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/download-files)
+- [`download-files`](download-files)
 
 That folder contains:
 - the latest `.msapp`
@@ -87,24 +87,24 @@ That folder contains:
 ## Recommended Files for New Institutions
 
 Use these first:
-- [`AttendingList.dummy.csv`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/dummy/AttendingList.dummy.csv)
-- [`Resident_Year_Name_01.dummy.csv`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv)
-- [`Procedure_Categories_01.dummy.csv`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/dummy/Procedure_Categories_01.dummy.csv)
-- [`VIR_RealTime_FeedBack.dummy.csv`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv)
+- [`AttendingList.dummy.csv`](sharepoint-templates/dummy/AttendingList.dummy.csv)
+- [`Resident_Year_Name_01.dummy.csv`](sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv)
+- [`Procedure_Categories_01.dummy.csv`](sharepoint-templates/dummy/Procedure_Categories_01.dummy.csv)
+- [`VIR_RealTime_FeedBack.dummy.csv`](sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv)
 
 These dummy files are non-sensitive and intentionally compatible with the app.
 
 ## Visual User Documentation
 
 For end-user workflow screenshots and a slide-based walkthrough:
-- [`docs/USER_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/USER_GUIDE.md)
-- [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
+- [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md)
+- [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
 
 ## Downloadable Manual
 
 For a single step-by-step document suitable for sharing or downloading:
-- [`COMPREHENSIVE_MANUAL.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/COMPREHENSIVE_MANUAL.md)
-- [`Resident_Evaluation_Implementation_Manual.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
+- [`COMPREHENSIVE_MANUAL.md`](docs/COMPREHENSIVE_MANUAL.md)
+- [`Resident_Evaluation_Implementation_Manual.pdf`](docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
 
 ## Required Microsoft 365 Dependencies
 
@@ -122,9 +122,9 @@ For a single step-by-step document suitable for sharing or downloading:
 ## For Maintainers
 
 If you are updating the source repository itself:
-- [`docs/RELEASE_WORKFLOW.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/RELEASE_WORKFLOW.md)
-- [`docs/REPOSITORY_POLICY.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/REPOSITORY_POLICY.md)
-- [`CHANGELOG.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/CHANGELOG.md)
+- [`docs/RELEASE_WORKFLOW.md`](docs/RELEASE_WORKFLOW.md)
+- [`docs/REPOSITORY_POLICY.md`](docs/REPOSITORY_POLICY.md)
+- [`CHANGELOG.md`](CHANGELOG.md)
 
 ## Privacy
 

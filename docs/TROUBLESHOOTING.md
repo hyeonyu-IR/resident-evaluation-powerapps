@@ -68,6 +68,6 @@ Likely causes:
 - a connector was not reattached correctly
 
 Check:
-1. compare local list schema against [`CONNECTION_MAP.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/CONNECTION_MAP.md)
+1. compare local list schema against [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
 2. confirm all required columns exist
 3. confirm Power Apps data-source warnings are resolved

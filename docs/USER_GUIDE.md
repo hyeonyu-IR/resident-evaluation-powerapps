@@ -3,11 +3,11 @@
 This guide is for end users and program leadership who want a visual walkthrough of the app.
 
 For full setup and technical adoption instructions, use:
-- [`SETUP_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/SETUP_GUIDE.md)
-- [`CONNECTION_MAP.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/CONNECTION_MAP.md)
+- [`SETUP_GUIDE.md`](SETUP_GUIDE.md)
+- [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
 
 For the original slide-based version, see:
-- [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
+- [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
 
 ## Home Screen
 

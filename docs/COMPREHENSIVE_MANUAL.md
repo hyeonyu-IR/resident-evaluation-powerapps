@@ -3,10 +3,10 @@
 This manual is intended to be the single step-by-step reference for institutions that want to evaluate, implement, and maintain this Power Apps resident-evaluation app.
 
 For a shorter starting point, see:
-- [`START_HERE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/START_HERE.md)
+- [`START_HERE.md`](START_HERE.md)
 
 For a slide-based visual walkthrough, see:
-- [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
+- [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
 
 ## 1. What This Repository Provides
 
@@ -48,14 +48,13 @@ Required permissions:
 ## 4. Files You Should Use
 
 Primary implementation files:
-- [`UNC_VIR_Resident_Evaluation.msapp`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/app/releases/UNC_VIR_Resident_Evaluation.msapp)
-- [`UNC_VIR_Resident_Evaluation_v2026-03-12.msapp`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/app/releases/UNC_VIR_Resident_Evaluation_v2026-03-12.msapp)
+- [`UNC_VIR_Resident_Evaluation.msapp`](../app/releases/UNC_VIR_Resident_Evaluation.msapp)
 
 Recommended SharePoint CSV starter files:
-- [`AttendingList.dummy.csv`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/dummy/AttendingList.dummy.csv)
-- [`Resident_Year_Name_01.dummy.csv`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv)
-- [`Procedure_Categories_01.dummy.csv`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/dummy/Procedure_Categories_01.dummy.csv)
-- [`VIR_RealTime_FeedBack.dummy.csv`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv)
+- [`AttendingList.dummy.csv`](../sharepoint-templates/dummy/AttendingList.dummy.csv)
+- [`Resident_Year_Name_01.dummy.csv`](../sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv)
+- [`Procedure_Categories_01.dummy.csv`](../sharepoint-templates/dummy/Procedure_Categories_01.dummy.csv)
+- [`VIR_RealTime_FeedBack.dummy.csv`](../sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv)
 
 ## 5. Expected SharePoint List Names
 
@@ -77,7 +76,7 @@ If your institution uses different list names, the app may still be adoptable, b
 ### Step 1. Review the expected schema
 
 Before importing anything, read:
-- [`CONNECTION_MAP.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/CONNECTION_MAP.md)
+- [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
 
 Pay special attention to:
 - `AttendingEmail`
@@ -168,7 +167,7 @@ Main user workflows:
 - use PD/admin all-attending reports
 
 For screenshots and workflow visuals, see:
-- [`USER_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/USER_GUIDE.md)
+- [`USER_GUIDE.md`](USER_GUIDE.md)
 
 ## 9. Common Failure Modes
 
@@ -181,7 +180,7 @@ Typical causes of implementation problems:
 - data sources were not reconnected after import
 
 For detailed troubleshooting:
-- [`TROUBLESHOOTING.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/TROUBLESHOOTING.md)
+- [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
 
 ## 10. Recommended Go-Live Checklist
 
@@ -220,9 +219,9 @@ That is preferable to emailing attachments because:
 
 ## 13. Related Documents
 
-- [`START_HERE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/START_HERE.md)
-- [`SETUP_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/SETUP_GUIDE.md)
-- [`CONNECTION_MAP.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/CONNECTION_MAP.md)
-- [`IMPLEMENTATION_CHECKLIST.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/IMPLEMENTATION_CHECKLIST.md)
-- [`TROUBLESHOOTING.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/TROUBLESHOOTING.md)
-- [`USER_GUIDE.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/USER_GUIDE.md)
+- [`START_HERE.md`](START_HERE.md)
+- [`SETUP_GUIDE.md`](SETUP_GUIDE.md)
+- [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
+- [`IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md)
+- [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
+- [`USER_GUIDE.md`](USER_GUIDE.md)

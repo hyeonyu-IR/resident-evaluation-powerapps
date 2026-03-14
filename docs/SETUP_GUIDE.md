@@ -1,7 +1,7 @@
 # Setup Guide
 
 See also:
-- [`CONNECTION_MAP.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/CONNECTION_MAP.md)
+- [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
 
 ## 1. Create SharePoint lists
 
@@ -19,14 +19,14 @@ Important:
 - the SharePoint column names also need to match the expected field names in the app
 - if a target institution creates differently named lists, they must reconnect those data sources in Power Apps and may still need formula updates
 
-Use the CSV files in [`sharepoint-templates`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates).
+Use the CSV files in [`sharepoint-templates`](../sharepoint-templates).
 
 Recommended import choice:
-- use files in [`sharepoint-templates/dummy`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/dummy) for a realistic, non-sensitive starter dataset
-- use files in [`sharepoint-templates/template`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/template) for a minimal example row
-- use files in [`sharepoint-templates/blank`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/blank) only if the target team prefers to build the content from scratch after list creation
+- use files in [`sharepoint-templates/dummy`](../sharepoint-templates/dummy) for a realistic, non-sensitive starter dataset
+- use files in [`sharepoint-templates/template`](../sharepoint-templates/template) for a minimal example row
+- use files in [`sharepoint-templates/blank`](../sharepoint-templates/blank) only if the target team prefers to build the content from scratch after list creation
 
-The files in [`sharepoint-templates/dummy`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/dummy) are aligned with each other:
+The files in [`sharepoint-templates/dummy`](../sharepoint-templates/dummy) are aligned with each other:
 - feedback rows match the dummy attending list
 - feedback rows match the dummy resident/year list
 - feedback rows use procedure pairs that match the preserved original procedure category list
@@ -69,7 +69,7 @@ Fields worth checking explicitly:
 1. Open `make.powerapps.com`
 2. Go to `Apps`
 3. Choose `Import canvas app`
-4. Select the latest `.msapp` from [`app/releases`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/app/releases)
+4. Select the latest `.msapp` from [`app/releases`](../app/releases)
 
 ## 4. Reconnect data sources
 
