@@ -12,11 +12,18 @@ This page is for institutions that want to evaluate or implement this Power Apps
 ## Fastest Evaluation Path
 
 If you want to assess whether this app is suitable for your program:
-1. Review the latest `.msapp` in [`app/releases`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/app/releases).
+1. Open [`download-files`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/download-files).
 2. Review the required SharePoint lists in [`docs/CONNECTION_MAP.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/CONNECTION_MAP.md).
-3. Import the dummy CSV files from [`sharepoint-templates/dummy`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/dummy).
-4. Import the app and reconnect data sources.
+3. Import the included dummy CSV files into the expected SharePoint lists.
+4. Import the included `.msapp` and reconnect data sources.
 5. Run the smoke tests in [`docs/IMPLEMENTATION_CHECKLIST.md`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/IMPLEMENTATION_CHECKLIST.md).
+
+## Simplest Download Path
+
+For most institutions, the easiest path is:
+- [`download-files`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/download-files)
+
+That folder intentionally contains the minimum recommended files for initial setup.
 
 ## Expected SharePoint Lists
 
