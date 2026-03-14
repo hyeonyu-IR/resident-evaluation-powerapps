@@ -9,6 +9,33 @@ This repository is intended to be usable by outside institutions without direct 
 - implementation and validation checklists
 - a visual user guide with screenshots from the app
 
+## Who This Repository Is For
+
+This repository is likely a good fit for adopters who are:
+- clinically interested
+- reasonably comfortable with Microsoft 365
+- able to work with SharePoint and Power Apps Studio
+- willing to follow documentation carefully
+
+For that audience, the repository is likely sufficient to:
+- understand what the app does
+- download the right files
+- create the SharePoint lists
+- import the app
+- reconnect the data sources
+- test the workflow
+- decide whether it fits the local institution
+
+## Important Limitation
+
+This repository is designed as a serious self-service implementation package, but it should not be assumed to be fully standalone for every possible user.
+
+Successful implementation still depends on some working familiarity with:
+- Power Apps
+- SharePoint list setup
+- Microsoft 365 permissions and connectors
+- troubleshooting schema mismatches
+
 ## Start Here
 
 If you are evaluating or adopting this app for another institution, read these in order:
