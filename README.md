@@ -24,7 +24,7 @@ If you are evaluating or adopting this app for another institution, read these i
 ## What This Repository Contains
 
 - [`app/releases`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/app/releases)
-  - importable `.msapp` files
+  - the single latest importable `.msapp` file
 - [`sharepoint-templates/dummy`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/dummy)
   - recommended SharePoint import files for external institutions
 - [`sharepoint-templates/template`](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/sharepoint-templates/template)

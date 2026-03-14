@@ -45,7 +45,7 @@ Usually exclude from Git inside `_unpacked/`:
 ## Recommended release routine
 
 1. Export the newest `.msapp` from Power Apps Studio
-2. Replace the file in `app/releases/`
+2. Replace `app/releases/UNC_VIR_Resident_Evaluation.msapp`
 3. Refresh `_unpacked/` from that same export if you want source-level diff history
 4. Update docs/templates if schema or setup changed
 5. Commit and tag the release
