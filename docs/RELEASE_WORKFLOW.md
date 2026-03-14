@@ -12,7 +12,7 @@
 ## Manual workflow
 
 1. Edit [`Resident_Evaluation_Implementation_Manual.docx`](assets/Resident_Evaluation_Implementation_Manual.docx) as the master manual.
-2. Export/update [`Resident_Evaluation_Implementation_Manual.pdf`](assets/Resident_Evaluation_Implementation_Manual.pdf) from Word.
+2. Export/update [`Resident_Evaluation_Implementation_Guide_Published.pdf`](assets/Resident_Evaluation_Implementation_Guide_Published.pdf) from Word.
 3. Update [`COMPREHENSIVE_MANUAL.md`](COMPREHENSIVE_MANUAL.md) only if you want the Markdown reference to stay aligned.
 4. Commit the `.docx` and `.pdf` together so they remain in sync.
 

@@ -15,7 +15,7 @@ If you are evaluating or adopting this app for another institution, read these i
 1. [`docs/START_HERE.md`](docs/START_HERE.md)
 2. [`download-files`](download-files)
 3. [`docs/assets/Resident_Evaluation_Implementation_Manual.docx`](docs/assets/Resident_Evaluation_Implementation_Manual.docx)
-4. [`docs/assets/Resident_Evaluation_Implementation_Manual.pdf`](docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
+4. [`docs/assets/Resident_Evaluation_Implementation_Guide_Published.pdf`](docs/assets/Resident_Evaluation_Implementation_Guide_Published.pdf)
 5. [`docs/SETUP_GUIDE.md`](docs/SETUP_GUIDE.md)
 6. [`docs/CONNECTION_MAP.md`](docs/CONNECTION_MAP.md)
 7. [`docs/IMPLEMENTATION_CHECKLIST.md`](docs/IMPLEMENTATION_CHECKLIST.md)
@@ -42,7 +42,7 @@ If you are evaluating or adopting this app for another institution, read these i
   - full slide-based visual guide
 - [`docs/assets/Resident_Evaluation_Implementation_Manual.docx`](docs/assets/Resident_Evaluation_Implementation_Manual.docx)
   - editable master implementation manual
-- [`docs/assets/Resident_Evaluation_Implementation_Manual.pdf`](docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
+- [`docs/assets/Resident_Evaluation_Implementation_Guide_Published.pdf`](docs/assets/Resident_Evaluation_Implementation_Guide_Published.pdf)
   - published PDF copy of the implementation manual
 - [`_unpacked`](_unpacked)
   - unpacked app source for review and diffing
@@ -107,7 +107,7 @@ For end-user workflow screenshots and a slide-based walkthrough:
 For the implementation manual:
 - [`Resident_Evaluation_Implementation_Manual.docx`](docs/assets/Resident_Evaluation_Implementation_Manual.docx)
   - editable source-of-truth document
-- [`Resident_Evaluation_Implementation_Manual.pdf`](docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
+- [`Resident_Evaluation_Implementation_Guide_Published.pdf`](docs/assets/Resident_Evaluation_Implementation_Guide_Published.pdf)
   - published PDF for distribution
 - [`COMPREHENSIVE_MANUAL.md`](docs/COMPREHENSIVE_MANUAL.md)
   - supporting Markdown reference
@@ -134,7 +134,7 @@ If you are updating the source repository itself:
 
 Manual workflow:
 - edit [`docs/assets/Resident_Evaluation_Implementation_Manual.docx`](docs/assets/Resident_Evaluation_Implementation_Manual.docx)
-- export/update [`docs/assets/Resident_Evaluation_Implementation_Manual.pdf`](docs/assets/Resident_Evaluation_Implementation_Manual.pdf) from Word
+- export/update [`docs/assets/Resident_Evaluation_Implementation_Guide_Published.pdf`](docs/assets/Resident_Evaluation_Implementation_Guide_Published.pdf) from Word
 - treat the DOCX as the editable master and the PDF as the published copy
 
 ## Privacy

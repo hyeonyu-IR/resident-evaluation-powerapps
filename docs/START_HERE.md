@@ -68,7 +68,7 @@ If you want to see the user-facing workflow before implementation:
 If you want the implementation manual:
 - [`Resident_Evaluation_Implementation_Manual.docx`](assets/Resident_Evaluation_Implementation_Manual.docx)
   - editable master version
-- [`Resident_Evaluation_Implementation_Manual.pdf`](assets/Resident_Evaluation_Implementation_Manual.pdf)
+- [`Resident_Evaluation_Implementation_Guide_Published.pdf`](assets/Resident_Evaluation_Implementation_Guide_Published.pdf)
   - published PDF version
 - [`COMPREHENSIVE_MANUAL.md`](COMPREHENSIVE_MANUAL.md)
   - supporting Markdown reference
