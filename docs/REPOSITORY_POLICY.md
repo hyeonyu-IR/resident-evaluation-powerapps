@@ -15,6 +15,11 @@ This repository should keep the smallest durable set of artifacts needed for:
 - `app/releases/`
 - `_unpacked/`
 
+Manual source-of-truth policy:
+- use `docs/assets/Resident_Evaluation_Implementation_Manual.docx` as the editable master
+- keep `docs/assets/Resident_Evaluation_Implementation_Manual.pdf` as the published copy
+- treat `docs/COMPREHENSIVE_MANUAL.md` as a supporting reference, not the primary editable manual
+
 Recommended focus inside `_unpacked/`:
 - `Src/`
 - `References/`

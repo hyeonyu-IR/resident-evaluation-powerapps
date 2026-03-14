@@ -45,7 +45,7 @@ If your local SharePoint list names differ, expect to reconnect data sources and
 
 1. [`SETUP_GUIDE.md`](SETUP_GUIDE.md)
 2. [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
-3. [`COMPREHENSIVE_MANUAL.md`](COMPREHENSIVE_MANUAL.md)
+3. [`assets/Resident_Evaluation_Implementation_Manual.docx`](assets/Resident_Evaluation_Implementation_Manual.docx)
 4. [`IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md)
 5. [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
 6. [`USER_GUIDE.md`](USER_GUIDE.md)
@@ -65,9 +65,13 @@ If you want to see the user-facing workflow before implementation:
 
 ## Comprehensive Manual
 
-If you want a single downloadable step-by-step implementation document:
-- [`COMPREHENSIVE_MANUAL.md`](COMPREHENSIVE_MANUAL.md)
+If you want the implementation manual:
+- [`Resident_Evaluation_Implementation_Manual.docx`](assets/Resident_Evaluation_Implementation_Manual.docx)
+  - editable master version
 - [`Resident_Evaluation_Implementation_Manual.pdf`](assets/Resident_Evaluation_Implementation_Manual.pdf)
+  - published PDF version
+- [`COMPREHENSIVE_MANUAL.md`](COMPREHENSIVE_MANUAL.md)
+  - supporting Markdown reference
 
 ## When You Should Customize
 

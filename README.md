@@ -14,7 +14,7 @@ This repository is intended to be usable by outside institutions without direct 
 If you are evaluating or adopting this app for another institution, read these in order:
 1. [`docs/START_HERE.md`](docs/START_HERE.md)
 2. [`download-files`](download-files)
-3. [`docs/COMPREHENSIVE_MANUAL.md`](docs/COMPREHENSIVE_MANUAL.md)
+3. [`docs/assets/Resident_Evaluation_Implementation_Manual.docx`](docs/assets/Resident_Evaluation_Implementation_Manual.docx)
 4. [`docs/assets/Resident_Evaluation_Implementation_Manual.pdf`](docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
 5. [`docs/SETUP_GUIDE.md`](docs/SETUP_GUIDE.md)
 6. [`docs/CONNECTION_MAP.md`](docs/CONNECTION_MAP.md)
@@ -40,8 +40,10 @@ If you are evaluating or adopting this app for another institution, read these i
   - selected app screenshots for onboarding and user documentation
 - [`docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
   - full slide-based visual guide
+- [`docs/assets/Resident_Evaluation_Implementation_Manual.docx`](docs/assets/Resident_Evaluation_Implementation_Manual.docx)
+  - editable master implementation manual
 - [`docs/assets/Resident_Evaluation_Implementation_Manual.pdf`](docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
-  - downloadable implementation manual
+  - published PDF copy of the implementation manual
 - [`_unpacked`](_unpacked)
   - unpacked app source for review and diffing
 
@@ -100,11 +102,15 @@ For end-user workflow screenshots and a slide-based walkthrough:
 - [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md)
 - [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
 
-## Downloadable Manual
+## Implementation Manual
 
-For a single step-by-step document suitable for sharing or downloading:
-- [`COMPREHENSIVE_MANUAL.md`](docs/COMPREHENSIVE_MANUAL.md)
+For the implementation manual:
+- [`Resident_Evaluation_Implementation_Manual.docx`](docs/assets/Resident_Evaluation_Implementation_Manual.docx)
+  - editable source-of-truth document
 - [`Resident_Evaluation_Implementation_Manual.pdf`](docs/assets/Resident_Evaluation_Implementation_Manual.pdf)
+  - published PDF for distribution
+- [`COMPREHENSIVE_MANUAL.md`](docs/COMPREHENSIVE_MANUAL.md)
+  - supporting Markdown reference
 
 ## Required Microsoft 365 Dependencies
 
@@ -125,6 +131,11 @@ If you are updating the source repository itself:
 - [`docs/RELEASE_WORKFLOW.md`](docs/RELEASE_WORKFLOW.md)
 - [`docs/REPOSITORY_POLICY.md`](docs/REPOSITORY_POLICY.md)
 - [`CHANGELOG.md`](CHANGELOG.md)
+
+Manual workflow:
+- edit [`docs/assets/Resident_Evaluation_Implementation_Manual.docx`](docs/assets/Resident_Evaluation_Implementation_Manual.docx)
+- export/update [`docs/assets/Resident_Evaluation_Implementation_Manual.pdf`](docs/assets/Resident_Evaluation_Implementation_Manual.pdf) from Word
+- treat the DOCX as the editable master and the PDF as the published copy
 
 ## Privacy
 
