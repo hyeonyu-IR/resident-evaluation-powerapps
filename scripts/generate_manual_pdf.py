@@ -159,6 +159,11 @@ story.append(
         "and useful for standing up a test deployment quickly. They should later be replaced with local institutional data."
     )
 )
+story.append(
+    body(
+        "For the simplest starting path, institutions should begin with the files in the repository's download-files folder."
+    )
+)
 
 story.append(section_title("Critical Field Names"))
 story.append(
@@ -341,6 +346,19 @@ story.append(
         "This PDF is intended to stand on its own reasonably well, but the repository still contains deeper reference material. "
         "If a local team encounters schema drift, role-mapping differences, or custom workflow needs, they should also consult the "
         "connection map, troubleshooting notes, and user guide in the repository."
+    )
+)
+
+story.append(section_title("Questions That May Still Require Local Review"))
+story.append(
+    bullet_list(
+        [
+            "Local role naming and leadership-title mapping",
+            "SharePoint governance constraints in the target tenant",
+            "Whether to keep AttendingEmail as text or convert it to a Person column",
+            "Whether local programs want custom procedure categories or evaluation fields",
+        ],
+        styles["ManualBody"],
     )
 )
 

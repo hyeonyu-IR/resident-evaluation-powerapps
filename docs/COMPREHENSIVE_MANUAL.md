@@ -1,6 +1,6 @@
 # Comprehensive Manual
 
-This manual is intended to be the single step-by-step reference for institutions that want to evaluate, implement, and maintain this Power Apps resident-evaluation app.
+This manual is intended to be a detailed step-by-step reference for institutions that want to evaluate, implement, and maintain this Power Apps resident-evaluation app.
 
 For a shorter starting point, see:
 - [`START_HERE.md`](START_HERE.md)
@@ -23,6 +23,8 @@ The recommended adoption model is:
 3. import the recommended CSV starter files
 4. reconnect the app in Power Apps Studio
 5. run the smoke tests before production use
+
+For the simplest starting path, use the files in [`../download-files`](../download-files).
 
 ## 2. Intended Audience
 
@@ -56,6 +58,8 @@ Recommended SharePoint CSV starter files:
 - [`Procedure_Categories_01.dummy.csv`](../sharepoint-templates/dummy/Procedure_Categories_01.dummy.csv)
 - [`VIR_RealTime_FeedBack.dummy.csv`](../sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv)
 
+These files reflect the reference implementation used for this app.
+
 ## 5. Expected SharePoint List Names
 
 Create these lists with these exact names:
@@ -66,10 +70,10 @@ Create these lists with these exact names:
 
 Important:
 - the CSV filename is not the same thing as the SharePoint list name
-- the SharePoint list name should match what the app expects
+- the SharePoint list names used by the app should match these expected names
 - the SharePoint column names should also match expected app field names
 
-If your institution uses different list names, the app may still be adoptable, but you should expect to reconnect data sources and possibly modify formulas.
+If your institution uses different list names, the app may still be adoptable, but you should expect data-source remapping and possibly formula updates.
 
 ## 6. Step-by-Step Implementation
 
@@ -152,7 +156,7 @@ The app currently assumes:
 - ownership logic uses `AttendingEmail`
 - PD/admin access is controlled by `AttendingRole`
 - procedure filtering uses the original main/subcategory structure
-- the main procedure category field is `Procedure_Categories_01.Title`
+- the app currently uses `Procedure_Categories_01.Title` as the main procedure category field
 
 If any of those assumptions change locally, formula updates may be needed.
 
@@ -192,7 +196,7 @@ Before production use:
 - confirm who owns ongoing app maintenance
 - document who will maintain the SharePoint lists and role mappings
 
-## 11. What Other Institutions Usually Need from You
+## 11. Questions That May Still Require Local Review
 
 If the repository is working as intended, most institutions should be able to self-serve using:
 - the `.msapp`
@@ -200,7 +204,7 @@ If the repository is working as intended, most institutions should be able to se
 - the setup and troubleshooting docs
 - the visual user guide
 
-The most likely live questions that remain institution-specific are:
+The most common institution-specific decisions still remaining are:
 - local role naming
 - local SharePoint governance constraints
 - whether to keep `AttendingEmail` as text or convert it to a Person column
