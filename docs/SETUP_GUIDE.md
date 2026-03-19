@@ -37,6 +37,11 @@ Recommended list creation pattern:
 3. Confirm the imported column names are correct
 4. Reconnect the app to that list inside Power Apps
 
+Important:
+- complete SharePoint list creation before importing and opening the `.msapp`
+- when the imported app opens in Power Apps Studio, it will prompt you to connect SharePoint and Office 365 Outlook
+- that first connection step is much easier if the required lists already exist
+
 Example:
 - file: `dummy/AttendingList.dummy.csv`
 - target SharePoint list name: `AttendingList`
@@ -70,6 +75,7 @@ Fields worth checking explicitly:
 2. Go to `Apps`
 3. Choose `Import canvas app`
 4. Select the latest `.msapp` from [`app/releases`](../app/releases)
+5. Open the imported app only after the four SharePoint lists above have already been created
 
 ## 4. Reconnect data sources
 
@@ -79,10 +85,11 @@ Reconnect:
 
 Recommended reconnect process:
 1. Open the imported app in Power Apps Studio
-2. Go to `Data`
-3. Remove broken or unresolved SharePoint connections if present
-4. Add the four SharePoint lists with the exact names listed above
-5. Confirm formulas resolve without data-source errors
+2. Expect Power Apps to prompt for SharePoint and Office 365 Outlook connections on first open
+3. Go to `Data`
+4. Remove broken or unresolved SharePoint connections if present
+5. Add the four SharePoint lists with the exact names listed above
+6. Confirm formulas resolve without data-source errors
 
 If the target institution used different SharePoint list names, they should expect to:
 - remove the old data source references

@@ -21,8 +21,9 @@ Use this checklist when standing up the app in a new institution.
 
 ## Power Apps Setup
 
-- Import the latest `.msapp`
+- Import the latest `.msapp` only after the SharePoint lists already exist
 - Open the app in Power Apps Studio
+- Expect a first-open prompt to connect SharePoint and Office 365 Outlook
 - Reconnect all SharePoint data sources
 - Reconnect the Outlook connector
 - Resolve any broken data-source references

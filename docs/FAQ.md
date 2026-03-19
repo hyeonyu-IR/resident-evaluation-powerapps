@@ -19,6 +19,20 @@ That folder contains:
 - the 4 recommended dummy CSV files
 - a short README focused on downloading and initial setup
 
+## Should I create the SharePoint lists before importing the `.msapp`?
+
+Yes. That is the recommended order.
+
+Best practice:
+1. create the four required SharePoint lists first
+2. import the CSV starter files into those lists
+3. import the `.msapp`
+4. open it in Power Apps Studio and connect SharePoint and Outlook when prompted
+
+Why:
+- on first open, Power Apps will prompt for SharePoint and Office 365 Outlook connections
+- that connection step is smoother when the required lists already exist with the expected names and columns
+
 ## Which CSV files should I use?
 
 For most institutions, use the `dummy` CSV files first.

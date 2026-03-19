@@ -36,6 +36,12 @@ Successful implementation still depends on some working familiarity with:
 - Microsoft 365 permissions and connectors
 - troubleshooting schema mismatches
 
+## Important Setup Order
+
+Create the SharePoint lists before importing the `.msapp`.
+
+When the app is imported and opened in Power Apps Studio, Power Apps will immediately prompt for SharePoint and Office 365 Outlook connections. That setup is much smoother if the four required SharePoint lists already exist with the expected names and columns.
+
 ## Start Here
 
 If you are evaluating or adopting this app for another institution, read these in order:
@@ -94,8 +100,8 @@ My summary report:
 To implement this app at another institution:
 1. Create four SharePoint lists with the exact expected names.
 2. Import the recommended dummy or template CSV files.
-3. Import the latest `.msapp` into Power Apps.
-4. Reconnect the app to the local SharePoint lists and Outlook connector.
+3. Import the latest `.msapp` into Power Apps after the SharePoint lists already exist.
+4. When prompted, reconnect the app to the local SharePoint lists and Outlook connector.
 5. Run the smoke-test checklist before production use.
 
 Expected SharePoint list names:

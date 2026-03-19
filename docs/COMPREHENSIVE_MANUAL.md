@@ -18,10 +18,10 @@ This repository includes:
 - troubleshooting and implementation checklists
 
 The recommended adoption model is:
-1. download the latest `.msapp`
-2. create the required SharePoint lists
-3. import the recommended CSV starter files
-4. reconnect the app in Power Apps Studio
+1. create the required SharePoint lists
+2. import the recommended CSV starter files
+3. download and import the latest `.msapp`
+4. reconnect the app in Power Apps Studio when Power Apps prompts for SharePoint and Outlook connections
 5. run the smoke tests before production use
 
 For the simplest starting path, use the files in [`../download-files`](../download-files).
@@ -124,6 +124,11 @@ Review these fields after import:
 2. Go to `Apps`
 3. Choose `Import canvas app`
 4. Select the latest `.msapp`
+5. Open the imported app only after the four required SharePoint lists have already been created
+
+Important:
+- on first open, Power Apps will prompt you to connect SharePoint and Office 365 Outlook
+- this works best after the required SharePoint lists already exist with the expected names and columns
 
 ### Step 6. Reconnect data sources
 
@@ -133,10 +138,11 @@ Reconnect:
 
 Recommended reconnect workflow:
 1. open the imported app in Power Apps Studio
-2. go to `Data`
-3. remove broken or unresolved SharePoint connections if present
-4. add the four expected SharePoint lists
-5. confirm formulas resolve without data-source errors
+2. expect Power Apps to prompt for SharePoint and Office 365 Outlook connections on first open
+3. go to `Data`
+4. remove broken or unresolved SharePoint connections if present
+5. add the four expected SharePoint lists
+6. confirm formulas resolve without data-source errors
 
 ### Step 7. Run smoke tests
 

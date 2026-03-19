@@ -15,8 +15,9 @@ If you want to assess whether this app is suitable for your program:
 1. Open [`download-files`](../download-files).
 2. Review the required SharePoint lists in [`docs/CONNECTION_MAP.md`](CONNECTION_MAP.md).
 3. Import the included dummy CSV files into the expected SharePoint lists.
-4. Import the included `.msapp` and reconnect data sources.
-5. Run the smoke tests in [`docs/IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md).
+4. Only after the SharePoint lists exist, import the included `.msapp`.
+5. When Power Apps prompts for connections, reconnect SharePoint and Outlook.
+6. Run the smoke tests in [`docs/IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md).
 
 ## Simplest Download Path
 
@@ -34,6 +35,11 @@ Create these lists with these exact names:
 - `AttendingList`
 
 If your local SharePoint list names differ, expect to reconnect data sources and possibly update formulas.
+
+Important:
+- create these SharePoint lists before opening the imported `.msapp` in Power Apps Studio
+- on first open, Power Apps will ask you to connect SharePoint and Office 365 Outlook
+- that connection step works best when the lists already exist with the expected names
 
 ## Which CSV Files Should You Use?
 
