@@ -109,3 +109,30 @@ Check:
 3. confirm Power Apps data-source warnings are resolved
 4. if the app creates blank or partially blank rows, recreate the list manually instead of relying on CSV-driven schema creation
 
+## Large Lists Seem Incomplete or Record Counts Look Lower Than Expected
+
+Likely causes:
+- the app is still using the default Power Apps data row limit of `500`
+- a non-delegable formula is hitting the local row limit before all rows are returned
+
+Check:
+1. open the app in Power Apps Studio
+2. open `Settings`
+3. go to `General`
+4. scroll down to `Data row limit`
+5. if appropriate for your local use, increase it from `500` to `2000`
+
+Visual references:
+
+![Open Settings](screenshots/data-row-increase-0.png)
+
+![Scroll down in General settings](screenshots/data-row-increase-1.png)
+
+![Default data row limit of 500](screenshots/data-row-increase-2.png)
+
+![Updated data row limit of 2000](screenshots/data-row-increase-3.png)
+
+Important note:
+- increasing the row limit from `500` to `2000` is a practical improvement for larger local datasets
+- it does not replace delegation-safe formula design, but it can improve record visibility in real use
+

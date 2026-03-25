@@ -60,15 +60,20 @@ If these checks are not complete yet, use:
 From Power Apps:
 1. Locate the imported app.
 2. Open the app menu using the `...` button.
-3. Select `Share`.
-4. Add the faculty users or local security group.
-5. Share the app.
+3. Publish the latest version of the app.
+4. Select `Share`.
+5. Add the faculty users or local security group.
+6. Share the app.
 
 Screenshot:
+
+![Publish the latest app version](screenshots/publish-app.png)
 
 ![Share the Power Apps app](screenshots/power-apps-share.png)
 
 Notes:
+- Publishing is important. Saving the app is not the same thing as publishing it.
+- If the latest version is not published, faculty may open an older version and miss recent fixes or changes.
 - Sharing the app gives users access to open the app.
 - It does not automatically grant access to the SharePoint lists behind the app.
 - If many users will need access, a security group may be easier to maintain than adding individuals one by one.
@@ -179,6 +184,18 @@ Update this list when:
 
 This list is the safest place to maintain the local resident roster over time.
 
+### `VIR_RealTime_FeedBack`
+
+Maintain this list intentionally over time.
+
+Recommended practice:
+- export a CSV backup of `VIR_RealTime_FeedBack` periodically
+- save a backup before any major cleanup or local restructuring
+- if the list becomes cluttered with old test data or no longer matches local reporting needs, archive the CSV first and then clean the live list deliberately
+
+Practical note:
+- many programs will also want to review and refresh `Resident_Year_Name_01` at the start of each academic year so the active resident roster stays current
+
 ## Common Rollout Problems
 
 ### User can open the app but cannot submit
@@ -213,6 +230,8 @@ Before considering rollout complete, the local owner should document:
 - how PD/admin access is assigned
 
 That small local handoff will make the app much easier to maintain after the initial installation.
+
+Also confirm that the currently shared app version has been published, not just saved in Power Apps Studio.
 
 ## Related Guides
 

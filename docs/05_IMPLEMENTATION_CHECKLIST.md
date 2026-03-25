@@ -32,6 +32,8 @@ Use this checklist when standing up the app in a new institution.
 - Reconnect all SharePoint data sources
 - Reconnect the Outlook connector
 - Resolve any broken data-source references
+- Consider increasing the Power Apps data row limit from `500` to `2000` for larger local datasets
+- Publish the latest app version before sharing it with faculty users
 
 ## Functional Validation
 
@@ -59,6 +61,8 @@ Use this checklist when standing up the app in a new institution.
 - Remove any locally created test feedback rows before production use
 - Replace dummy attending data with local attending data
 - Replace dummy resident data with local resident data
+- Export and save a CSV backup of `VIR_RealTime_FeedBack` before major cleanup or periodic maintenance
+- Plan to review and refresh `Resident_Year_Name_01` at the start of each academic year
 - Re-run the smoke tests with real local accounts
 - Document the local app owner and support contact
 
