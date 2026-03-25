@@ -6,6 +6,7 @@ Short version:
 - Do **not** rely on simple CSV import to create the schema for `VIR_RealTime_FeedBack`.
 - Do **not** rely on simple CSV import to create the schema for `AttendingList`.
 - Manually create those two SharePoint lists first.
+- Create `Procedure_Categories_01` from the preserved original procedure-category CSV.
 - Use dummy CSV import only for the resident reference list:
   - `Resident_Year_Name_01`
 
@@ -32,6 +33,10 @@ Example:
 
 Power Apps form cards bind to SharePoint internal field names, not just visible display titles. That means a form can appear connected and still create mostly empty records if the internal field names do not match what the app expects.
 
+More careful interpretation:
+- list reads may appear to work when display names and field types look correct
+- form submission can still fail unless the underlying SharePoint field identities also match the app's expected bindings
+
 ### 2. SharePoint can infer the wrong field type
 
 Email-like columns were especially vulnerable during testing.
@@ -52,10 +57,12 @@ If those columns are created as `Person or Group`, ownership filtering and relat
 
 1. Manually create `VIR_RealTime_FeedBack` with the exact columns and types below.
 2. Manually create `AttendingList` with the exact columns and types below.
-3. Manually create or preserve `Procedure_Categories_01` with the expected taxonomy.
+3. Create `Procedure_Categories_01` from the preserved original procedure-category CSV.
 4. Import dummy CSV data only for:
    - `Resident_Year_Name_01`
-5. If desired, use the dummy feedback, attending, and procedure CSV files as reference data only after the lists already exist with the correct schema.
+5. Use the supported CSV files only after the lists already exist with the correct schema:
+   - `Resident_Year_Name_01.dummy.csv`
+   - `Procedure_Categories_01.dummy.csv`
 6. Import `UNC_VIR_Resident_Evaluation.msapp`.
 7. Reconnect SharePoint and Outlook in Power Apps Studio.
 8. Run smoke tests before production use.
@@ -123,24 +130,16 @@ Important:
 ## Dummy CSV Still Worth Using
 
 The one dummy CSV that remains clearly useful for external setup is:
-- [`../sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv`](../sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv)
+- [`../download-files/Resident_Year_Name_01.dummy.csv`](../download-files/Resident_Year_Name_01.dummy.csv)
 
-`Procedure_Categories_01` is typically a constant list and does not require a dummy import for routine setup if the list is created correctly.
-
-## How To Use The Dummy Feedback And Attending CSV Files
-
-The following files are still useful, but they should no longer be treated as the primary schema-creation path for outside institutions:
-- [`../sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv`](../sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv)
-- [`../sharepoint-templates/dummy/AttendingList.dummy.csv`](../sharepoint-templates/dummy/AttendingList.dummy.csv)
-
-Recommended use:
-- use them as examples of expected columns and sample content
-- use them only after the SharePoint lists already exist with the correct manual schema
-- do not use them as the first step to generate the SharePoint schema automatically
+`Procedure_Categories_01` should be created from the preserved original procedure-category CSV:
+- [`../download-files/Procedure_Categories_01.dummy.csv`](../download-files/Procedure_Categories_01.dummy.csv)
 
 ## Reconnect Caveat: Stats Chart Labels
 
-During testing, we found that disconnecting and reconnecting data sources could cause the stats chart label bindings to drift.
+During testing, we found that the stats chart x-axis labels were not hard-coded. On first connect or reconnect, the chart control could revert to its default label fields:
+- `Count`
+- `Metric`
 
 After reconnect, verify:
 - `ccAttendingFeedbackNo.Items.Labels = Attending`

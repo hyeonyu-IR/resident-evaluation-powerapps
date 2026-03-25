@@ -34,6 +34,10 @@ Why:
 - Power Apps binds to internal field names
 - SharePoint can infer email columns as `Person or Group`
 
+Practical caution:
+- list reads may appear to work when display names and field types look correct
+- form submission can still fail unless the underlying SharePoint field identities also match the app's expected bindings
+
 Critical email-field rules:
 - `AttendingEmail` in `VIR_RealTime_FeedBack` must be `Single line of text`
 - `EmailAddress` in `AttendingList` must be `Single line of text`
@@ -47,12 +51,10 @@ Only this list is still recommended for direct dummy CSV import:
 - `Resident_Year_Name_01`
 
 Recommended file:
-- [`../sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv`](../sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv)
+- [`../download-files/Resident_Year_Name_01.dummy.csv`](../download-files/Resident_Year_Name_01.dummy.csv)
 
-Use these two files as reference/sample data only after manual list creation:
-- [`../sharepoint-templates/dummy/Procedure_Categories_01.dummy.csv`](../sharepoint-templates/dummy/Procedure_Categories_01.dummy.csv)
-- [`../sharepoint-templates/dummy/AttendingList.dummy.csv`](../sharepoint-templates/dummy/AttendingList.dummy.csv)
-- [`../sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv`](../sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv)
+Use this file to generate `Procedure_Categories_01` with the preserved original taxonomy:
+- [`../download-files/Procedure_Categories_01.dummy.csv`](../download-files/Procedure_Categories_01.dummy.csv)
 
 ## 4. Import the app
 
@@ -92,7 +94,7 @@ If the target institution used different SharePoint list names, they should expe
 7. Confirm procedure main-category and subcategory dropdown filtering works correctly
 8. Confirm resident year and resident name filtering works correctly
 9. Confirm the app can open existing records without schema errors
-10. Confirm the stats chart labels are correct after reconnect:
+10. Confirm the stats chart labels are correct after first connect or reconnect. These labels are not hard-coded and can fall back to the default chart fields `Count` and `Metric`:
    - `ccAttendingFeedbackNo.Items.Labels = Attending`
    - `ccProcedurePct.Items.Labels = ProcedureMain`
 

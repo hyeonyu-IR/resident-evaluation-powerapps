@@ -55,7 +55,7 @@ Use this checklist when standing up the app in a new institution.
 
 ## Go-Live Readiness
 
-- Remove dummy feedback rows if they were used only for testing
+- Remove any locally created test feedback rows before production use
 - Replace dummy attending data with local attending data
 - Replace dummy resident data with local resident data
 - Re-run the smoke tests with real local accounts

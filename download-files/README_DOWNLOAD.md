@@ -4,10 +4,8 @@ This folder is the easiest starting point for institutions that want to evaluate
 
 Included files:
 - `UNC_VIR_Resident_Evaluation.msapp`
-- `AttendingList.dummy.csv`
 - `Resident_Year_Name_01.dummy.csv`
 - `Procedure_Categories_01.dummy.csv`
-- `VIR_RealTime_FeedBack.dummy.csv`
 
 ## Recommended use order
 
@@ -20,14 +18,10 @@ Included files:
 3. Manually create:
    - `VIR_RealTime_FeedBack`
    - `AttendingList`
-4. Manually create or preserve `Procedure_Categories_01`.
+4. Create `Procedure_Categories_01` from the preserved original procedure-category CSV.
 5. Import only:
    - `Resident_Year_Name_01.dummy.csv`
-6. Use:
-   - `AttendingList.dummy.csv`
-   - `Procedure_Categories_01.dummy.csv`
-   - `VIR_RealTime_FeedBack.dummy.csv`
-   as reference/sample data only after the lists already exist with the correct schema.
+6. Use `Procedure_Categories_01.dummy.csv` to generate the procedure category list.
 7. Only after those lists exist, import `UNC_VIR_Resident_Evaluation.msapp` into Power Apps.
 8. Open the app in Power Apps Studio and connect SharePoint and Outlook when prompted.
 9. Run the smoke tests in `../docs/IMPLEMENTATION_CHECKLIST.md`.
@@ -37,10 +31,12 @@ Included files:
 - CSV filenames are import helpers only.
 - SharePoint list names and column names should match what the app expects.
 - SharePoint internal field names matter, not just visible display titles.
-- The included CSV files are dummy data for setup and testing, not production data.
+- list reads may appear to work when display names and field types look correct
+- form submission can still fail unless the underlying SharePoint field identities also match the app's expected bindings
+- The included CSV files are the two supported adoption CSVs, not production data.
 - `AttendingEmail` must be `Single line of text`.
 - `EmailAddress` must be `Single line of text`.
-- After reconnecting data sources, verify the stats chart label bindings:
+- The stats chart x-axis labels are not hard-coded. On first connect or reconnect, they can revert to the chart defaults `Count` and `Metric`. Verify:
   - `ccAttendingFeedbackNo.Items.Labels = Attending`
   - `ccProcedurePct.Items.Labels = ProcedureMain`
 - Power Apps will prompt for SharePoint and Office 365 Outlook connections when the imported app is opened.

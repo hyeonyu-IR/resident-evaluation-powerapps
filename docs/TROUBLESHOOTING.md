@@ -43,7 +43,7 @@ Check:
 ## Stats Chart Labels Show Count or Metric Instead of Names
 
 Likely causes:
-- chart label bindings drifted after data-source disconnect/reconnect
+- the chart labels are not hard-coded and reverted to the default chart fields after first connect or reconnect
 
 Check:
 1. open `Screen_Stats`

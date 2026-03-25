@@ -4,7 +4,7 @@ Canvas app for resident evaluation built in Microsoft Power Apps with SharePoint
 
 This repository is intended to be usable by outside institutions without direct one-on-one walkthroughs. It contains:
 - an importable Power Apps canvas app package
-- SharePoint starter data and schema templates
+- the two CSV files still needed for outside adoption
 - setup and reconnection instructions
 - implementation and validation checklists
 - a visual user guide with screenshots from the app
@@ -14,7 +14,7 @@ This repository is intended to be usable by outside institutions without direct 
 The safest external setup path is now:
 - manually create `VIR_RealTime_FeedBack`
 - manually create `AttendingList`
-- manually create or preserve `Procedure_Categories_01`
+- generate `Procedure_Categories_01` from the preserved original procedure-category CSV
 - use dummy CSV only for:
   - `Resident_Year_Name_01`
 
@@ -24,6 +24,10 @@ Why:
 - SharePoint can assign incorrect internal field names such as `field_4` even when the visible column title looks correct
 - Power Apps binds to SharePoint internal field names, not just display titles
 - SharePoint can infer email columns as `Person or Group`, which breaks this app's text-based ownership logic
+
+Practical caution:
+- list reads may appear to work when display names and field types look correct
+- form submission can still fail unless the underlying SharePoint field identities also match the app's expected bindings
 
 Start here:
 - [`docs/MANUAL_SHAREPOINT_SCHEMA.md`](docs/MANUAL_SHAREPOINT_SCHEMA.md)
@@ -79,16 +83,10 @@ If you are evaluating or adopting this app for another institution, read these i
 
 - [`app/releases`](app/releases)
   - the single latest importable `.msapp` file
-- [`sharepoint-templates/dummy`](sharepoint-templates/dummy)
-  - starter/reference CSV files
-- [`sharepoint-templates/template`](sharepoint-templates/template)
-  - minimal example CSV files
-- [`sharepoint-templates/blank`](sharepoint-templates/blank)
-  - header-only CSV files
+- [`download-files`](download-files)
+  - the two supported CSV files plus the importable `.msapp`
 - [`docs`](docs)
   - adoption, setup, troubleshooting, and maintenance documentation
-- [`download-files`](download-files)
-  - single-place starter download bundle for adopters
 - [`docs/screenshots`](docs/screenshots)
   - selected app screenshots for onboarding and user documentation
 - [`docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
@@ -106,9 +104,11 @@ To implement this app at another institution:
 1. Create four SharePoint lists with the exact expected names.
 2. Manually create `VIR_RealTime_FeedBack` with the expected schema.
 3. Manually create `AttendingList` with the expected schema.
-4. Manually create or preserve `Procedure_Categories_01` with the expected constant taxonomy.
+4. Create `Procedure_Categories_01` from the preserved original procedure-category CSV.
 5. Use dummy CSV only for `Resident_Year_Name_01`.
-6. Use the dummy feedback, attending, and procedure CSV files only as reference/sample files if needed.
+6. Use only the two supported CSV files for setup:
+   - `Resident_Year_Name_01.dummy.csv`
+   - `Procedure_Categories_01.dummy.csv`
 7. Import the latest `.msapp` into Power Apps after the SharePoint lists already exist.
 8. When prompted, reconnect the app to the local SharePoint lists and Outlook connector.
 9. Run the smoke-test checklist before production use.
@@ -131,18 +131,16 @@ If you want the simplest starting point, go to:
 
 That folder contains:
 - the latest `.msapp`
-- the four reference CSV files
+- the two supported CSV files
 - a short download-specific README
 
 ## Recommended Files for New Institutions
 
 Import this directly if you want starter resident data:
-- [`Resident_Year_Name_01.dummy.csv`](sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv)
+- [`Resident_Year_Name_01.dummy.csv`](download-files/Resident_Year_Name_01.dummy.csv)
 
-Use these as reference/sample files only after the lists already exist with the correct manual schema:
-- [`Procedure_Categories_01.dummy.csv`](sharepoint-templates/dummy/Procedure_Categories_01.dummy.csv)
-- [`AttendingList.dummy.csv`](sharepoint-templates/dummy/AttendingList.dummy.csv)
-- [`VIR_RealTime_FeedBack.dummy.csv`](sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv)
+Use this to generate the procedure category list with the preserved original taxonomy:
+- [`Procedure_Categories_01.dummy.csv`](download-files/Procedure_Categories_01.dummy.csv)
 
 ## Visual User Documentation
 
@@ -180,7 +178,7 @@ For common implementation and connection questions:
 - `EmailAddress` in `AttendingList` must also be `Single line of text`.
 - `AttendingRole` in `AttendingList` controls PD/admin access.
 - Procedure filtering assumes `Procedure_Categories_01.Title` is the main category field.
-- After reconnecting data sources, the stats chart label bindings may drift and need to be reset manually:
+- The stats chart x-axis labels are not hard-coded. On first connect or after reconnect, they can revert to the chart defaults `Count` and `Metric`, so they may need to be reset manually:
   - `ccAttendingFeedbackNo.Items.Labels = Attending`
   - `ccProcedurePct.Items.Labels = ProcedureMain`
 

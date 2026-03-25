@@ -22,6 +22,10 @@ Why:
 - Power Apps binds to internal field names, not just visible display titles
 - SharePoint can infer email columns as `Person or Group` instead of `Single line of text`
 
+Practical caution:
+- list reads may appear to work when display names and field types look correct
+- form submission can still fail unless the underlying SharePoint field identities also match the app's expected bindings
+
 Read this before you build anything:
 - [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
 
@@ -33,7 +37,7 @@ If you want to assess whether this app is suitable for your program:
 3. Read [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md).
 4. Manually create `VIR_RealTime_FeedBack`.
 5. Manually create `AttendingList`.
-6. Manually create or preserve `Procedure_Categories_01`.
+6. Create `Procedure_Categories_01` from the preserved original procedure-category CSV.
 7. Import `Resident_Year_Name_01.dummy.csv` if you want starter resident data.
 8. Only after the SharePoint lists exist, import the included `.msapp`.
 9. When Power Apps prompts for connections, reconnect SharePoint and Outlook.
@@ -64,12 +68,10 @@ Important:
 ## Which CSV Files Should You Use?
 
 Import this directly if you want starter resident data:
-- [`../sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv`](../sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv)
+- [`../download-files/Resident_Year_Name_01.dummy.csv`](../download-files/Resident_Year_Name_01.dummy.csv)
 
-Use these as reference/sample data only after manual list creation:
-- [`../sharepoint-templates/dummy/Procedure_Categories_01.dummy.csv`](../sharepoint-templates/dummy/Procedure_Categories_01.dummy.csv)
-- [`../sharepoint-templates/dummy/AttendingList.dummy.csv`](../sharepoint-templates/dummy/AttendingList.dummy.csv)
-- [`../sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv`](../sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv)
+Use this to generate the procedure category list:
+- [`../download-files/Procedure_Categories_01.dummy.csv`](../download-files/Procedure_Categories_01.dummy.csv)
 
 ## Recommended Reading Order
 
@@ -88,7 +90,7 @@ Use these as reference/sample data only after manual list creation:
 - `EmailAddress` in `AttendingList` must also be `Single line of text`.
 - PD/admin access is driven by `AttendingRole`.
 - Procedure filtering depends on preserving the original main/subcategory structure.
-- After reconnecting data sources, the stats chart label bindings may drift:
+- The stats chart x-axis labels are not hard-coded. On first connect or after reconnect, they can revert to the chart defaults `Count` and `Metric`:
   - `ccAttendingFeedbackNo.Items.Labels` should be `Attending`
   - `ccProcedurePct.Items.Labels` should be `ProcedureMain`
 - CSV filenames are not the same thing as SharePoint list names.

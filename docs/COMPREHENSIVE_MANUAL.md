@@ -15,7 +15,7 @@ For a slide-based visual walkthrough, see:
 
 This repository includes:
 - an importable Power Apps canvas app package in `../app/releases`
-- SharePoint CSV starter/reference files in `../sharepoint-templates`
+- the two supported adoption CSV files in `../download-files`
 - setup and reconnection instructions
 - a visual user guide with screenshots
 - troubleshooting and implementation checklists
@@ -24,7 +24,7 @@ The recommended adoption model is now:
 1. create the required SharePoint lists
 2. manually create the schema for `VIR_RealTime_FeedBack`
 3. manually create the schema for `AttendingList`
-4. manually create or preserve `Procedure_Categories_01`
+4. create `Procedure_Categories_01` from the preserved original procedure-category CSV
 5. import dummy CSV only for the resident reference list
 6. download and import the latest `.msapp`
 7. reconnect the app in Power Apps Studio when Power Apps prompts for SharePoint and Outlook connections
@@ -59,12 +59,10 @@ Primary implementation file:
 - [`../app/releases/UNC_VIR_Resident_Evaluation.msapp`](../app/releases/UNC_VIR_Resident_Evaluation.msapp)
 
 Import this directly:
-- [`../sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv`](../sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv)
+- [`../download-files/Resident_Year_Name_01.dummy.csv`](../download-files/Resident_Year_Name_01.dummy.csv)
 
-Use these as reference/sample data only after manual list creation:
-- [`../sharepoint-templates/dummy/Procedure_Categories_01.dummy.csv`](../sharepoint-templates/dummy/Procedure_Categories_01.dummy.csv)
-- [`../sharepoint-templates/dummy/AttendingList.dummy.csv`](../sharepoint-templates/dummy/AttendingList.dummy.csv)
-- [`../sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv`](../sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv)
+Use this to generate the procedure category list:
+- [`../download-files/Procedure_Categories_01.dummy.csv`](../download-files/Procedure_Categories_01.dummy.csv)
 
 ## 5. Expected SharePoint List Names
 
@@ -101,6 +99,10 @@ The result could be:
 - broken ownership filtering
 - confusing behavior where records are created but most values do not save
 
+More careful interpretation:
+- list reads may appear to work when display names and field types look correct
+- form submission can still fail unless the underlying SharePoint field identities also match the app's expected bindings
+
 ## 7. Step-by-Step Implementation
 
 ### Step 1. Review the expected schema
@@ -136,7 +138,7 @@ Recommended for initial evaluation:
 - import the resident dummy CSV for:
   - `Resident_Year_Name_01`
 
-Use the dummy attending, feedback, and procedure CSV files only as reference/sample data after the lists already exist with the correct schema.
+No other CSV files are required for the supported setup path.
 
 ### Step 4. Verify key SharePoint column types
 
@@ -185,7 +187,7 @@ Perform these checks:
 7. confirm procedure category filtering works
 8. confirm resident year and resident name filtering works
 9. confirm report generation and email flow work
-10. confirm the stats chart labels are still correct after reconnect:
+10. confirm the stats chart labels are still correct after first connect or reconnect. They are not hard-coded and may revert to the chart defaults `Count` and `Metric`:
    - `ccAttendingFeedbackNo.Items.Labels = Attending`
    - `ccProcedurePct.Items.Labels = ProcedureMain`
 

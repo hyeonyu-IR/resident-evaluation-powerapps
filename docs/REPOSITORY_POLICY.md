@@ -10,9 +10,9 @@ This repository should keep the smallest durable set of artifacts needed for:
 - `README.md`
 - `CHANGELOG.md`
 - `docs/`
-- `sharepoint-templates/`
-  - keep `blank/`, `dummy/`, and `template/` organized separately
 - `app/releases/`
+- `download-files/`
+  - keep only the supported adoption files there
 - `_unpacked/`
 
 Manual source-of-truth policy:
@@ -43,6 +43,7 @@ Usually exclude from Git inside `_unpacked/`:
 ## Rationale
 
 - `app/releases/` gives a ready-to-import `.msapp`
+- `download-files/` gives a clean external bundle without extra deprecated CSV clutter
 - `_unpacked/` gives reviewable source for diffs and pull requests
 - `deployment-package/` is generated handoff material and can be rebuilt from repo contents
 - `Microsoft.PowerApps/` is the raw package container from export and is redundant once the `.msapp` is stored in `app/releases/`

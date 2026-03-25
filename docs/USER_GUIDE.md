@@ -85,3 +85,4 @@ The stats screen gives a quick visual summary of:
 - PD/admin-only items depend on the `AttendingRole` values in `AttendingList`.
 - Ownership-based views depend on `AttendingEmail`.
 - Procedure filtering depends on preserving the main/subcategory structure in `Procedure_Categories_01`.
+- On the stats screen, the x-axis labels are not hard-coded. After first connect or reconnect, they may revert to default chart labels such as `Count` and `Metric` and need to be reset.

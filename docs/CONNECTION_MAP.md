@@ -68,14 +68,11 @@ Changing those field names without updating the app will break filtering and rep
 At this point, the only dummy CSV that remains clearly useful for routine external setup is:
 - `Resident_Year_Name_01.dummy.csv`
 
-The other dummy CSV files are still available as references or sample content, but they are no longer the recommended primary setup path for:
-- `VIR_RealTime_FeedBack`
-- `AttendingList`
-- `Procedure_Categories_01`
+`Procedure_Categories_01` can be created from the preserved original procedure-category CSV.
 
 ## Reconnect caveat
 
-After disconnecting and reconnecting data sources, the stats chart label bindings may drift.
+The stats chart x-axis labels are not hard-coded. On first connect or reconnect, they may revert to the chart defaults `Count` and `Metric`.
 
 Verify:
 - `ccAttendingFeedbackNo.Items.Labels = Attending`

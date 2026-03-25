@@ -16,7 +16,7 @@ The simplest starting point is:
 
 That folder contains:
 - the latest `.msapp`
-- the reference CSV files
+- the two supported CSV files
 - a short README focused on downloading and initial setup
 
 ## Should I create the SharePoint lists before importing the `.msapp`?
@@ -27,7 +27,7 @@ Best practice:
 1. create the four required SharePoint lists first
 2. manually create the schema for `VIR_RealTime_FeedBack`
 3. manually create the schema for `AttendingList`
-4. manually create or preserve `Procedure_Categories_01`
+4. create `Procedure_Categories_01` from the preserved original procedure-category CSV
 5. import dummy CSV only for `Resident_Year_Name_01`
 6. import the `.msapp`
 7. open it in Power Apps Studio and connect SharePoint and Outlook when prompted
@@ -41,6 +41,10 @@ Example:
 - actual internal field name: `field_4`
 
 Power Apps binds to internal field names. That can lead to blank or partially blank records even though the app appears connected.
+
+More careful interpretation:
+- list reads may appear to work when display names and field types look correct
+- form submission can still fail unless the underlying SharePoint field identities also match the app's expected bindings
 
 ## Why should I not create `AttendingList` from CSV?
 
@@ -61,10 +65,8 @@ The same risk exists for:
 Import this directly:
 - `Resident_Year_Name_01.dummy.csv`
 
-Use these as reference/sample data only after manual list creation:
+Use this to generate the procedure category list:
 - `Procedure_Categories_01.dummy.csv`
-- `AttendingList.dummy.csv`
-- `VIR_RealTime_FeedBack.dummy.csv`
 
 ## Do the SharePoint list names need to match exactly?
 
@@ -150,9 +152,11 @@ If the taxonomy is changed casually, dependent dropdown behavior can break.
 
 ## Why do the stats chart x-axis labels turn into count or metric after reconnect?
 
-This is a known reconnect drift issue.
+This is a known chart-default issue during first connect and reconnect.
 
-After disconnecting and reconnecting data sources, the two stats chart label bindings can revert unexpectedly.
+The two stats chart x-axis labels are not hard-coded. When the lists are connected for the first time, or reconnected later, the chart control can revert to its default label fields:
+- `Count`
+- `Metric`
 
 Check these properties manually:
 - `ccAttendingFeedbackNo.Items.Labels` should be `Attending`
