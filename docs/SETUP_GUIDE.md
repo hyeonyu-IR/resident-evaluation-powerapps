@@ -2,6 +2,7 @@
 
 See also:
 - [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
+- [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
 
 ## 1. Create SharePoint lists
 
@@ -11,73 +12,55 @@ Create these lists in the target tenant:
 - `Resident_Year_Name_01`
 - `AttendingList`
 
-These SharePoint list names should match exactly. Power Apps connects to list names, not to CSV filenames.
+These SharePoint list names should match exactly.
 
 Important:
-- the CSV filename does not need to match the target list name exactly
 - the SharePoint list name does need to match the expected app data source name
 - the SharePoint column names also need to match the expected field names in the app
-- if a target institution creates differently named lists, they must reconnect those data sources in Power Apps and may still need formula updates
+- the internal SharePoint field names matter, not just the visible display titles
 
-Use the CSV files in [`sharepoint-templates`](../sharepoint-templates).
+## 2. Use manual schema for the two critical lists
 
-Recommended import choice:
-- use files in [`sharepoint-templates/dummy`](../sharepoint-templates/dummy) for a realistic, non-sensitive starter dataset
-- use files in [`sharepoint-templates/template`](../sharepoint-templates/template) for a minimal example row
-- use files in [`sharepoint-templates/blank`](../sharepoint-templates/blank) only if the target team prefers to build the content from scratch after list creation
+Manually create these two lists first:
+- `VIR_RealTime_FeedBack`
+- `AttendingList`
 
-The files in [`sharepoint-templates/dummy`](../sharepoint-templates/dummy) are aligned with each other:
-- feedback rows match the dummy attending list
-- feedback rows match the dummy resident/year list
-- feedback rows use procedure pairs that match the preserved original procedure category list
+Do not let CSV import define those schemas.
 
-Recommended list creation pattern:
-1. Create the SharePoint list with the exact target name first
-2. Import the matching CSV content into that list
-3. Confirm the imported column names are correct
-4. Reconnect the app to that list inside Power Apps
+Why:
+- SharePoint can create wrong internal names such as `field_4`
+- Power Apps binds to internal field names
+- SharePoint can infer email columns as `Person or Group`
 
-Important:
-- complete SharePoint list creation before importing and opening the `.msapp`
-- when the imported app opens in Power Apps Studio, it will prompt you to connect SharePoint and Office 365 Outlook
-- that first connection step is much easier if the required lists already exist
+Critical email-field rules:
+- `AttendingEmail` in `VIR_RealTime_FeedBack` must be `Single line of text`
+- `EmailAddress` in `AttendingList` must be `Single line of text`
 
-Example:
-- file: `dummy/AttendingList.dummy.csv`
-- target SharePoint list name: `AttendingList`
+Use:
+- [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
 
-Do not leave the SharePoint list named something like `AttendingList_dummy` unless you are prepared to remap the app manually.
+## 3. Seed the reference lists from CSV
 
-## 2. Seed reference data
+Only this list is still recommended for direct dummy CSV import:
+- `Resident_Year_Name_01`
 
-Minimum data required:
-- Attendings with email and role
-- Resident year/name rows
-- Procedure categories and subcategories
+Recommended file:
+- [`../sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv`](../sharepoint-templates/dummy/Resident_Year_Name_01.dummy.csv)
 
-If the target institution wants the fastest working setup, import:
-- `dummy/AttendingList.dummy.csv`
-- `dummy/Resident_Year_Name_01.dummy.csv`
-- `dummy/Procedure_Categories_01.dummy.csv`
-- `dummy/VIR_RealTime_FeedBack.dummy.csv`
+Use these two files as reference/sample data only after manual list creation:
+- [`../sharepoint-templates/dummy/Procedure_Categories_01.dummy.csv`](../sharepoint-templates/dummy/Procedure_Categories_01.dummy.csv)
+- [`../sharepoint-templates/dummy/AttendingList.dummy.csv`](../sharepoint-templates/dummy/AttendingList.dummy.csv)
+- [`../sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv`](../sharepoint-templates/dummy/VIR_RealTime_FeedBack.dummy.csv)
 
-After import, review SharePoint column types manually. CSV-based SharePoint creation can infer incorrect types for some fields.
-
-Fields worth checking explicitly:
-- `EvalDate` should be date/time
-- score fields should be numeric if the local implementation expects numeric sorting or calculations
-- long free-text comment fields should allow enough text length
-- `AttendingEmail` should remain a single-line text field unless the app is intentionally changed to use a Person column
-
-## 3. Import the app
+## 4. Import the app
 
 1. Open `make.powerapps.com`
 2. Go to `Apps`
 3. Choose `Import canvas app`
-4. Select the latest `.msapp` from [`app/releases`](../app/releases)
+4. Select the latest `.msapp` from [`../app/releases`](../app/releases)
 5. Open the imported app only after the four SharePoint lists above have already been created
 
-## 4. Reconnect data sources
+## 5. Reconnect data sources
 
 Reconnect:
 - SharePoint lists
@@ -96,13 +79,28 @@ If the target institution used different SharePoint list names, they should expe
 - add the replacement list
 - update formulas if Power Apps does not automatically rebind them cleanly
 
-## 5. Smoke tests
+## 6. Smoke tests
 
 1. Create a new evaluation
 2. Confirm `AttendingEmail` is populated
-3. Confirm `My Feedback List` only shows the current user's records
-4. Confirm PD/admin screens are restricted correctly
-5. Confirm report emails send successfully
-6. Confirm procedure main-category and subcategory dropdown filtering works correctly
-7. Confirm resident year and resident name filtering works correctly
-8. Confirm the app can open existing imported dummy feedback rows without schema errors
+3. Confirm the main feedback record is saved with actual field values, not an empty row
+4. Confirm `My Feedback List` only shows the current user's records
+5. Confirm PD/admin screens are restricted correctly
+6. Confirm report emails send successfully
+7. Confirm procedure main-category and subcategory dropdown filtering works correctly
+8. Confirm resident year and resident name filtering works correctly
+9. Confirm the app can open existing records without schema errors
+10. Confirm the stats chart labels are correct after reconnect:
+   - `ccAttendingFeedbackNo.Items.Labels = Attending`
+   - `ccProcedurePct.Items.Labels = ProcedureMain`
+
+## 7. Hard-earned lesson
+
+The main external setup failure mode was not the app package itself. It was SharePoint schema creation.
+
+Simple CSV-driven list creation can look correct at first glance and still fail because:
+- internal field names do not match the app
+- email columns are inferred as the wrong type
+- Power Apps forms then create blank or partially blank records
+
+Manual list creation for `VIR_RealTime_FeedBack` and `AttendingList` was the fix that made external testing stable.

@@ -5,7 +5,7 @@ This FAQ is intended to answer the most common implementation and setup question
 ## Do I need the full exported Power Apps `.zip` package to implement the app?
 
 No. For normal adoption, the main file needed for import is:
-- [`UNC_VIR_Resident_Evaluation.msapp`](../app/releases/UNC_VIR_Resident_Evaluation.msapp)
+- [`../app/releases/UNC_VIR_Resident_Evaluation.msapp`](../app/releases/UNC_VIR_Resident_Evaluation.msapp)
 
 The raw exported folder structure and internal JSON files are not normally required for another institution to import and use the app.
 
@@ -16,39 +16,55 @@ The simplest starting point is:
 
 That folder contains:
 - the latest `.msapp`
-- the 4 recommended dummy CSV files
+- the reference CSV files
 - a short README focused on downloading and initial setup
 
 ## Should I create the SharePoint lists before importing the `.msapp`?
 
-Yes. That is the recommended order.
+Yes.
 
 Best practice:
 1. create the four required SharePoint lists first
-2. import the CSV starter files into those lists
-3. import the `.msapp`
-4. open it in Power Apps Studio and connect SharePoint and Outlook when prompted
+2. manually create the schema for `VIR_RealTime_FeedBack`
+3. manually create the schema for `AttendingList`
+4. manually create or preserve `Procedure_Categories_01`
+5. import dummy CSV only for `Resident_Year_Name_01`
+6. import the `.msapp`
+7. open it in Power Apps Studio and connect SharePoint and Outlook when prompted
 
-Why:
-- on first open, Power Apps will prompt for SharePoint and Office 365 Outlook connections
-- that connection step is smoother when the required lists already exist with the expected names and columns
+## Why should I not create `VIR_RealTime_FeedBack` from CSV?
 
-## Which CSV files should I use?
+Because SharePoint can create the wrong internal field names even when the display titles look correct.
 
-For most institutions, use the `dummy` CSV files first.
+Example:
+- visible title: `ResidentYear`
+- actual internal field name: `field_4`
 
-Why:
-- they are non-sensitive
-- they are internally compatible with the app
-- they make it easier to test the workflow quickly
+Power Apps binds to internal field names. That can lead to blank or partially blank records even though the app appears connected.
 
-Use:
-- `AttendingList.dummy.csv`
+## Why should I not create `AttendingList` from CSV?
+
+Because SharePoint may infer:
+- `EmailAddress`
+
+as:
+- `Person or Group`
+
+This app expects:
+- `EmailAddress` to be `Single line of text`
+
+The same risk exists for:
+- `AttendingEmail` in `VIR_RealTime_FeedBack`
+
+## Which CSV files should I use directly?
+
+Import this directly:
 - `Resident_Year_Name_01.dummy.csv`
-- `Procedure_Categories_01.dummy.csv`
-- `VIR_RealTime_FeedBack.dummy.csv`
 
-Use `template` or `blank` files only if the local team prefers to build the lists more manually.
+Use these as reference/sample data only after manual list creation:
+- `Procedure_Categories_01.dummy.csv`
+- `AttendingList.dummy.csv`
+- `VIR_RealTime_FeedBack.dummy.csv`
 
 ## Do the SharePoint list names need to match exactly?
 
@@ -81,11 +97,12 @@ If those field names differ, filtering, reports, or dropdown behavior can fail.
 
 ## Which SharePoint field types matter most?
 
-These are the most important ones to review manually after CSV import:
-- `EvalDate` should be Date/Time
-- score-related fields should be numeric
-- comment fields should allow enough text
-- `AttendingEmail` should remain Single line of text unless the app is intentionally redesigned to use a Person column
+These are the most important ones:
+- `AttendingEmail` should be `Single line of text`
+- `EmailAddress` should be `Single line of text`
+- `EvalDate` should be `Date and Time`
+- `Comment` should be `Multiple lines of text`
+- `Eval_Serial_No` should be `Number`
 
 ## Why does the app not find my SharePoint data after import?
 
@@ -93,6 +110,7 @@ Common causes:
 - SharePoint list names do not match expected names
 - data sources were not reconnected
 - the imported app still points to the original tenant's connections
+- the target SharePoint schema was created incorrectly
 
 Use:
 - [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
@@ -101,6 +119,7 @@ Use:
 
 Common causes:
 - `AttendingEmail` is missing or blank
+- `AttendingEmail` is not a text field
 - old data was not backfilled properly
 - formulas were changed away from email-based ownership logic
 
@@ -124,6 +143,18 @@ The app expects:
 
 If the taxonomy is changed casually, dependent dropdown behavior can break.
 
+## Why do the stats chart x-axis labels turn into count or metric after reconnect?
+
+This is a known reconnect drift issue.
+
+After disconnecting and reconnecting data sources, the two stats chart label bindings can revert unexpectedly.
+
+Check these properties manually:
+- `ccAttendingFeedbackNo.Items.Labels` should be `Attending`
+- `ccProcedurePct.Items.Labels` should be `ProcedureMain`
+
+If those values drift to `Count` or `Metric`, the chart will still render but the x-axis labels will be wrong.
+
 ## Can the app be implemented without personal help from the original maintainer?
 
 Often yes, but not always for every possible adopter.
@@ -144,24 +175,16 @@ Successful implementation usually requires some familiarity with:
 - Microsoft 365 permissions and connectors
 - troubleshooting schema mismatches
 
-## What is the difference between the implementation manual `.docx` and `.pdf`?
-
-- [`Resident_Evaluation_Implementation_Manual.docx`](assets/Resident_Evaluation_Implementation_Manual.docx)
-  - editable master document
-- [`Resident_Evaluation_Implementation_Guide_Published.pdf`](assets/Resident_Evaluation_Implementation_Guide_Published.pdf)
-  - published reader-facing PDF copy
-
-The repository treats the `.docx` as the source of truth for future edits.
-
 ## Where should I start if I am evaluating the app for my institution?
 
 Recommended order:
 1. [`START_HERE.md`](START_HERE.md)
-2. [`../download-files`](../download-files)
-3. [`SETUP_GUIDE.md`](SETUP_GUIDE.md)
-4. [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
-5. [`IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md)
-6. [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
+2. [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
+3. [`../download-files`](../download-files)
+4. [`SETUP_GUIDE.md`](SETUP_GUIDE.md)
+5. [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
+6. [`IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md)
+7. [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
 
 ## Can the app be customized for local workflows?
 
@@ -178,6 +201,7 @@ Typical customization areas:
 
 Start with:
 - [`START_HERE.md`](START_HERE.md)
+- [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
 - [`SETUP_GUIDE.md`](SETUP_GUIDE.md)
 - [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
 - [`IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md)

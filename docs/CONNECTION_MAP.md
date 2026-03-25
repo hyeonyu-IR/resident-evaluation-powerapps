@@ -63,9 +63,20 @@ Similarly, the ownership and report logic assumes:
 
 Changing those field names without updating the app will break filtering and report behavior.
 
-## Dummy import compatibility
+## Practical setup note
 
-The dummy CSV files in `sharepoint-templates/dummy/` are intentionally compatible with the app:
-- `VIR_RealTime_FeedBack.dummy.csv` uses attending names/emails from `AttendingList.dummy.csv`
-- `VIR_RealTime_FeedBack.dummy.csv` uses resident year/name pairs from `Resident_Year_Name_01.dummy.csv`
-- `VIR_RealTime_FeedBack.dummy.csv` uses procedure main/subcategory pairs from `Procedure_Categories_01.dummy.csv`
+At this point, the only dummy CSV that remains clearly useful for routine external setup is:
+- `Resident_Year_Name_01.dummy.csv`
+
+The other dummy CSV files are still available as references or sample content, but they are no longer the recommended primary setup path for:
+- `VIR_RealTime_FeedBack`
+- `AttendingList`
+- `Procedure_Categories_01`
+
+## Reconnect caveat
+
+After disconnecting and reconnecting data sources, the stats chart label bindings may drift.
+
+Verify:
+- `ccAttendingFeedbackNo.Items.Labels = Attending`
+- `ccProcedurePct.Items.Labels = ProcedureMain`

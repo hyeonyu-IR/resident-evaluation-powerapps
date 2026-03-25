@@ -9,24 +9,53 @@ Included files:
 - `Procedure_Categories_01.dummy.csv`
 - `VIR_RealTime_FeedBack.dummy.csv`
 
-Recommended use order:
+## Recommended use order
+
 1. Create the required SharePoint lists with the exact expected names:
    - `VIR_RealTime_FeedBack`
    - `Procedure_Categories_01`
    - `Resident_Year_Name_01`
    - `AttendingList`
-2. Import the matching CSV files into those lists.
-3. Only after those lists exist, import `UNC_VIR_Resident_Evaluation.msapp` into Power Apps.
-4. Open the app in Power Apps Studio and connect SharePoint and Outlook when prompted.
-5. Run the smoke tests in `docs/IMPLEMENTATION_CHECKLIST.md`.
+2. Read [`../docs/MANUAL_SHAREPOINT_SCHEMA.md`](../docs/MANUAL_SHAREPOINT_SCHEMA.md).
+3. Manually create:
+   - `VIR_RealTime_FeedBack`
+   - `AttendingList`
+4. Manually create or preserve `Procedure_Categories_01`.
+5. Import only:
+   - `Resident_Year_Name_01.dummy.csv`
+6. Use:
+   - `AttendingList.dummy.csv`
+   - `Procedure_Categories_01.dummy.csv`
+   - `VIR_RealTime_FeedBack.dummy.csv`
+   as reference/sample data only after the lists already exist with the correct schema.
+7. Only after those lists exist, import `UNC_VIR_Resident_Evaluation.msapp` into Power Apps.
+8. Open the app in Power Apps Studio and connect SharePoint and Outlook when prompted.
+9. Run the smoke tests in `../docs/IMPLEMENTATION_CHECKLIST.md`.
 
-Important:
+## Important
+
 - CSV filenames are import helpers only.
 - SharePoint list names and column names should match what the app expects.
+- SharePoint internal field names matter, not just visible display titles.
 - The included CSV files are dummy data for setup and testing, not production data.
+- `AttendingEmail` must be `Single line of text`.
+- `EmailAddress` must be `Single line of text`.
+- After reconnecting data sources, verify the stats chart label bindings:
+  - `ccAttendingFeedbackNo.Items.Labels = Attending`
+  - `ccProcedurePct.Items.Labels = ProcedureMain`
 - Power Apps will prompt for SharePoint and Office 365 Outlook connections when the imported app is opened.
 - That connection step is much easier if the SharePoint lists have already been created first.
 
+## Why this changed
+
+During external testing, simple CSV-driven SharePoint list creation caused:
+- wrong internal field names such as `field_4`
+- wrong email field types such as `Person or Group`
+- blank or partially blank records even when the app appeared connected
+
+Manual creation of `VIR_RealTime_FeedBack` and `AttendingList` fixed that issue.
+
 For full instructions, use:
-- [`docs/START_HERE.md`](../docs/START_HERE.md)
-- [`docs/COMPREHENSIVE_MANUAL.md`](../docs/COMPREHENSIVE_MANUAL.md)
+- [`../docs/START_HERE.md`](../docs/START_HERE.md)
+- [`../docs/MANUAL_SHAREPOINT_SCHEMA.md`](../docs/MANUAL_SHAREPOINT_SCHEMA.md)
+- [`../docs/COMPREHENSIVE_MANUAL.md`](../docs/COMPREHENSIVE_MANUAL.md)

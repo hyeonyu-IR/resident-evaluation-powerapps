@@ -15,9 +15,14 @@ Use this checklist when standing up the app in a new institution.
 - Create `Procedure_Categories_01`
 - Create `Resident_Year_Name_01`
 - Create `AttendingList`
-- Import the preferred CSV starter files
-- Verify key column names are correct after import
-- Verify key column types are correct after import
+- Read [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
+- Manually create the schema for `VIR_RealTime_FeedBack`
+- Manually create the schema for `AttendingList`
+- Import only the resident dummy CSV if starter resident data is needed
+- Verify key column names are correct after setup
+- Verify key column types are correct after setup
+- Confirm `AttendingEmail` is `Single line of text`
+- Confirm `EmailAddress` is `Single line of text`
 
 ## Power Apps Setup
 
@@ -32,11 +37,13 @@ Use this checklist when standing up the app in a new institution.
 
 - Create a new feedback entry
 - Confirm `AttendingEmail` is populated on save
+- Confirm the saved row contains actual values, not an empty or partially empty record
 - Confirm `My Feedback List` only shows the current user's records
 - Confirm `My Feedback Report` only uses the current user's records
 - Confirm procedure main/subcategory filtering works
 - Confirm resident year and resident name filtering works
 - Confirm report generation works
+- Confirm stats chart labels are correct after reconnect
 - Confirm PD/admin-only screens are protected
 
 ## Local Customization Review
