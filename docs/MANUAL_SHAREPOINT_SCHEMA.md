@@ -9,6 +9,13 @@ Short version:
 - Use dummy CSV import only for the resident reference list:
   - `Resident_Year_Name_01`
 
+Create column names exactly as shown, including:
+- capitalization
+- spelling
+- underscores
+
+Treat the documented column names as case-sensitive for setup purposes.
+
 This approach is more reliable and is now the recommended setup path for outside institutions.
 
 ## Why Simple CSV-Based List Creation Can Fail

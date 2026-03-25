@@ -84,6 +84,11 @@ If different list names are used, the app may still be adoptable, but the team s
 
 Yes, for most fields.
 
+For setup purposes, treat them as case-sensitive and match them exactly, including:
+- capitalization
+- spelling
+- underscores
+
 Important fields include:
 - `AttendingEmail`
 - `AttendingRole`

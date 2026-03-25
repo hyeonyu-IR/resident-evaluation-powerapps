@@ -18,6 +18,8 @@ Important:
 - the SharePoint list name does need to match the expected app data source name
 - the SharePoint column names also need to match the expected field names in the app
 - the internal SharePoint field names matter, not just the visible display titles
+- create column names exactly as documented, including capitalization, spelling, and underscores
+- for setup purposes, treat the documented column names as case-sensitive
 
 ## 2. Use manual schema for the two critical lists
 
