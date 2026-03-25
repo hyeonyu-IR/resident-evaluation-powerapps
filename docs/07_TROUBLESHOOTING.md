@@ -54,6 +54,16 @@ Check:
 
 This can happen even when the chart data itself is correct.
 
+Visual references:
+
+![Attending chart label setting](screenshots/stats-charts-attending.png)
+
+![Procedure chart label setting](screenshots/stats-charts-procedure.png)
+
+Note:
+- some older app copies or cached Studio sessions may still surface a legacy procedure label field such as `ProcedureName`
+- for the current external schema and current setup docs, the intended procedure label field is `ProcedureMain`
+
 ## PD/Admin Screens Are Missing or Everyone Can See Them
 
 Likely causes:

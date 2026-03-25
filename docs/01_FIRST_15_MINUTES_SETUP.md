@@ -132,3 +132,6 @@ If that happens, reset:
 
 That issue does not usually block initial testing, but it is worth checking before broader rollout.
 
+Visual reference:
+- [07_TROUBLESHOOTING.md](07_TROUBLESHOOTING.md)
+

@@ -44,6 +44,7 @@ Use this checklist when standing up the app in a new institution.
 - Confirm resident year and resident name filtering works
 - Confirm report generation works
 - Confirm stats chart labels are correct after reconnect
+  - if needed, see the visual examples in [07_TROUBLESHOOTING.md](07_TROUBLESHOOTING.md)
 - Confirm PD/admin-only screens are protected
 
 ## Local Customization Review
