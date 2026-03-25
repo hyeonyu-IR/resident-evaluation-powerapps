@@ -65,7 +65,7 @@ Changing those field names without updating the app will break filtering and rep
 
 ## Practical setup note
 
-At this point, the only dummy CSV that remains clearly useful for routine external setup is:
+At this point, the only CSV file that remains clearly useful for direct routine external setup import is:
 - `Resident_Year_Name_01.dummy.csv`
 
 `Procedure_Categories_01` can be created from the preserved original procedure-category CSV.

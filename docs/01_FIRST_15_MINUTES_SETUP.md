@@ -118,6 +118,8 @@ Once one test record is submitted successfully, continue with:
 - [07_TROUBLESHOOTING.md](/c:/Users/hyeon/Documents/miniconda_medimg_env/ms-powerapps-projects/unc-vir-resident-evaluation/docs/07_TROUBLESHOOTING.md)
   - if anything behaves unexpectedly
 
+Before sharing the app with faculty users, publish the latest version in Power Apps so users receive the current build rather than an older saved draft.
+
 ## One Important Reminder
 
 The stats chart labels are not hard-coded.

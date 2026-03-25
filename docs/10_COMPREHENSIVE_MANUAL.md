@@ -25,7 +25,7 @@ The recommended adoption model is now:
 2. manually create the schema for `VIR_RealTime_FeedBack`
 3. manually create the schema for `AttendingList`
 4. create `Procedure_Categories_01` from the preserved original procedure-category CSV
-5. import dummy CSV only for the resident reference list
+5. import CSV directly only for the resident reference list
 6. download and import the latest `.msapp`
 7. reconnect the app in Power Apps Studio when Power Apps prompts for SharePoint and Outlook connections
 8. run the smoke tests before production use

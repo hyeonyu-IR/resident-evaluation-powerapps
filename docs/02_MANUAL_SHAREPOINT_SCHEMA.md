@@ -3,8 +3,8 @@
 This guide documents an important implementation lesson from external testing.
 
 Short version:
-- Do **not** rely on simple CSV import to create the schema for `VIR_RealTime_FeedBack`.
-- Do **not** rely on simple CSV import to create the schema for `AttendingList`.
+- Manually create the SharePoint schema for `VIR_RealTime_FeedBack`.
+- Manually create the SharePoint schema for `AttendingList`.
 - Manually create those two SharePoint lists first.
 - Create `Procedure_Categories_01` from the preserved original procedure-category CSV.
 - Use dummy CSV import only for the resident reference list:
@@ -58,7 +58,7 @@ If those columns are created as `Person or Group`, ownership filtering and relat
 1. Manually create `VIR_RealTime_FeedBack` with the exact columns and types below.
 2. Manually create `AttendingList` with the exact columns and types below.
 3. Create `Procedure_Categories_01` from the preserved original procedure-category CSV.
-4. Import dummy CSV data only for:
+4. Import CSV data directly only for:
    - `Resident_Year_Name_01`
 5. Use the supported CSV files only after the lists already exist with the correct schema:
    - `Resident_Year_Name_01.dummy.csv`
@@ -127,9 +127,9 @@ Important:
 - Do not let SharePoint convert it to `Person or Group`.
 - PD/admin access depends on `AttendingRole`.
 
-## Dummy CSV Still Worth Using
+## CSV Files Still Worth Using
 
-The one dummy CSV that remains clearly useful for external setup is:
+The one CSV file that remains clearly useful for direct external setup import is:
 - [`../download-files/Resident_Year_Name_01.dummy.csv`](../download-files/Resident_Year_Name_01.dummy.csv)
 
 `Procedure_Categories_01` should be created from the preserved original procedure-category CSV:

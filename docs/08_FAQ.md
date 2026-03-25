@@ -28,7 +28,7 @@ Best practice:
 2. manually create the schema for `VIR_RealTime_FeedBack`
 3. manually create the schema for `AttendingList`
 4. create `Procedure_Categories_01` from the preserved original procedure-category CSV
-5. import dummy CSV only for `Resident_Year_Name_01`
+5. import CSV directly only for `Resident_Year_Name_01`
 6. import the `.msapp`
 7. open it in Power Apps Studio and connect SharePoint and Outlook when prompted
 

@@ -28,6 +28,7 @@ Manually create these two lists first:
 - `AttendingList`
 
 Do not let CSV import define those schemas.
+Do not use CSV-based list generation for those two lists.
 
 Why:
 - SharePoint can create wrong internal names such as `field_4`
@@ -47,7 +48,7 @@ Use:
 
 ## 3. Seed the reference lists from CSV
 
-Only this list is still recommended for direct dummy CSV import:
+Only this list is still recommended for direct CSV import during setup:
 - `Resident_Year_Name_01`
 
 Recommended file:

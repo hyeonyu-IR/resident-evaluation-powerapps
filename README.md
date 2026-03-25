@@ -16,10 +16,10 @@ The safest external setup path is now:
 - manually create `VIR_RealTime_FeedBack`
 - manually create `AttendingList`
 - generate `Procedure_Categories_01` from the preserved original procedure-category CSV
-- use dummy CSV only for:
+- use direct CSV import only for:
   - `Resident_Year_Name_01`
 
-Do not rely on simple CSV import to create the schema for `VIR_RealTime_FeedBack` or `AttendingList`.
+Manually create the SharePoint schema for `VIR_RealTime_FeedBack` and `AttendingList`. Do not use CSV-based list generation for those two lists.
 
 Why:
 - SharePoint can assign incorrect internal field names such as `field_4` even when the visible column title looks correct
@@ -108,7 +108,7 @@ To implement this app at another institution:
 2. Manually create `VIR_RealTime_FeedBack` with the expected schema.
 3. Manually create `AttendingList` with the expected schema.
 4. Create `Procedure_Categories_01` from the preserved original procedure-category CSV.
-5. Use dummy CSV only for `Resident_Year_Name_01`.
+5. Use direct CSV import only for `Resident_Year_Name_01`.
 6. Use only the two supported CSV files for setup:
    - `Resident_Year_Name_01.dummy.csv`
    - `Procedure_Categories_01.dummy.csv`
