@@ -178,6 +178,13 @@ For common implementation and connection questions:
 - SharePoint Online
 - Office 365 Outlook connector
 
+## Questions / Contact
+
+If your institution is adopting this app and needs reasonable setup guidance, you may contact:
+
+- `Hyeon Yu, MD, FSIR`
+- `hyeon_yu@med.unc.edu`
+
 ## Critical Implementation Rules
 
 - SharePoint list names should match the expected app data source names exactly.

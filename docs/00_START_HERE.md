@@ -111,6 +111,13 @@ If you want the implementation manual:
 - [`10_COMPREHENSIVE_MANUAL.md`](10_COMPREHENSIVE_MANUAL.md)
   - supporting Markdown reference
 
+## Questions / Contact
+
+If your institution is adopting this app and needs reasonable setup guidance, you may contact:
+
+- `Hyeon Yu, MD, FSIR`
+- `hyeon_yu@med.unc.edu`
+
 ## When You Should Customize
 
 You should expect local customization if:
