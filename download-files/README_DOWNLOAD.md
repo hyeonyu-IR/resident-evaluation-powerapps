@@ -14,7 +14,7 @@ Included files:
    - `Procedure_Categories_01`
    - `Resident_Year_Name_01`
    - `AttendingList`
-2. Read [`../docs/MANUAL_SHAREPOINT_SCHEMA.md`](../docs/MANUAL_SHAREPOINT_SCHEMA.md).
+2. Read [`../docs/02_MANUAL_SHAREPOINT_SCHEMA.md`](../docs/02_MANUAL_SHAREPOINT_SCHEMA.md).
 3. Manually create:
    - `VIR_RealTime_FeedBack`
    - `AttendingList`
@@ -24,7 +24,7 @@ Included files:
 6. Use `Procedure_Categories_01.dummy.csv` to generate the procedure category list.
 7. Only after those lists exist, import `UNC_VIR_Resident_Evaluation.msapp` into Power Apps.
 8. Open the app in Power Apps Studio and connect SharePoint and Outlook when prompted.
-9. Run the smoke tests in `../docs/IMPLEMENTATION_CHECKLIST.md`.
+9. Run the smoke tests in `../docs/05_IMPLEMENTATION_CHECKLIST.md`.
 
 ## Important
 
@@ -52,6 +52,7 @@ During external testing, simple CSV-driven SharePoint list creation caused:
 Manual creation of `VIR_RealTime_FeedBack` and `AttendingList` fixed that issue.
 
 For full instructions, use:
-- [`../docs/START_HERE.md`](../docs/START_HERE.md)
-- [`../docs/MANUAL_SHAREPOINT_SCHEMA.md`](../docs/MANUAL_SHAREPOINT_SCHEMA.md)
-- [`../docs/COMPREHENSIVE_MANUAL.md`](../docs/COMPREHENSIVE_MANUAL.md)
+- [`../docs/00_START_HERE.md`](../docs/00_START_HERE.md)
+- [`../docs/02_MANUAL_SHAREPOINT_SCHEMA.md`](../docs/02_MANUAL_SHAREPOINT_SCHEMA.md)
+- [`../docs/10_COMPREHENSIVE_MANUAL.md`](../docs/10_COMPREHENSIVE_MANUAL.md)
+

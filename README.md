@@ -6,6 +6,7 @@ This repository is intended to be usable by outside institutions without direct 
 - an importable Power Apps canvas app package
 - the two CSV files still needed for outside adoption
 - setup and reconnection instructions
+- post-setup rollout guidance for local owners
 - implementation and validation checklists
 - a visual user guide with screenshots from the app
 
@@ -30,7 +31,7 @@ Practical caution:
 - form submission can still fail unless the underlying SharePoint field identities also match the app's expected bindings
 
 Start here:
-- [`docs/MANUAL_SHAREPOINT_SCHEMA.md`](docs/MANUAL_SHAREPOINT_SCHEMA.md)
+- [`docs/02_MANUAL_SHAREPOINT_SCHEMA.md`](docs/02_MANUAL_SHAREPOINT_SCHEMA.md)
 
 ## Who This Repository Is For
 
@@ -67,17 +68,19 @@ When the app is imported and opened in Power Apps Studio, Power Apps will immedi
 ## Start Here
 
 If you are evaluating or adopting this app for another institution, read these in order:
-1. [`docs/START_HERE.md`](docs/START_HERE.md)
-2. [`download-files`](download-files)
-3. [`docs/MANUAL_SHAREPOINT_SCHEMA.md`](docs/MANUAL_SHAREPOINT_SCHEMA.md)
-4. [`docs/SETUP_GUIDE.md`](docs/SETUP_GUIDE.md)
-5. [`docs/CONNECTION_MAP.md`](docs/CONNECTION_MAP.md)
-6. [`docs/FAQ.md`](docs/FAQ.md)
-7. [`docs/IMPLEMENTATION_CHECKLIST.md`](docs/IMPLEMENTATION_CHECKLIST.md)
-8. [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md)
-9. [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md)
-10. [`docs/assets/Resident_Evaluation_Implementation_Manual.docx`](docs/assets/Resident_Evaluation_Implementation_Manual.docx)
-11. [`docs/assets/Resident_Evaluation_Implementation_Guide_Published.pdf`](docs/assets/Resident_Evaluation_Implementation_Guide_Published.pdf)
+1. [`docs/00_START_HERE.md`](docs/00_START_HERE.md)
+2. [`docs/01_FIRST_15_MINUTES_SETUP.md`](docs/01_FIRST_15_MINUTES_SETUP.md)
+3. [`download-files`](download-files)
+4. [`docs/02_MANUAL_SHAREPOINT_SCHEMA.md`](docs/02_MANUAL_SHAREPOINT_SCHEMA.md)
+5. [`docs/03_SETUP_GUIDE.md`](docs/03_SETUP_GUIDE.md)
+6. [`docs/04_CONNECTION_MAP.md`](docs/04_CONNECTION_MAP.md)
+7. [`docs/08_FAQ.md`](docs/08_FAQ.md)
+8. [`docs/05_IMPLEMENTATION_CHECKLIST.md`](docs/05_IMPLEMENTATION_CHECKLIST.md)
+9. [`docs/06_POST_SETUP_ROLLOUT_GUIDE.md`](docs/06_POST_SETUP_ROLLOUT_GUIDE.md)
+10. [`docs/07_TROUBLESHOOTING.md`](docs/07_TROUBLESHOOTING.md)
+11. [`docs/09_USER_GUIDE.md`](docs/09_USER_GUIDE.md)
+12. [`docs/assets/Resident_Evaluation_Implementation_Manual.docx`](docs/assets/Resident_Evaluation_Implementation_Manual.docx)
+13. [`docs/assets/Resident_Evaluation_Implementation_Guide_Published.pdf`](docs/assets/Resident_Evaluation_Implementation_Guide_Published.pdf)
 
 ## What This Repository Contains
 
@@ -134,18 +137,16 @@ That folder contains:
 - the two supported CSV files
 - a short download-specific README
 
-## Recommended Files for New Institutions
+If you want the shortest practical setup path first, use:
+- [`docs/01_FIRST_15_MINUTES_SETUP.md`](docs/01_FIRST_15_MINUTES_SETUP.md)
 
-Import this directly if you want starter resident data:
-- [`Resident_Year_Name_01.dummy.csv`](download-files/Resident_Year_Name_01.dummy.csv)
-
-Use this to generate the procedure category list with the preserved original taxonomy:
-- [`Procedure_Categories_01.dummy.csv`](download-files/Procedure_Categories_01.dummy.csv)
+After setup and testing are complete, use:
+- [`docs/06_POST_SETUP_ROLLOUT_GUIDE.md`](docs/06_POST_SETUP_ROLLOUT_GUIDE.md)
 
 ## Visual User Documentation
 
 For end-user workflow screenshots and a slide-based walkthrough:
-- [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md)
+- [`docs/09_USER_GUIDE.md`](docs/09_USER_GUIDE.md)
 - [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
 
 ## Implementation Manual
@@ -155,13 +156,22 @@ For the implementation manual:
   - editable source-of-truth document
 - [`Resident_Evaluation_Implementation_Guide_Published.pdf`](docs/assets/Resident_Evaluation_Implementation_Guide_Published.pdf)
   - published PDF for distribution
-- [`COMPREHENSIVE_MANUAL.md`](docs/COMPREHENSIVE_MANUAL.md)
+- [`10_COMPREHENSIVE_MANUAL.md`](docs/10_COMPREHENSIVE_MANUAL.md)
   - supporting Markdown reference
 
-## FAQ
+## Post-Setup Rollout
+
+After the app is connected and one test feedback submission works, the next step is local rollout to faculty users. That includes:
+- sharing the app itself
+- sharing the four SharePoint lists
+- confirming faculty submission access
+- confirming program leadership reporting access
+
+Use:
+- [`docs/06_POST_SETUP_ROLLOUT_GUIDE.md`](docs/06_POST_SETUP_ROLLOUT_GUIDE.md)
 
 For common implementation and connection questions:
-- [`docs/FAQ.md`](docs/FAQ.md)
+- [`docs/08_FAQ.md`](docs/08_FAQ.md)
 
 ## Required Microsoft 365 Dependencies
 
@@ -197,3 +207,4 @@ Manual workflow:
 ## Privacy
 
 Do not commit or share real resident, attending, or evaluation data unless disclosure is intentional and approved.
+

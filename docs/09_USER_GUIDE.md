@@ -3,8 +3,8 @@
 This guide is for end users and program leadership who want a visual walkthrough of the app.
 
 For full setup and technical adoption instructions, use:
-- [`SETUP_GUIDE.md`](SETUP_GUIDE.md)
-- [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
+- [`03_SETUP_GUIDE.md`](03_SETUP_GUIDE.md)
+- [`04_CONNECTION_MAP.md`](04_CONNECTION_MAP.md)
 
 For the original slide-based version, see:
 - [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
@@ -86,3 +86,4 @@ The stats screen gives a quick visual summary of:
 - Ownership-based views depend on `AttendingEmail`.
 - Procedure filtering depends on preserving the main/subcategory structure in `Procedure_Categories_01`.
 - On the stats screen, the x-axis labels are not hard-coded. After first connect or reconnect, they may revert to default chart labels such as `Count` and `Metric` and need to be reset.
+

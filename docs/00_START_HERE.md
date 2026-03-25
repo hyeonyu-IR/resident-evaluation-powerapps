@@ -27,28 +27,26 @@ Practical caution:
 - form submission can still fail unless the underlying SharePoint field identities also match the app's expected bindings
 
 Read this before you build anything:
-- [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
+- [`02_MANUAL_SHAREPOINT_SCHEMA.md`](02_MANUAL_SHAREPOINT_SCHEMA.md)
+
+If you want the shortest practical setup path first:
+- [`01_FIRST_15_MINUTES_SETUP.md`](01_FIRST_15_MINUTES_SETUP.md)
 
 ## Fastest Reliable Evaluation Path
 
 If you want to assess whether this app is suitable for your program:
 1. Open [`../download-files`](../download-files).
-2. Review the expected SharePoint list names in [`CONNECTION_MAP.md`](CONNECTION_MAP.md).
-3. Read [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md).
-4. Manually create `VIR_RealTime_FeedBack`.
-5. Manually create `AttendingList`.
-6. Create `Procedure_Categories_01` from the preserved original procedure-category CSV.
-7. Import `Resident_Year_Name_01.dummy.csv` if you want starter resident data.
-8. Only after the SharePoint lists exist, import the included `.msapp`.
-9. When Power Apps prompts for connections, reconnect SharePoint and Outlook.
-10. Run the smoke tests in [`IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md).
-
-## Simplest Download Path
-
-For most institutions, the easiest path is:
-- [`../download-files`](../download-files)
-
-That folder intentionally contains the minimum recommended files for initial setup.
+2. If you want the shortest path, follow [`01_FIRST_15_MINUTES_SETUP.md`](01_FIRST_15_MINUTES_SETUP.md).
+3. Review the expected SharePoint list names in [`04_CONNECTION_MAP.md`](04_CONNECTION_MAP.md).
+4. Read [`02_MANUAL_SHAREPOINT_SCHEMA.md`](02_MANUAL_SHAREPOINT_SCHEMA.md).
+5. Manually create `VIR_RealTime_FeedBack`.
+6. Manually create `AttendingList`.
+7. Create `Procedure_Categories_01` from the preserved original procedure-category CSV.
+8. Import `Resident_Year_Name_01.dummy.csv` if you want starter resident data.
+9. Only after the SharePoint lists exist, import the included `.msapp`.
+10. When Power Apps prompts for connections, reconnect SharePoint and Outlook.
+11. Run the smoke tests in [`05_IMPLEMENTATION_CHECKLIST.md`](05_IMPLEMENTATION_CHECKLIST.md).
+12. After the app works and a test submission succeeds, use [`06_POST_SETUP_ROLLOUT_GUIDE.md`](06_POST_SETUP_ROLLOUT_GUIDE.md).
 
 ## Expected SharePoint Lists
 
@@ -75,13 +73,15 @@ Use this to generate the procedure category list:
 
 ## Recommended Reading Order
 
-1. [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
-2. [`SETUP_GUIDE.md`](SETUP_GUIDE.md)
-3. [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
-4. [`FAQ.md`](FAQ.md)
-5. [`IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md)
-6. [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
-7. [`USER_GUIDE.md`](USER_GUIDE.md)
+1. [`01_FIRST_15_MINUTES_SETUP.md`](01_FIRST_15_MINUTES_SETUP.md)
+2. [`02_MANUAL_SHAREPOINT_SCHEMA.md`](02_MANUAL_SHAREPOINT_SCHEMA.md)
+3. [`03_SETUP_GUIDE.md`](03_SETUP_GUIDE.md)
+4. [`04_CONNECTION_MAP.md`](04_CONNECTION_MAP.md)
+5. [`08_FAQ.md`](08_FAQ.md)
+6. [`05_IMPLEMENTATION_CHECKLIST.md`](05_IMPLEMENTATION_CHECKLIST.md)
+7. [`06_POST_SETUP_ROLLOUT_GUIDE.md`](06_POST_SETUP_ROLLOUT_GUIDE.md)
+8. [`07_TROUBLESHOOTING.md`](07_TROUBLESHOOTING.md)
+9. [`09_USER_GUIDE.md`](09_USER_GUIDE.md)
 
 ## Critical Adoption Notes
 
@@ -98,7 +98,7 @@ Use this to generate the procedure category list:
 ## Visual Walkthrough
 
 If you want to see the user-facing workflow before implementation:
-- [`USER_GUIDE.md`](USER_GUIDE.md)
+- [`09_USER_GUIDE.md`](09_USER_GUIDE.md)
 - [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
 
 ## Comprehensive Manual
@@ -108,7 +108,7 @@ If you want the implementation manual:
   - editable master version
 - [`Resident_Evaluation_Implementation_Guide_Published.pdf`](assets/Resident_Evaluation_Implementation_Guide_Published.pdf)
   - published PDF version
-- [`COMPREHENSIVE_MANUAL.md`](COMPREHENSIVE_MANUAL.md)
+- [`10_COMPREHENSIVE_MANUAL.md`](10_COMPREHENSIVE_MANUAL.md)
   - supporting Markdown reference
 
 ## When You Should Customize
@@ -118,3 +118,4 @@ You should expect local customization if:
 - your role names differ from `program director`, `pd`, `admin`, or similar values
 - you intentionally redesign the app to use Person columns instead of text email fields
 - you need branding, policy, or workflow changes
+

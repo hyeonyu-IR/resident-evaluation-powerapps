@@ -1,8 +1,8 @@
 # Setup Guide
 
 See also:
-- [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
-- [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
+- [`04_CONNECTION_MAP.md`](04_CONNECTION_MAP.md)
+- [`02_MANUAL_SHAREPOINT_SCHEMA.md`](02_MANUAL_SHAREPOINT_SCHEMA.md)
 
 ## 1. Create SharePoint lists
 
@@ -43,7 +43,7 @@ Critical email-field rules:
 - `EmailAddress` in `AttendingList` must be `Single line of text`
 
 Use:
-- [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
+- [`02_MANUAL_SHAREPOINT_SCHEMA.md`](02_MANUAL_SHAREPOINT_SCHEMA.md)
 
 ## 3. Seed the reference lists from CSV
 
@@ -108,3 +108,4 @@ Simple CSV-driven list creation can look correct at first glance and still fail 
 - Power Apps forms then create blank or partially blank records
 
 Manual list creation for `VIR_RealTime_FeedBack` and `AttendingList` was the fix that made external testing stable.
+

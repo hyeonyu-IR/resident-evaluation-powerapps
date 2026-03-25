@@ -3,10 +3,10 @@
 This manual is intended to be a detailed step-by-step reference for institutions that want to evaluate, implement, and maintain this Power Apps resident-evaluation app.
 
 For a shorter starting point, see:
-- [`START_HERE.md`](START_HERE.md)
+- [`00_START_HERE.md`](00_START_HERE.md)
 
 For the manual SharePoint schema lesson, see:
-- [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
+- [`02_MANUAL_SHAREPOINT_SCHEMA.md`](02_MANUAL_SHAREPOINT_SCHEMA.md)
 
 For a slide-based visual walkthrough, see:
 - [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
@@ -29,6 +29,7 @@ The recommended adoption model is now:
 6. download and import the latest `.msapp`
 7. reconnect the app in Power Apps Studio when Power Apps prompts for SharePoint and Outlook connections
 8. run the smoke tests before production use
+9. complete the local sharing and rollout steps in [`06_POST_SETUP_ROLLOUT_GUIDE.md`](06_POST_SETUP_ROLLOUT_GUIDE.md)
 
 For the simplest starting path, use the files in [`../download-files`](../download-files).
 
@@ -108,8 +109,8 @@ More careful interpretation:
 ### Step 1. Review the expected schema
 
 Before importing anything, read:
-- [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
-- [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
+- [`04_CONNECTION_MAP.md`](04_CONNECTION_MAP.md)
+- [`02_MANUAL_SHAREPOINT_SCHEMA.md`](02_MANUAL_SHAREPOINT_SCHEMA.md)
 
 Pay special attention to:
 - `AttendingEmail`
@@ -130,7 +131,7 @@ Then manually create the schema for:
 - `AttendingList`
 
 Use:
-- [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
+- [`02_MANUAL_SHAREPOINT_SCHEMA.md`](02_MANUAL_SHAREPOINT_SCHEMA.md)
 
 ### Step 3. Import starter data
 
@@ -213,7 +214,7 @@ Typical causes of implementation problems:
 - data sources were not reconnected after import
 
 For detailed troubleshooting:
-- [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
+- [`07_TROUBLESHOOTING.md`](07_TROUBLESHOOTING.md)
 
 ## 10. Recommended Go-Live Checklist
 
@@ -251,10 +252,11 @@ That is preferable to emailing attachments because:
 
 ## 13. Related Documents
 
-- [`START_HERE.md`](START_HERE.md)
-- [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
-- [`SETUP_GUIDE.md`](SETUP_GUIDE.md)
-- [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
-- [`IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md)
-- [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
-- [`USER_GUIDE.md`](USER_GUIDE.md)
+- [`00_START_HERE.md`](00_START_HERE.md)
+- [`02_MANUAL_SHAREPOINT_SCHEMA.md`](02_MANUAL_SHAREPOINT_SCHEMA.md)
+- [`03_SETUP_GUIDE.md`](03_SETUP_GUIDE.md)
+- [`04_CONNECTION_MAP.md`](04_CONNECTION_MAP.md)
+- [`05_IMPLEMENTATION_CHECKLIST.md`](05_IMPLEMENTATION_CHECKLIST.md)
+- [`07_TROUBLESHOOTING.md`](07_TROUBLESHOOTING.md)
+- [`09_USER_GUIDE.md`](09_USER_GUIDE.md)
+

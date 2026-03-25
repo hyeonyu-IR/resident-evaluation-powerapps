@@ -13,7 +13,7 @@ Check:
 2. open the app in Power Apps Studio
 3. remove broken SharePoint data sources
 4. reconnect the local SharePoint lists
-5. verify the lists were created using [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
+5. verify the lists were created using [`02_MANUAL_SHAREPOINT_SCHEMA.md`](02_MANUAL_SHAREPOINT_SCHEMA.md)
 
 ## "My Feedback" Shows Wrong Records
 
@@ -94,7 +94,8 @@ Likely causes:
 - a connector was not reattached correctly
 
 Check:
-1. compare local list schema against [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
+1. compare local list schema against [`04_CONNECTION_MAP.md`](04_CONNECTION_MAP.md)
 2. confirm all required columns exist
 3. confirm Power Apps data-source warnings are resolved
 4. if the app creates blank or partially blank rows, recreate the list manually instead of relying on CSV-driven schema creation
+

@@ -120,7 +120,7 @@ Common causes:
 - the target SharePoint schema was created incorrectly
 
 Use:
-- [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
+- [`07_TROUBLESHOOTING.md`](07_TROUBLESHOOTING.md)
 
 ## Why does "My Feedback" show the wrong records?
 
@@ -187,13 +187,13 @@ Successful implementation usually requires some familiarity with:
 ## Where should I start if I am evaluating the app for my institution?
 
 Recommended order:
-1. [`START_HERE.md`](START_HERE.md)
-2. [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
+1. [`00_START_HERE.md`](00_START_HERE.md)
+2. [`02_MANUAL_SHAREPOINT_SCHEMA.md`](02_MANUAL_SHAREPOINT_SCHEMA.md)
 3. [`../download-files`](../download-files)
-4. [`SETUP_GUIDE.md`](SETUP_GUIDE.md)
-5. [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
-6. [`IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md)
-7. [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
+4. [`03_SETUP_GUIDE.md`](03_SETUP_GUIDE.md)
+5. [`04_CONNECTION_MAP.md`](04_CONNECTION_MAP.md)
+6. [`05_IMPLEMENTATION_CHECKLIST.md`](05_IMPLEMENTATION_CHECKLIST.md)
+7. [`07_TROUBLESHOOTING.md`](07_TROUBLESHOOTING.md)
 
 ## Can the app be customized for local workflows?
 
@@ -209,10 +209,11 @@ Typical customization areas:
 ## Where should institutions look before asking for help?
 
 Start with:
-- [`START_HERE.md`](START_HERE.md)
-- [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
-- [`SETUP_GUIDE.md`](SETUP_GUIDE.md)
-- [`CONNECTION_MAP.md`](CONNECTION_MAP.md)
-- [`IMPLEMENTATION_CHECKLIST.md`](IMPLEMENTATION_CHECKLIST.md)
-- [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
-- [`USER_GUIDE.md`](USER_GUIDE.md)
+- [`00_START_HERE.md`](00_START_HERE.md)
+- [`02_MANUAL_SHAREPOINT_SCHEMA.md`](02_MANUAL_SHAREPOINT_SCHEMA.md)
+- [`03_SETUP_GUIDE.md`](03_SETUP_GUIDE.md)
+- [`04_CONNECTION_MAP.md`](04_CONNECTION_MAP.md)
+- [`05_IMPLEMENTATION_CHECKLIST.md`](05_IMPLEMENTATION_CHECKLIST.md)
+- [`07_TROUBLESHOOTING.md`](07_TROUBLESHOOTING.md)
+- [`09_USER_GUIDE.md`](09_USER_GUIDE.md)
+

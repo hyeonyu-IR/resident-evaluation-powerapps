@@ -15,7 +15,7 @@ Use this checklist when standing up the app in a new institution.
 - Create `Procedure_Categories_01`
 - Create `Resident_Year_Name_01`
 - Create `AttendingList`
-- Read [`MANUAL_SHAREPOINT_SCHEMA.md`](MANUAL_SHAREPOINT_SCHEMA.md)
+- Read [`02_MANUAL_SHAREPOINT_SCHEMA.md`](02_MANUAL_SHAREPOINT_SCHEMA.md)
 - Manually create the schema for `VIR_RealTime_FeedBack`
 - Manually create the schema for `AttendingList`
 - Import only the resident dummy CSV if starter resident data is needed
@@ -60,3 +60,4 @@ Use this checklist when standing up the app in a new institution.
 - Replace dummy resident data with local resident data
 - Re-run the smoke tests with real local accounts
 - Document the local app owner and support contact
+
