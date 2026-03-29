@@ -10,6 +10,21 @@ This repository is intended to be usable by outside institutions without direct 
 - implementation and validation checklists
 - a visual user guide with screenshots from the app
 
+## Methodological Overview
+
+This repository accompanies a practical implementation model for structured resident evaluation using:
+- a Power Apps canvas app as the faculty-facing workflow
+- SharePoint lists as the local data layer
+- local ownership of deployment, maintenance, and governance
+
+The underlying methodological idea is intentionally simple:
+- capture feedback close to the time of clinical work
+- structure that feedback with a consistent scoring framework
+- preserve local institutional control over data and user access
+- support both individual faculty use and leadership-level reporting
+
+The repository is therefore not only a software download. It is also a reproducible implementation package for institutions that want to evaluate whether this local-first model fits their environment.
+
 ## Most Important Setup Update
 
 The safest external setup path is now:
@@ -32,6 +47,18 @@ Practical caution:
 
 Start here:
 - [`docs/02_MANUAL_SHAREPOINT_SCHEMA.md`](docs/02_MANUAL_SHAREPOINT_SCHEMA.md)
+
+## Technical Requirements
+
+Required Microsoft 365 services:
+- SharePoint Online
+- Office 365 Outlook connector
+- Power Apps access in the target tenant
+
+Successful implementation usually also depends on:
+- permission to create or modify SharePoint lists
+- permission to import and reconnect a canvas app
+- someone locally who can work in Power Apps Studio
 
 ## Who This Repository Is For
 
@@ -65,7 +92,7 @@ Create the SharePoint lists before importing the `.msapp`.
 
 When the app is imported and opened in Power Apps Studio, Power Apps will immediately prompt for SharePoint and Office 365 Outlook connections. That setup is much smoother if the required SharePoint lists already exist with the expected names, internal field names, and column types.
 
-## Start Here
+## Installation Guidance
 
 If you are evaluating or adopting this app for another institution, read these in order:
 1. [`docs/00_START_HERE.md`](docs/00_START_HERE.md)
@@ -100,6 +127,26 @@ If you are evaluating or adopting this app for another institution, read these i
   - published PDF copy of the implementation manual
 - [`_unpacked`](_unpacked)
   - unpacked app source for review and diffing
+
+## Repository Scope and Anonymization
+
+This repository is intended to distribute:
+- the current importable app package
+- schema and setup documentation
+- sample CSV files for local configuration
+- visual user and implementation guidance
+
+It is not intended to distribute real resident evaluation data.
+
+Current intended public scope:
+- no real resident records
+- no real attending evaluation records
+- only sample/template CSV files for local setup
+
+Important review note:
+- the current release `.msapp` is intended as the clean public adoption package
+- screenshots and visual guides should still be reviewed manually for visible names or local identifiers before manuscript-facing distribution
+- maintainer-facing folders such as [`_unpacked`](_unpacked) may contain historical technical metadata and should not be treated as the cleanest reviewer-facing artifact without additional sanitization review
 
 ## Quick Adoption Summary
 
@@ -149,6 +196,10 @@ For end-user workflow screenshots and a slide-based walkthrough:
 - [`docs/09_USER_GUIDE.md`](docs/09_USER_GUIDE.md)
 - [`Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf`](docs/assets/Power_Apps_VIR_Resident_Evaluation_User_Guide.pdf)
 
+Reviewer-facing visuals are available in:
+- [`docs/screenshots`](docs/screenshots)
+- [`docs/assets`](docs/assets)
+
 ## Implementation Manual
 
 For the implementation manual:
@@ -173,17 +224,16 @@ Use:
 For common implementation and connection questions:
 - [`docs/08_FAQ.md`](docs/08_FAQ.md)
 
-## Required Microsoft 365 Dependencies
-
-- SharePoint Online
-- Office 365 Outlook connector
-
 ## Questions / Contact
 
 If your institution is adopting this app and needs reasonable setup guidance, you may contact:
 
 - `Hyeon Yu, MD, FSIR`
 - `hyeon_yu@med.unc.edu`
+
+## License
+
+This repository is released under the [MIT License](LICENSE).
 
 ## Critical Implementation Rules
 
